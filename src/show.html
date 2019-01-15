@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<title>Hackerneat - ShowHN</title>
+	<meta name="description" content="A prettier version of Hackernews">	
+	<link rel="icon" type="image/png" href="/favicon.png">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="lib/normalize.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<script src="lib/moment.min.js"></script>
+	<script src="hackerneat.js"></script>
+</head>
+<body onload="loadStoriesPage('showstories')">
+	<noscript>
+		<div class="alertbanner">This website requires JavaScript to be enabled</div>
+	</noscript>
+	<div class="page">
+		<header>
+			<img class="logo" src="img/logo.svg">
+			<h1>HackerNeat</h1>
+			<nav>
+				<ul>
+					<li>
+						<a href="/">top</a>
+					</li>
+					<li>
+						<a href="/new">new</a>
+					</li>
+					<li>
+						<a href="/best">best</a>
+					</li>
+					<li>
+						<a href="/ask">ask</a>
+					</li>
+					<li class="active">
+						<a href="/show">show</a>
+					</li>
+					<li class="right">
+						<a href="/info">info</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<div id="postlist" class="post-counters">
+				<!-- This section will be populated by posts -->
+			</div>
+		</main>
+	</div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+	"name": "hackerneat",
+	"description": "A Hacker News clone using the Hacker News API",
+	"version": "1.0.0",
+	"license": "MIT",
+	"author": "Ryan Thomson",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/r-thomson/hackerneat.git"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"autoprefixer": "^9.4.5",
+		"del": "^3.0.0",
+		"gulp": "^4.0.0",
+		"gulp-htmlmin": "^4.0.0",
+		"gulp-minify": "^3.1.0",
+		"gulp-postcss": "^8.0.0",
+		"postcss-csso": "^3.0.0"
+	},
+	"browserslist": [
+		"> 0.5%",
+		"last 2 versions",
+		"not dead",
+		"not ie <= 11",
+		"not explorermobile <=11"
+	]
+}
