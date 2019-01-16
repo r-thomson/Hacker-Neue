@@ -44,7 +44,7 @@ function css(callback) {
 }
 
 function js(callback) {
-	return src(['*.js', '!gulpfile.js'])
+	return src('*.js', {cwd: srcDir})
 		.pipe(minify({
 			ext: { min: '.js' },
 			noSource: true
