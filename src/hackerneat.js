@@ -16,7 +16,7 @@ function clearContainer(container) {
 function loadStoriesPage(type) {
 	const postContainer = document.getElementById('postlist');
 	
-	const maxStories = +localStorage.getItem('optMaxstories');
+	const maxStories = +localStorage.getItem('prefMaxstories');
 	const pageNum = +getURLParam('page') || 1;
 	
 	// Add the loading indicator while waiting for the stories to be fetched
@@ -144,7 +144,7 @@ function makePostElement(post) {
 	postElement.appendChild(scoreSpan);
 	
 	// Highlight hot posts
-	const threshold = localStorage.getItem('optHighlightthold');
+	const threshold = localStorage.getItem('prefHighlightthold');
 	if (threshold != '-1' && post.score >= threshold) {
 		postElement.classList.add('highlight');
 	}
@@ -231,14 +231,14 @@ function makePaginationElement(page) {
 	return loadingElement;
 }
 
-// Options management
-var options = {
+// User preferences management
+var prefs = {
 	defaults: {
-		'optDarkmode': 'false',
-		'optPagewidth': '1',
-		'optCounters': 'false',
-		'optMaxstories': '30',
-		'optHighlightthold': '250'
+		'prefDarkmode': 'false',
+		'prefPagewidth': '1',
+		'prefCounters': 'false',
+		'prefMaxstories': '30',
+		'prefHighlightthold': '250'
 	},
 	
 	setDefaults: function(force) {
@@ -249,43 +249,43 @@ var options = {
 		}
 	},
 	
-	toggleOption: function(name) {
+	togglePref: function(name) {
 		if (localStorage.getItem(name) == 'false') {
 			localStorage.setItem(name, 'true');
 		} else {
 			localStorage.setItem(name, 'false');
 		}
-		this.setPageOptions();
+		this.applyPagePrefs();
 	},
 	
-	setOption: function(name, value) {
+	setPref: function(name, value) {
 		localStorage.setItem(name, value.toString());
-		this.setPageOptions();
+		this.applyPagePrefers();
 	},
 	
-	setPageOptions: function() {
+	applyPagePrefs : function() {
 		const body = document.body;
-		const bodyOptions = ['optDarkmode', 'optCounters', 'optPagewidth'];
+		const bodyPrefs = ['prefDarkmode', 'prefCounters', 'prefPagewidth'];
 		
-		for (item of bodyOptions) {
+		for (item of bodyPrefs) {
 			body.dataset[item] = localStorage.getItem(item);
 		}
 	}
 }
 
 document.addEventListener('DOMContentLoaded', function(e) {
-	options.setDefaults(false);
-	options.setPageOptions();
+	prefs.setDefaults(false);
+	prefs.applyPagePrefs();
 });
 
-function setOptionsForm() {
-	const form = document.querySelector('form.options');
+function initPrefsForm() {
+	const form = document.querySelector('form.preferences');
 	const formAssociations = {
-		'input-darkmode': 'optDarkmode',
-		'input-counters': 'optCounters',
-		'input-pagewidth': 'optPagewidth',
-		'input-maxstories': 'optMaxstories',
-		'input-highlightscore': 'optHighlightthold'
+		'input-darkmode': 'prefDarkmode',
+		'input-counters': 'prefCounters',
+		'input-pagewidth': 'prefPagewidth',
+		'input-maxstories': 'prefMaxstories',
+		'input-highlightscore': 'prefHighlightthold'
 	}
 	
 	for (var item in formAssociations) {

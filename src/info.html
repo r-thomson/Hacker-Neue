@@ -11,7 +11,7 @@
 	<script src="lib/moment.min.js"></script>
 	<script src="hackerneat.js"></script>
 </head>
-<body onload="setOptionsForm()">
+<body onload="initPrefsForm()">
 	<noscript>
 		<div class="alertbanner">This website requires JavaScript to be enabled</div>
 	</noscript>
@@ -46,15 +46,15 @@
 			<div class="text-content">
 				<p>A clone of Hackernews made using the <a href="https://github.com/HackerNews/API" rel="noopener">Hacker News API</a>. The files served are all static and content is fetched and retrieved client side. Made by <a href="https://www.ryanthomson.net" rel="noopener">Ryan Thomson</a>.</p>
 			</div>
-			<h2>Options</h2>
-			<form class="options">
+			<h2>Preferences</h2>
+			<form class="preferences">
 				<div class="form-row">
-					<input type="checkbox" id="input-darkmode" onchange="window.options.setOption('optDarkmode', this.checked)">
+					<input type="checkbox" id="input-darkmode" onchange="window.prefs.setPref('prefDarkmode', this.checked)">
 					<label for="input-darkmode">Dark mode</label>
 				</div>
 				<div class="form-row">
 					<label class="form-left" for="input-pagewidth">Page width:</label>
-					<select id="input-pagewidth" onchange="window.options.setOption('optPagewidth', this.value)">
+					<select id="input-pagewidth" onchange="window.prefs.setPref('prefPagewidth', this.value)">
 						<option value="0">Narrow</option>
 						<option value="1">Normal</option>
 						<option value="2">Wide</option>
@@ -62,12 +62,12 @@
 					</select>
 				</div>
 				<div class="form-row">
-					<input type="checkbox" id="input-counters" onchange="window.options.setOption('optCounters', this.checked)">
+					<input type="checkbox" id="input-counters" onchange="window.prefs.setPref('prefCounters', this.checked)">
 					<label for="input-counters">Show post counters</label>
 				</div>
 				<div class="form-row">
 					<label class="form-left">Stories per page: </label>
-					<select id="input-maxstories" onchange="window.options.setOption('optMaxstories', this.value)">>
+					<select id="input-maxstories" onchange="window.prefs.setPref('prefMaxstories', this.value)">>
 						<option>20</option>
 						<option>30</option>
 						<option>50</option>
@@ -76,7 +76,7 @@
 				</div>
 				<div class="form-row">
 					<label class="form-left">Highlight post scores above: </label>
-					<select id="input-highlightscore" onchange="window.options.setOption('optHighlightthold', this.value)">>
+					<select id="input-highlightscore" onchange="window.prefs.setPref('prefHighlightthold', this.value)">
 						<option value="-1">None</option>
 						<option>100</option>
 						<option>200</option>
@@ -84,7 +84,7 @@
 						<option>300</option>
 					</select>
 				</div>
-				<button type="button" onclick="options.setDefaults(true); location.reload();">Restore Defaults</button>
+				<button type="button" onclick="window.prefs.setDefaults(true); location.reload();">Restore Defaults</button>
 <!--
 				<div class="form-row">
 					<input type="checkbox">

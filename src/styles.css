@@ -17,7 +17,7 @@ body {
 	--color-accentlight: HSL(0, 0%, 84%);
 }
 
-body[data-opt-darkmode="true"] {
+body[data-pref-darkmode="true"] {
 	--color-accent: HSL(22, 93%, 47%);
 	--color-background: HSL(226, 6%, 10%);
 	--color-page: HSL(226, 6%, 16%);
@@ -53,21 +53,21 @@ body {
 	box-shadow: 0 0 20px 0 RGBA(0, 0, 0, 0.1);
 }
 
-[data-opt-pagewidth="0"] .page { max-width: 50em; }
-[data-opt-pagewidth="1"] .page { /* default */ }
-[data-opt-pagewidth="2"] .page { max-width: 75em; }
-[data-opt-pagewidth="3"] .page { max-width: none; margin: 0; }
+[data-pref-pagewidth="0"] .page { max-width: 50em; }
+[data-pref-pagewidth="1"] .page { /* default */ }
+[data-pref-pagewidth="2"] .page { max-width: 75em; }
+[data-pref-pagewidth="3"] .page { max-width: none; margin: 0; }
 
 @media screen and (max-width: 50rem) {
-	[data-opt-pagewidth="0"] .page { margin-top: 0; }
+	[data-pref-pagewidth="0"] .page { margin-top: 0; }
 }
 
 @media screen and (max-width: 60rem) {
-	[data-opt-pagewidth="1"] .page { margin-top: 0; }
+	[data-pref-pagewidth="1"] .page { margin-top: 0; }
 }
 
 @media screen and (max-width: 75rem) {
-	[data-opt-pagewidth="2"] .page { margin-top: 0; }
+	[data-pref-pagewidth="2"] .page { margin-top: 0; }
 }
 
 
@@ -158,7 +158,7 @@ main {
 	50% { opacity: 0.6; }
 }
 
-[data-opt-counters="true"] .post-counters .post::after {
+[data-pref-counters="true"] .post-counters .post::after {
 	counter-increment: postCounter;
 	content: counter(postCounter);
 	display: inline;
