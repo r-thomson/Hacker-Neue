@@ -260,7 +260,7 @@ var prefs = {
 	
 	setPref: function(name, value) {
 		localStorage.setItem(name, value.toString());
-		this.applyPagePrefers();
+		this.applyPagePrefs();
 	},
 	
 	applyPagePrefs : function() {
