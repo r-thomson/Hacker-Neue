@@ -278,15 +278,47 @@ main {
 .comment .details a { text-decoration: none; }
 .comment .details a:hover { text-decoration: underline; }
 
-form {
-	margin: 1em 0;
+.form-group {
+	margin: 0.5em 0;
 }
 
-.form-row {
-	margin: 0.2em 0;
+.form-group > * {
+	display: inline-block;
 }
 
-form select { min-width: 10em; }
+.form-group .form-left {
+	width: 40%;
+	padding-right: 1rem;
+	text-align: right;
+}
+
+.form-group > :first-child:not(.form-left), .form-group > :not(.form-left) + * {
+	margin-left: 40%;
+}
+
+.form-group :not(.form-left) + :not(.form-left) {
+	margin-top: 0.2em;
+}
+
+.form-footer {
+	margin-top: 1.0em;
+	text-align: right;
+}
+
+form select {
+	min-width: 10em;
+	margin-left: -0.25em;
+}
+
+form input[type="checkbox"] {
+	vertical-align: 0.08em;
+	margin-right: 0.35em;
+}
+
+section {
+	margin: 1.5em auto;
+	max-width: 40em;
+}
 
 hr {
 	width: 100%;
