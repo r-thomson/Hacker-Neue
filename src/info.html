@@ -43,56 +43,53 @@
 			</nav>
 		</header>
 		<main>
-			<div class="text-content">
-				<p>A clone of Hackernews made using the <a href="https://github.com/HackerNews/API" rel="noopener">Hacker News API</a>. The files served are all static and content is fetched and retrieved client side. Made by <a href="https://www.ryanthomson.net" rel="noopener">Ryan Thomson</a>.</p>
-			</div>
-			<h2>Preferences</h2>
-			<form class="preferences">
-				<div class="form-row">
-					<input type="checkbox" id="input-darkmode" onchange="window.prefs.setPref('prefDarkmode', this.checked)">
-					<label for="input-darkmode">Dark mode</label>
-				</div>
-				<div class="form-row">
-					<label class="form-left" for="input-pagewidth">Page width:</label>
-					<select id="input-pagewidth" onchange="window.prefs.setPref('prefPagewidth', this.value)">
-						<option value="0">Narrow</option>
-						<option value="1">Normal</option>
-						<option value="2">Wide</option>
-						<option value="3">Full</option>
-					</select>
-				</div>
-				<div class="form-row">
-					<input type="checkbox" id="input-counters" onchange="window.prefs.setPref('prefCounters', this.checked)">
-					<label for="input-counters">Show post counters</label>
-				</div>
-				<div class="form-row">
-					<label class="form-left">Stories per page: </label>
-					<select id="input-maxstories" onchange="window.prefs.setPref('prefMaxstories', this.value)">>
-						<option>20</option>
-						<option>30</option>
-						<option>50</option>
-						<option>100</option>
-					</select>
-				</div>
-				<div class="form-row">
-					<label class="form-left">Highlight post scores above: </label>
-					<select id="input-highlightscore" onchange="window.prefs.setPref('prefHighlightthold', this.value)">
-						<option value="-1">None</option>
-						<option>100</option>
-						<option>150</option>
-						<option>200</option>
-						<option>250</option>
-						<option>300</option>
-					</select>
-				</div>
-				<button type="button" onclick="window.prefs.setDefaults(true); location.reload();">Restore Defaults</button>
-<!--
-				<div class="form-row">
-					<input type="checkbox">
-					<label>Show all comments</label>
-				</div>
--->
-			</form>
+			<section class="text-content">
+				<p>A clone of Hackernews made using the <a href="https://github.com/HackerNews/API" rel="noopener">Hacker News API</a>. The files served are all static and content is fetched and retrieved client side.</p>
+				<p>Avaliable on <a href="https://github.com/r-thomson/Hackerneat">GitHub</a>. Made by <a href="https://www.ryanthomson.net" rel="noopener">Ryan Thomson</a>.</p>
+			</section>
+			<section>
+				<h2>Preferences</h2>
+				<form class="preferences">
+					<div class="form-group">
+						<label for="input-darkmode"> <input type="checkbox" id="input-darkmode" onchange="window.prefs.setPref('prefDarkmode', this.checked)">Dark mode</label>
+					</div>
+					<div class="form-group">
+						<label class="form-left" for="input-pagewidth">Page width</label>
+						<select id="input-pagewidth" onchange="window.prefs.setPref('prefPagewidth', this.value)">
+							<option value="0">Narrow</option>
+							<option value="1">Normal</option>
+							<option value="2">Wide</option>
+							<option value="3">Full</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="input-counters"><input type="checkbox" id="input-counters" onchange="window.prefs.setPref('prefCounters', this.checked)">Show post counters</label>
+					</div>
+					<div class="form-group">
+						<label class="form-left">Stories per page</label>
+						<select id="input-maxstories" onchange="window.prefs.setPref('prefMaxstories', this.value)">
+							<option>20</option>
+							<option>30</option>
+							<option>50</option>
+							<option>100</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="form-left">Highlight post scores above</label>
+						<select id="input-highlightscore" onchange="window.prefs.setPref('prefHighlightthold', this.value)">
+							<option value="-1">None</option>
+							<option>100</option>
+							<option>150</option>
+							<option>200</option>
+							<option>250</option>
+							<option>300</option>
+						</select>
+					</div>
+					<div class="form-footer">
+						<button type="button" onclick="window.prefs.setDefaults(true); location.reload();">Restore Defaults</button>
+					</div>
+				</form>
+			</section>
 		</main>
 	</div>
 </body>
