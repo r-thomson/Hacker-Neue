@@ -58,16 +58,16 @@ body {
 [data-pref-pagewidth="2"] .page { max-width: 75em; }
 [data-pref-pagewidth="3"] .page { max-width: none; margin: 0; }
 
-@media screen and (max-width: 50rem) {
-	[data-pref-pagewidth="0"] .page { margin-top: 0; }
+@media screen and (max-width: 43.75em) {
+	[data-pref-pagewidth="0"] .page { margin: 0 auto; }
 }
 
-@media screen and (max-width: 60rem) {
-	[data-pref-pagewidth="1"] .page { margin-top: 0; }
+@media screen and (max-width: 52.5em) {
+	[data-pref-pagewidth="1"] .page { margin: 0 auto; }
 }
 
-@media screen and (max-width: 75rem) {
-	[data-pref-pagewidth="2"] .page { margin-top: 0; }
+@media screen and (max-width: 65.625em) {
+	[data-pref-pagewidth="2"] .page { margin: 0 auto; }
 }
 
 
