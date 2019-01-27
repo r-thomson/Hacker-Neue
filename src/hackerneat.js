@@ -85,7 +85,7 @@ function loadItemPage() {
 		
 		function fetchKids(item) {
 			return new Promise(function(resolve, reject) {
-				if (!item.kids) {
+				if (!item || !item.kids) {
 					return resolve(item);
 				}
 				
@@ -96,7 +96,7 @@ function loadItemPage() {
 				});
 				
 				Promise.all(promises).then(kids => {
-					item.kids = kids.filter(i => !i.deleted);;
+					item.kids = kids.filter(i => (i && !i.deleted));
 					return resolve(item);
 				});
 			});
