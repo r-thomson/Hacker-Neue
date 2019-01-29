@@ -27,6 +27,19 @@ body[data-pref-darkmode="true"] {
 	--color-accentlight: HSL(0, 0%, 32%);
 }
 
+@media (prefers-color-scheme: dark) {
+	body[data-pref-autodark="true"] {
+		/* As far as I'm aware, it's not possible to combine these */
+		--color-accent: HSL(22, 93%, 47%);
+		--color-background: HSL(226, 6%, 10%);
+		--color-page: HSL(226, 6%, 16%);
+		--color-text: HSL(0, 0%, 87%);
+		--color-textlight: HSL(0, 0%, 64%);
+		--color-textlighter: HSL(0, 0%, 55%);
+		--color-accentlight: HSL(0, 0%, 32%);
+	}
+}
+
 * {
 	box-sizing: border-box;
 }

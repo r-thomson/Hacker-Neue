@@ -235,6 +235,7 @@ function makePaginationElement(page) {
 var prefs = {
 	defaults: {
 		'prefDarkmode': 'false',
+		'prefAutodark': 'false',
 		'prefPagewidth': '1',
 		'prefCounters': 'false',
 		'prefMaxstories': '30',
@@ -265,7 +266,7 @@ var prefs = {
 	
 	applyPagePrefs : function() {
 		const body = document.body;
-		const bodyPrefs = ['prefDarkmode', 'prefCounters', 'prefPagewidth'];
+		const bodyPrefs = ['prefDarkmode', 'prefAutodark', 'prefCounters', 'prefPagewidth'];
 		
 		for (item of bodyPrefs) {
 			body.dataset[item] = localStorage.getItem(item);
@@ -282,6 +283,7 @@ function initPrefsForm() {
 	const form = document.querySelector('form.preferences');
 	const formAssociations = {
 		'input-darkmode': 'prefDarkmode',
+		'input-autodark': 'prefAutodark',
 		'input-counters': 'prefCounters',
 		'input-pagewidth': 'prefPagewidth',
 		'input-maxstories': 'prefMaxstories',
