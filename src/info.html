@@ -51,9 +51,10 @@
 				<h2>Preferences</h2>
 				<form class="preferences">
 					<div class="form-group">
-						<div class="form-left">Dark Mode</div>
-						<label for="input-darkmode"><input type="checkbox" id="input-darkmode" onchange="window.prefs.setPref('prefDarkmode', this.checked)">Enabled</label>
-						<label for="input-autodark"><input type="checkbox" id="input-autodark" onchange="window.prefs.setPref('prefAutodark', this.checked)">Automatic <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme">(i)</a></label>
+						<div class="form-left">Appearance</div>
+						<label for="input-lightmode"><input type="radio" id="input-lightmode" name="appearance" onclick="window.prefs.setPref('prefAppearance', 'light')">Light mode</label>
+						<label for="input-darkmode"><input type="radio" id="input-darkmode" name="appearance" onclick="window.prefs.setPref('prefAppearance', 'dark')">Dark mode</label>
+						<label for="input-automode"><input type="radio" id="input-automode" name="appearance" onclick="window.prefs.setPref('prefAppearance', 'auto')">Automatic <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme">(i)</a></label>
 					</div>
 					<div class="form-group">
 						<label class="form-left" for="input-pagewidth">Page width</label>

@@ -17,7 +17,7 @@ body {
 	--color-accentlight: HSL(0, 0%, 84%);
 }
 
-body[data-pref-darkmode="true"] {
+body[data-pref-appearance="dark"] {
 	--color-accent: HSL(22, 93%, 47%);
 	--color-background: HSL(226, 6%, 10%);
 	--color-page: HSL(226, 6%, 16%);
@@ -28,7 +28,7 @@ body[data-pref-darkmode="true"] {
 }
 
 @media (prefers-color-scheme: dark) {
-	body[data-pref-autodark="true"] {
+	body[data-pref-appearance="auto"] {
 		/* As far as I'm aware, it's not possible to combine these */
 		--color-accent: HSL(22, 93%, 47%);
 		--color-background: HSL(226, 6%, 10%);
@@ -323,7 +323,7 @@ form select {
 	margin-left: -0.25em;
 }
 
-form input[type="checkbox"] {
+form input[type="checkbox"], form input[type="radio"] {
 	vertical-align: 0.08em;
 	margin-right: 0.35em;
 }

@@ -234,8 +234,7 @@ function makePaginationElement(page) {
 // User preferences management
 var prefs = {
 	defaults: {
-		'prefDarkmode': 'false',
-		'prefAutodark': 'false',
+		'prefAppearance': 'light',
 		'prefPagewidth': '1',
 		'prefCounters': 'false',
 		'prefMaxstories': '30',
@@ -266,7 +265,7 @@ var prefs = {
 	
 	applyPagePrefs : function() {
 		const body = document.body;
-		const bodyPrefs = ['prefDarkmode', 'prefAutodark', 'prefCounters', 'prefPagewidth'];
+		const bodyPrefs = ['prefAppearance', 'prefCounters', 'prefPagewidth'];
 		
 		for (item of bodyPrefs) {
 			body.dataset[item] = localStorage.getItem(item);
@@ -282,8 +281,9 @@ document.addEventListener('DOMContentLoaded', function(e) {
 function initPrefsForm() {
 	const form = document.querySelector('form.preferences');
 	const formAssociations = {
-		'input-darkmode': 'prefDarkmode',
-		'input-autodark': 'prefAutodark',
+		'input-lightmode': { key: 'prefAppearance', value: 'light' },
+		'input-darkmode': { key: 'prefAppearance', value: 'dark' },
+		'input-automode': { key: 'prefAppearance', value: 'auto' },
 		'input-counters': 'prefCounters',
 		'input-pagewidth': 'prefPagewidth',
 		'input-maxstories': 'prefMaxstories',
@@ -294,6 +294,9 @@ function initPrefsForm() {
 		switch (form.elements[item].type) {
 			case 'checkbox':
 				form.elements[item].checked = localStorage.getItem(formAssociations[item]) == 'true';
+				break;
+			case 'radio':
+				form.elements[item].checked = localStorage.getItem(formAssociations[item].key) == formAssociations[item].value;
 				break;
 			case 'select-one':
 				form.elements[item].value = localStorage.getItem(formAssociations[item]);
