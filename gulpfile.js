@@ -13,7 +13,7 @@ function clean() {
 	return del(buildDir+'**/*');
 }
 
-const copyFiles = ['lib/*', 'img/*.+(png|jpg|svg)', 'favicon.png', 'apple-touch-icon.png'];
+const copyFiles = ['lib/*', 'img/*.+(png|jpg|svg)', 'favicon.png', 'apple-touch-icon.png', 'mask-icon.svg', 'robots.txt'];
 function copy(callback) {
 	return src(copyFiles, {cwd: srcDir, base: srcDir})
 		.pipe(dest(buildDir))
