@@ -4,7 +4,10 @@ const htmlmin = require('gulp-htmlmin');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 const csso = require('postcss-csso');
+const sass = require('gulp-sass');
 const minify = require('gulp-minify');
+
+sass.compiler = require('node-sass');
 
 const srcDir = './src/';
 const buildDir = './build/'
@@ -43,6 +46,16 @@ function css(callback) {
 		.pipe(dest(buildDir))
 }
 
+function scss(callback) {
+	return src(['*.scss'], {cwd: srcDir})
+		.pipe(sass().on('error', sass.logError))
+		.pipe(postcss([
+			autoprefixer({ cascade: true }),
+			csso({ restructure: false })
+		]))
+		.pipe(dest(buildDir))
+}
+
 function js(callback) {
 	return src('*.js', {cwd: srcDir})
 		.pipe(minify({
@@ -52,5 +65,5 @@ function js(callback) {
 		.pipe(dest(buildDir))
 }
 
-exports.build = series(clean, parallel(copy, html, css, js));
+exports.build = series(clean, parallel(copy, html, scss, js));
 exports.default = exports.build

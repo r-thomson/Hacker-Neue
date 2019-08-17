@@ -1,42 +1,40 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i");
 
+/* CSS Variable Definitions */
 body {
-	/* CSS Variable Definitions */
 	--scale-up3: 1.424em;
 	--scale-up2: 1.266em;
 	--scale-up1: 1.125em;
 	--scale-down1: 0.889em;
 	--scale-down2: 0.790em;
 	--scale-down3: 0.702em;
-	--color-accent: HSL(22, 97%, 53%);
-	--color-background: HSL(0, 0%, 92%);
-	--color-page: HSL(0, 0%, 99%);
-	--color-text: HSL(0, 0%, 14%);
-	--color-textlight: HSL(0, 0%, 45%);
-	--color-textlighter: HSL(0, 0%, 45%);
-	--color-accentlight: HSL(0, 0%, 84%);
-}
-
-body[data-pref-appearance="dark"] {
-	--color-accent: HSL(22, 93%, 47%);
-	--color-background: HSL(226, 6%, 10%);
-	--color-page: HSL(226, 6%, 16%);
-	--color-text: HSL(0, 0%, 87%);
-	--color-textlight: HSL(0, 0%, 64%);
-	--color-textlighter: HSL(0, 0%, 55%);
-	--color-accentlight: HSL(0, 0%, 32%);
-}
-
-@media (prefers-color-scheme: dark) {
-	body[data-pref-appearance="auto"] {
-		/* As far as I'm aware, it's not possible to combine these */
-		--color-accent: HSL(22, 93%, 47%);
-		--color-background: HSL(226, 6%, 10%);
-		--color-page: HSL(226, 6%, 16%);
-		--color-text: HSL(0, 0%, 87%);
-		--color-textlight: HSL(0, 0%, 64%);
-		--color-textlighter: HSL(0, 0%, 55%);
-		--color-accentlight: HSL(0, 0%, 32%);
+	
+	--color-accent: hsl(22, 97%, 53%);
+	--color-background: hsl(0, 0%, 92%);
+	--color-page: hsl(0, 0%, 99%);
+	--color-text: hsl(0, 0%, 14%);
+	--color-textlight: hsl(0, 0%, 45%);
+	--color-textlighter: hsl(0, 0%, 45%);
+	--color-accentlight: hsl(0, 0%, 84%);
+	
+	@mixin dark-colors {
+		--color-accent: hsl(22, 93%, 47%);
+		--color-background: hsl(226, 6%, 10%);
+		--color-page: hsl(226, 6%, 16%);
+		--color-text: hsl(0, 0%, 87%);
+		--color-textlight: hsl(0, 0%, 64%);
+		--color-textlighter: hsl(0, 0%, 55%);
+		--color-accentlight: hsl(0, 0%, 32%);
+	}
+	
+	&[data-pref-appearance="dark"] {
+		@include dark-colors
+	}
+	
+	@media screen and (prefers-color-scheme: dark) {
+		&[data-pref-appearance="auto"] {
+			@include dark-colors
+		}
 	}
 }
 
@@ -44,8 +42,10 @@ body[data-pref-appearance="dark"] {
 	box-sizing: border-box;
 }
 
+$font-size-factor: 0.875;
+
 :root {
-	font-size: 0.875em;
+	font-size: $font-size-factor * 1em;
 }
 
 body {
@@ -56,35 +56,40 @@ body {
 	counter-reset: postCounter;
 }
 
+$page-width-0: 50em;
+$page-width-1: 60em;
+$page-width-2: 75em;
+
 .page {
 	margin: 1.5em auto;
 	padding-bottom: 1.0em;
 	min-height: 90vh;
-	max-width: 60em;
+	max-width: $page-width-1;
 	position: relative;
 	background-color: var(--color-page);
 	box-shadow: 0 0 20px 0 RGBA(0, 0, 0, 0.1);
 }
 
-[data-pref-pagewidth="0"] .page { max-width: 50em; }
+[data-pref-pagewidth="0"] .page { max-width: $page-width-0; }
 [data-pref-pagewidth="1"] .page { /* default */ }
-[data-pref-pagewidth="2"] .page { max-width: 75em; }
+[data-pref-pagewidth="2"] .page { max-width: $page-width-2; }
 [data-pref-pagewidth="3"] .page { max-width: none; margin: 0; }
 
-@media screen and (max-width: 43.75em) {
+@media screen and (max-width: $page-width-0 * $font-size-factor) {
 	[data-pref-pagewidth="0"] .page { margin: 0 auto; }
 }
 
-@media screen and (max-width: 52.5em) {
+@media screen and (max-width: $page-width-1 * $font-size-factor) {
 	[data-pref-pagewidth="1"] .page { margin: 0 auto; }
 }
 
-@media screen and (max-width: 65.625em) {
+@media screen and (max-width: $page-width-2 * $font-size-factor) {
 	[data-pref-pagewidth="2"] .page { margin: 0 auto; }
 }
 
-
-a { color: inherit; }
+a {
+	color: inherit;
+}
 
 p, h2 {
 	margin: 0.4em 0;
@@ -100,7 +105,7 @@ h2 {
 }
 
 .alertbanner {
-	background-color: HSL(59, 90%, 53%);
+	background-color: hsl(59, 90%, 53%);
 	padding: 0.5em 1.5em;
 }
 
