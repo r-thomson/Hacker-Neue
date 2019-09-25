@@ -1,11 +1,10 @@
 const { src, dest, series, parallel } = require('gulp');
+const autoprefixer = require('gulp-autoprefixer');
+const csso = require('gulp-csso');
 const del = require('del');
 const htmlmin = require('gulp-htmlmin');
-const postcss = require('gulp-postcss');
-const autoprefixer = require('autoprefixer');
-const csso = require('postcss-csso');
-const sass = require('gulp-sass');
 const minify = require('gulp-minify');
+const sass = require('gulp-sass');
 
 sass.compiler = require('node-sass');
 
@@ -35,24 +34,16 @@ function html(callback) {
 
 function css(callback) {
 	return src(['*.css', '*.min.css'], {cwd: srcDir}) 
-		.pipe(postcss([
-			autoprefixer({
-				cascade: true
-			}),
-			csso({
-				restructure: false
-			})
-		]))
+		.pipe(autoprefixer({ cascade: true }))
+		.pipe(csso({ restructure: false }))
 		.pipe(dest(buildDir))
 }
 
 function scss(callback) {
 	return src(['*.scss'], {cwd: srcDir})
 		.pipe(sass().on('error', sass.logError))
-		.pipe(postcss([
-			autoprefixer({ cascade: true }),
-			csso({ restructure: false })
-		]))
+		.pipe(autoprefixer({ cascade: true }))
+		.pipe(csso({ restructure: false }))
 		.pipe(dest(buildDir))
 }
 
