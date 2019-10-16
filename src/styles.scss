@@ -28,13 +28,20 @@ body {
 	}
 	
 	&[data-pref-appearance="dark"] {
-		@include dark-colors
+		@include dark-colors;
+		
+		// Dark form controls
+		supported-color-schemes: dark;
+		color-scheme: dark;
 	}
 	
-	@media screen and (prefers-color-scheme: dark) {
-		&[data-pref-appearance="auto"] {
-			@include dark-colors
+	&[data-pref-appearance="auto"] {
+		@media screen and (prefers-color-scheme: dark) {
+			@include dark-colors;
 		}
+		
+		supported-color-schemes: light dark;
+		color-scheme: light dark;
 	}
 }
 
