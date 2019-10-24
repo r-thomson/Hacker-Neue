@@ -290,6 +290,7 @@ main {
 	text-align: center;
 	color: var(--color-textlight);
 	cursor: pointer;
+	user-select: none;
 }
 
 .collapse-button:hover { background-color: var(--color-accentlight); }
