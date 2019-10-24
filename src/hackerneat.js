@@ -318,6 +318,12 @@ function collapseComment(button) {
 	
 	if (element.classList.contains('collapsed')) {
 		button.innerText = '[+]';
+		
+		// Scroll up if the top of the comment is off the screen
+		let top = element.getBoundingClientRect().top;
+		if (top < 4) {
+			scrollTo(scrollX, scrollY + top - 4);
+		}
 	} else {
 		button.innerText = '[-]';
 	}
