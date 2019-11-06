@@ -116,7 +116,7 @@ function loadItemPage() {
 // DOM element creation functions
 function makePostElement(post) {
 	if (post.type != 'story') {
-		console.error('Item ' + post.id + ' is not a post');
+		console.warn('Item ' + post.id + ' is not a post');
 	}
 	
 	const postElement = document.createElement('div');
@@ -174,7 +174,7 @@ function makePostElement(post) {
 
 function makeCommentElement(comment) {
 	if (comment.type != 'comment') {
-		console.error('Item ' + comment.id + ' is not a comment');
+		console.warn('Item ' + comment.id + ' is not a comment');
 	}
 	
 	const commentElement = document.createElement('div');
