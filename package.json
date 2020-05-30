@@ -1,0 +1,20 @@
+{
+	"name": "hackerneat",
+	"description": "A Hacker News clone using the Hacker News API",
+	"version": "1.0.0",
+	"license": "MIT",
+	"author": "Ryan Thomson",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/r-thomson/hackerneat.git"
+	},
+	"dependencies": {},
+	"devDependencies": {},
+	"browserslist": [
+		"> 0.5%",
+		"last 2 versions",
+		"not dead",
+		"not ie <= 11",
+		"not explorermobile <=11"
+	]
+}
