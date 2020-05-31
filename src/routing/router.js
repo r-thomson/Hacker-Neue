@@ -1,12 +1,13 @@
 import { readable } from 'svelte/store';
+import { TopStories, NewStories, BestStories, AskStories, ShowStories, JobStories} from '../lists.js';
 
 export const routes = {
-	'/': null,
-	'/new': null,
-	'/best': null,
-	'/ask': null,
-	'/show': null,
-	'/jobs': null,
+	'/': TopStories,
+	'/new': NewStories,
+	'/best': BestStories,
+	'/ask': AskStories,
+	'/show': ShowStories,
+	'/jobs': JobStories,
 	'/info': null,
 	'/item': null,
 };
