@@ -1,5 +1,6 @@
 <script>
 import { fetchStoryIDs, fetchStory } from '../hn-api.js';
+import Story from './Story.svelte';
 
 export let list;
 
@@ -21,7 +22,7 @@ const stories = fetchStoryIDs(list)
 {:then stories}
 	<ol start={first + 1}>
 		{#each stories as story}
-			<li>{story.title}</li>
+			<li><Story story={story} /></li>
 		{/each}
 	</ol>
 	<div>
