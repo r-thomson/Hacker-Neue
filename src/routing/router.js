@@ -1,5 +1,6 @@
 import { readable } from 'svelte/store';
 import { TopStories, NewStories, BestStories, AskStories, ShowStories, JobStories} from '../lists.js';
+import Item from '../Item.svelte';
 
 export const routes = {
 	'/': TopStories,
@@ -9,7 +10,7 @@ export const routes = {
 	'/show': ShowStories,
 	'/jobs': JobStories,
 	'/info': null,
-	'/item': null,
+	'/item': Item,
 };
 
 let _setCurrentPath;
