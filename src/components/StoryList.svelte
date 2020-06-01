@@ -1,5 +1,5 @@
 <script>
-import { fetchStoryIDs, fetchStory } from '../hn-api.js';
+import { fetchStoryIDs, fetchItem } from '../hn-api.js';
 import Story from './Story.svelte';
 
 export let list;
@@ -13,7 +13,7 @@ const last = first + pageLength;
 
 const stories = fetchStoryIDs(list)
 	.then(ids => ids.slice(first, last)) // Pagination
-	.then(ids => ids.map(id => fetchStory(id)))
+	.then(ids => ids.map(id => fetchItem(id)))
 	.then(stories => Promise.all(stories));
 </script>
 

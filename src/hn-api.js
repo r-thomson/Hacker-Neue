@@ -14,23 +14,37 @@ export async function fetchStoryIDs(list) {
 }
 
 /**
- * Retrieves the story with the given ID
+ * Retrieves the item with the given ID
  * @async
- * @param {number} id The story's ID (will be converted to an integer)
- * @returns {Object} The story with the specified ID
+ * @param {number} id The item's ID (will be converted to an integer)
+ * @returns {Object} The item with the specified ID
  */
-export async function fetchStory(id) {
+export async function fetchItem(id) {
 	id = Number.parseInt(id);
 	if (isNaN(id) || id < 1) { throw TypeError(`'${id}' is not a valid story ID`); }
 	
 	const res = await fetch(`${API_PREFIX}item/${id}.json`);
 	if (res.status === 200) {
-		const story = await res.json();
-		
-		if (!['story', 'job', 'poll'].includes(story.type)) {
-			console.warn(`Item ${story.id} is not a valid story type ('${story.type}')`);
-		}
-		
-		return story;
+		return await res.json();
 	}
+}
+
+/**
+ * Recursively retrieves the kid items of a given item
+ * @async
+ * @param {Object} parent The parent item (should contain a `kids` property)
+ * @param {number} depth Tracks the current level of recursion
+ */
+export async function fetchKids(parent, depth = 1) {
+	if (!parent.kids) { return; } // Base case
+	
+	const kids = await Promise.all(parent.kids.map(async id => {
+		const item = await fetchItem(id);
+		if (item) {
+			item.kids = await fetchKids(item, depth + 1);
+		}
+		return item;
+	}));
+	
+	return kids.filter(item => item !== null);
 }

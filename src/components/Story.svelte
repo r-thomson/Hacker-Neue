@@ -4,6 +4,10 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 
 export let story; // For properties, see https://github.com/HackerNews/API#items
 
+if (!['story', 'job', 'poll'].includes(story.type)) {
+	console.warn(`Item ${story.id} is not a valid story type ('${story.type}')`);
+}
+
 let shortURL = null;
 if (story.url) {
 	shortURL = new URL(story.url).hostname.replace(/.*\.(?=.*\.)/, '');
