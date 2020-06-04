@@ -20,7 +20,7 @@ const date = dayjs.unix(story.time);
 <article class="story">
 	<a href={story.url || '/item?id=' + story.id} class="title">{story.title}</a>
 	{#if shortURL}
-		<span>{shortURL}</span>
+		<span class="site">{shortURL}</span>
 	{/if}
 	<span class="score" aria-label={story.score === 1 ? 'point' : 'points'}>{story.score}</span>
 	<div class="details">
@@ -37,3 +37,50 @@ const date = dayjs.unix(story.time);
 		</span>
 	</div>
 </article>
+
+<style>
+.story {
+	margin: 1.0em 0;
+	padding: 0 0.8em 0 2.5em;
+	position: relative;
+	line-height: 1.1;
+}
+
+.title {
+	font-size: 1.1428571429rem;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.title:visited {
+	color: var(--color-textlight);
+}
+
+.site {
+	padding-left: 0.5em;
+	font-size: 0.7857142857rem;
+	color: var(--color-textlighter);
+}
+
+.score {
+	display: block;
+	width: 2.0em;
+	position: absolute;
+	top: 0.1em; left: 0;
+	color: var(--color-textlight);
+	text-align: center;
+	letter-spacing: -0.02em;
+}
+
+.details {
+	margin-top: 0.2em;
+	font-size: 0.8571428571rem;
+	color: var(--color-textlight);
+}
+
+.details > *:not(:last-child)::after {
+	content: "\2022";
+	padding: 0 0.3em;
+	color: var(--color-textlight);
+}
+</style>

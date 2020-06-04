@@ -21,3 +21,12 @@ const comments = item.then(item => fetchKids(item));
 		<code>{error}</code>
 	{/await}
 {/await}
+
+<style>
+hr {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid var(--color-accentlight);
+	margin: 1.5em auto;
+}
+</style>

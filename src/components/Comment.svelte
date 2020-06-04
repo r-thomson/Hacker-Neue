@@ -23,6 +23,27 @@ const date = dayjs.unix(comment.time);
 
 <style>
 .comment {
-	padding-left: 0.5em;
+	margin-top: 1.0em;
+	padding: 0.2em 0.2em 0.2em 1.5em;
+	position: relative;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+}
+
+.comment > .comment { margin-top: 0.5em; }
+
+.comment .details {
+	margin-bottom: 0.2em;
+	font-size: 0.8571428571rem;
+	color: var(--color-textlight);
+}
+
+.comment :global(p) {
+	margin: 0.4em 0;
+	line-height: 1.3;
+}
+
+.comment :global(pre) {
+	white-space: pre-wrap;
 }
 </style>

@@ -21,7 +21,7 @@ const stories = fetchStoryIDs(list)
 	Loading
 {:then stories}
 	<ol start={first + 1}>
-		{#each stories as story}
+		{#each stories as story (story.id)}
 			<li><Story story={story} /></li>
 		{/each}
 	</ol>
@@ -34,3 +34,11 @@ const stories = fetchStoryIDs(list)
 {:catch error}
 	<code>{error}</code>
 {/await}
+
+<style>
+ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+</style>
