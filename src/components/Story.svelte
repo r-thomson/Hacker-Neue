@@ -1,20 +1,20 @@
 <script>
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime'
+	import dayjs from 'dayjs';
+	import relativeTime from 'dayjs/plugin/relativeTime'
 
-export let story; // For properties, see https://github.com/HackerNews/API#items
+	export let story; // For properties, see https://github.com/HackerNews/API#items
 
-if (!['story', 'job', 'poll'].includes(story.type)) {
-	console.warn(`Item ${story.id} is not a valid story type ('${story.type}')`);
-}
+	if (!['story', 'job', 'poll'].includes(story.type)) {
+		console.warn(`Item ${story.id} is not a valid story type ('${story.type}')`);
+	}
 
-let shortURL = null;
-if (story.url) {
-	shortURL = new URL(story.url).hostname.replace(/.*\.(?=.*\.)/, '');
-}
+	let shortURL = null;
+	if (story.url) {
+		shortURL = new URL(story.url).hostname.replace(/.*\.(?=.*\.)/, '');
+	}
 
-dayjs.extend(relativeTime);
-const date = dayjs.unix(story.time);
+	dayjs.extend(relativeTime);
+	const date = dayjs.unix(story.time);
 </script>
 
 <article class="story">
@@ -39,48 +39,48 @@ const date = dayjs.unix(story.time);
 </article>
 
 <style>
-.story {
-	margin: 1.0em 0;
-	padding: 0 0.8em 0 2.5em;
-	position: relative;
-	line-height: 1.1;
-}
+	.story {
+		margin: 1.0em 0;
+		padding: 0 0.8em 0 2.5em;
+		position: relative;
+		line-height: 1.1;
+	}
 
-.title {
-	font-size: 1.1428571429rem;
-	font-weight: 600;
-	text-decoration: none;
-}
+	.title {
+		font-size: 1.1428571429rem;
+		font-weight: 600;
+		text-decoration: none;
+	}
 
-.title:visited {
-	color: var(--color-textlight);
-}
+	.title:visited {
+		color: var(--color-textlight);
+	}
 
-.site {
-	padding-left: 0.5em;
-	font-size: 0.7857142857rem;
-	color: var(--color-textlighter);
-}
+	.site {
+		padding-left: 0.5em;
+		font-size: 0.7857142857rem;
+		color: var(--color-textlighter);
+	}
 
-.score {
-	display: block;
-	width: 2.0em;
-	position: absolute;
-	top: 0.1em; left: 0;
-	color: var(--color-textlight);
-	text-align: center;
-	letter-spacing: -0.02em;
-}
+	.score {
+		display: block;
+		width: 2.0em;
+		position: absolute;
+		top: 0.1em; left: 0;
+		color: var(--color-textlight);
+		text-align: center;
+		letter-spacing: -0.02em;
+	}
 
-.details {
-	margin-top: 0.2em;
-	font-size: 0.8571428571rem;
-	color: var(--color-textlight);
-}
+	.details {
+		margin-top: 0.2em;
+		font-size: 0.8571428571rem;
+		color: var(--color-textlight);
+	}
 
-.details > *:not(:last-child)::after {
-	content: "\2022";
-	padding: 0 0.3em;
-	color: var(--color-textlight);
-}
+	.details > *:not(:last-child)::after {
+		content: "\2022";
+		padding: 0 0.3em;
+		color: var(--color-textlight);
+	}
 </style>

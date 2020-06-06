@@ -1,13 +1,13 @@
 <script>
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime'
+	import dayjs from 'dayjs';
+	import relativeTime from 'dayjs/plugin/relativeTime'
 
-export let comment; // For properties, see https://github.com/HackerNews/API#items
+	export let comment; // For properties, see https://github.com/HackerNews/API#items
 
-let collapsed = false;
-const toggleCollapse = () => { collapsed = !collapsed };
+	let collapsed = false;
+	const toggleCollapse = () => { collapsed = !collapsed };
 
-const date = dayjs.unix(comment.time);
+	const date = dayjs.unix(comment.time);
 </script>
 
 <div class="comment" class:collapsed>
@@ -27,51 +27,51 @@ const date = dayjs.unix(comment.time);
 </div>
 
 <style>
-.comment {
-	margin-top: 1.0em;
-	padding: 0.2em 0.2em 0.2em 1.5em;
-	position: relative;
-	word-wrap: break-word;
-	overflow-wrap: break-word;
-}
+	.comment {
+		margin-top: 1.0em;
+		padding: 0.2em 0.2em 0.2em 1.5em;
+		position: relative;
+		word-wrap: break-word;
+		overflow-wrap: break-word;
+	}
 
-.comment > .comment { margin-top: 0.5em; }
+	.comment > .comment { margin-top: 0.5em; }
 
-.comment .details {
-	margin-bottom: 0.2em;
-	font-size: 0.8571428571rem;
-	color: var(--color-textlight);
-}
+	.comment .details {
+		margin-bottom: 0.2em;
+		font-size: 0.8571428571rem;
+		color: var(--color-textlight);
+	}
 
-.comment :global(p) {
-	margin: 0.4em 0;
-	line-height: 1.3;
-}
+	.comment :global(p) {
+		margin: 0.4em 0;
+		line-height: 1.3;
+	}
 
-.comment :global(pre) {
-	white-space: pre-wrap;
-}
+	.comment :global(pre) {
+		white-space: pre-wrap;
+	}
 
-.collapsed .details {
-	font-style: italic;
-	margin-bottom: 0;
-}
+	.collapsed .details {
+		font-style: italic;
+		margin-bottom: 0;
+	}
 
-.collapsed .content, .collapsed > .comment {
-	display: none;
-}
+	.collapsed .content, .collapsed > .comment {
+		display: none;
+	}
 
-.collapse-button {
-	width: 1.5em;
-	position: absolute;
-	top: 0; bottom: 0; left: 0;
-	padding-top: 0.2em;
-	font-size: 0.7857142857rem;
-	text-align: center;
-	color: var(--color-textlight);
-	cursor: pointer;
-	user-select: none;
-}
+	.collapse-button {
+		width: 1.5em;
+		position: absolute;
+		top: 0; bottom: 0; left: 0;
+		padding-top: 0.2em;
+		font-size: 0.7857142857rem;
+		text-align: center;
+		color: var(--color-textlight);
+		cursor: pointer;
+		user-select: none;
+	}
 
-.collapse-button:hover { background-color: var(--color-accentlight); }
+	.collapse-button:hover { background-color: var(--color-accentlight); }
 </style>

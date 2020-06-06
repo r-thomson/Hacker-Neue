@@ -1,5 +1,5 @@
 <script>
-import { currentPath } from '../routing/router.js';
+	import { currentPath } from '../routing/router.js';
 </script>
 
 <header>
@@ -38,53 +38,53 @@ import { currentPath } from '../routing/router.js';
 </header>
 
 <style>
-header {
-	background-color: hsl(22, 97%, 53%);
-	color: #fff;
-	align-items: center;
-	padding: 0.5em;
-	line-height: 1;
-	display: flex;
-	flex-wrap: wrap;
-}
+	header {
+		background-color: hsl(22, 97%, 53%);
+		color: #fff;
+		align-items: center;
+		padding: 0.5em;
+		line-height: 1;
+		display: flex;
+		flex-wrap: wrap;
+	}
 
-header a {
-	text-decoration: none;
-}
+	header a {
+		text-decoration: none;
+	}
 
-.logo {
-	margin-right: 0.5em;
-}
+	.logo {
+		margin-right: 0.5em;
+	}
 
-.title {
-	margin: 0;
-	text-transform: uppercase;
-	font-weight: 400;
-	font-size: 1.4285714286rem;
-	letter-spacing: 0.02em;
-	margin-right: 0.5em;
-}
+	.title {
+		margin: 0;
+		text-transform: uppercase;
+		font-weight: 400;
+		font-size: 1.4285714286rem;
+		letter-spacing: 0.02em;
+		margin-right: 0.5em;
+	}
 
-nav {
-	flex-grow: 1;
-}
+	nav {
+		flex-grow: 1;
+	}
 
-nav ul {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	display: flex;
-}
+	nav ul {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		display: flex;
+	}
 
-nav li {
-	margin: 0 0.3em;
-	opacity: 0.75;
-}
+	nav li {
+		margin: 0 0.3em;
+		opacity: 0.75;
+	}
 
-nav li:first-child { margin-left: 0; }
-nav li:last-child { margin-right: 0; }
+	nav li:first-child { margin-left: 0; }
+	nav li:last-child { margin-right: 0; }
 
-nav li.active, nav li:hover {
-	opacity: 1.0;
-}
+	nav li.active, nav li:hover {
+		opacity: 1.0;
+	}
 </style>
