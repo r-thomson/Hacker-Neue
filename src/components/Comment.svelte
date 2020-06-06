@@ -4,16 +4,21 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 
 export let comment; // For properties, see https://github.com/HackerNews/API#items
 
-dayjs.extend(relativeTime);
+let collapsed = false;
+const toggleCollapse = () => { collapsed = !collapsed };
+
 const date = dayjs.unix(comment.time);
 </script>
 
-<div class="comment">
+<div class="comment" class:collapsed>
+	<div on:click={toggleCollapse} class="collapse-button" aria-label="{collapsed ? 'Expand' : 'Collapse'} comment" role="button">
+		{collapsed ? '[+]' : '[-]'}
+	</div>
 	<div class="details">
 		{comment.by}
 		<time datetime={date.toISOString()} title={date.format('MMM D, YYYY h:mm A')}>{date.fromNow()}</time>
 	</div>
-	<div class="content text-content">
+	<div class="content">
 		{@html comment.text}
 	</div>
 	{#each comment.kids || [] as childComment (childComment.id)}
@@ -46,4 +51,27 @@ const date = dayjs.unix(comment.time);
 .comment :global(pre) {
 	white-space: pre-wrap;
 }
+
+.collapsed .details {
+	font-style: italic;
+	margin-bottom: 0;
+}
+
+.collapsed .content, .collapsed > .comment {
+	display: none;
+}
+
+.collapse-button {
+	width: 1.5em;
+	position: absolute;
+	top: 0; bottom: 0; left: 0;
+	padding-top: 0.2em;
+	font-size: 0.7857142857rem;
+	text-align: center;
+	color: var(--color-textlight);
+	cursor: pointer;
+	user-select: none;
+}
+
+.collapse-button:hover { background-color: var(--color-accentlight); }
 </style>
