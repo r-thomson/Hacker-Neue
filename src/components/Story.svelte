@@ -13,6 +13,8 @@
 		shortURL = new URL(story.url).hostname.replace(/.*\.(?=.*\.)/, '');
 	}
 
+	const highlight = story.score > 250;
+
 	dayjs.extend(relativeTime);
 	const date = dayjs.unix(story.time);
 </script>
@@ -22,7 +24,9 @@
 	{#if shortURL}
 		<span class="site">{shortURL}</span>
 	{/if}
-	<span class="score" aria-label={story.score === 1 ? 'point' : 'points'}>{story.score}</span>
+	<span class="score" class:highlight aria-label={story.score === 1 ? 'point' : 'points'}>
+		{story.score}
+	</span>
 	<div class="details">
 		{#if story.descendants !== undefined}
 			<span>
@@ -70,6 +74,10 @@
 		color: var(--color-textlight);
 		text-align: center;
 		letter-spacing: -0.02em;
+	}
+
+	.score.highlight {
+		color: var(--color-accent);
 	}
 
 	.details {
