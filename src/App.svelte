@@ -1,6 +1,11 @@
 <script>
 	import Header from './components/Header.svelte';
 	import RouteContent from './routing/RouteContent.svelte';
+	
+	const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+	let theme = darkMediaQuery.matches ? 'dark' : 'light';
+	darkMediaQuery.addListener(e => theme = e.matches ? 'dark' : 'light');
+	$: document.body.dataset.theme = theme;
 </script>
 
 <div class="page">
@@ -21,7 +26,7 @@
 		box-sizing: border-box;
 	}
 
-	:global(body) {
+	:global(body[data-theme="light"]) {
 		--color-accent: hsl(22, 97%, 53%);
 		--color-background: hsl(0, 0%, 92%);
 		--color-page: hsl(0, 0%, 99%);
@@ -29,7 +34,19 @@
 		--color-textlight: hsl(0, 0%, 45%);
 		--color-textlighter: hsl(0, 0%, 45%);
 		--color-accentlight: hsl(0, 0%, 84%);
-		
+	}
+
+	:global(body[data-theme="dark"]) {
+		--color-accent: hsl(22, 93%, 47%);
+		--color-background: hsl(226, 6%, 10%);
+		--color-page: hsl(226, 6%, 16%);
+		--color-text: hsl(0, 0%, 87%);
+		--color-textlight: hsl(0, 0%, 64%);
+		--color-textlighter: hsl(0, 0%, 55%);
+		--color-accentlight: hsl(0, 0%, 32%);
+	}
+
+	:global(body) {
 		margin: 0;
 		background-color: var(--color-background);
 		font-family: "Open Sans", sans-serif;
