@@ -1,5 +1,6 @@
 import { readable } from 'svelte/store';
 import { TopStories, NewStories, BestStories, AskStories, ShowStories, JobStories} from '../lists.js';
+import Info from '../Info.svelte';
 import Item from '../Item.svelte';
 
 export const routes = {
@@ -9,7 +10,7 @@ export const routes = {
 	'/ask': AskStories,
 	'/show': ShowStories,
 	'/jobs': JobStories,
-	'/info': null,
+	'/info': Info,
 	'/item': Item,
 };
 
