@@ -91,4 +91,13 @@
 		padding: 0 0.3em;
 		color: var(--color-textlight);
 	}
+
+	.story::after {
+		content: counter(story-count);
+		display: inline;
+		color: var(--color-textlighter);
+		font-size: 0.7857142857em;
+		position: absolute;
+		top: 0.4em; right: 0;
+	}
 </style>

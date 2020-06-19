@@ -20,7 +20,7 @@
 {#await stories}
 	Loading
 {:then stories}
-	<ol start={first + 1}>
+	<ol start={first + 1} style="counter-reset: story-count {first}">
 		{#each stories as story (story.id)}
 			<li><Story story={story} /></li>
 		{/each}
@@ -40,5 +40,9 @@
 		margin: 0;
 		padding: 0;
 		list-style: none;
+	}
+
+	li {
+		counter-increment: story-count;
 	}
 </style>
