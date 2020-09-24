@@ -1,38 +1,14 @@
 import { writable } from 'svelte/store';
 
-const preferences = {
-	theme: {
-		localStorageKey: 'pref-theme',
-		initialValue: 'auto'
-	},
-	pageWidth: {
-		localStorageKey: 'pref-page-width',
-		initialValue: '2'
-	},
-	counters: {
-		localStorageKey: 'pref-show-counters',
-		initialValue: false
-	},
-	maxStories: {
-		localStorageKey: 'pref-max-stories',
-		initialValue: '30'
-	},
-	highlightThreshold: {
-		localStorageKey: 'pref-highlight-threshold',
-		initialValue: '250'
-	},
+const persistentStore = (key, initialValue) => {
+	const storedValue = JSON.parse(localStorage.getItem(key));
+	const store = writable(storedValue !== null ? storedValue : initialValue);
+	store.subscribe(newValue => localStorage.setItem(key, JSON.stringify(newValue)));
+	return store;
 };
 
-const store = writable(Object.keys(preferences).reduce((obj, pref) => {
-	const storedValue = JSON.parse(localStorage.getItem(preferences[pref].localStorageKey));
-	obj[pref] = storedValue !== null ? storedValue : preferences[pref].initialValue;
-	return obj;
-}, {}));
-
-store.subscribe(newValue => {
-	for (const pref in preferences) {
-		localStorage.setItem(preferences[pref].localStorageKey, JSON.stringify(newValue[pref]));
-	}
-});
-
-export default store;
+export const theme = persistentStore('pref-theme', 'auto');
+export const pageWidth = persistentStore('pref-page-width', '2');
+export const counters = persistentStore('pref-show-counters', false);
+export const maxStories = persistentStore('pref-max-stories', 30);
+export const highlightThreshold = persistentStore('pref-highlight-threshold', 250);
