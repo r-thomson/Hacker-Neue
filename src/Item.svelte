@@ -1,6 +1,7 @@
 <script>
 	import { fetchItem, fetchKids } from './hn-api.js';
 	import Comment from './components/Comment.svelte';
+	import Loader from './components/Loader.svelte';
 	import Story from './components/Story.svelte';
 
 	const itemID = new URLSearchParams(window.location.search.substring(1)).get('id');
@@ -12,7 +13,7 @@
 	<Story story={item} />
 	<hr>
 	{#await comments}
-		Loading
+		<Loader />
 	{:then comments}
 		{#each comments || [] as comment (comment.id)}
 			<Comment comment={comment} />

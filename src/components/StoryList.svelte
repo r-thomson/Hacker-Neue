@@ -1,6 +1,7 @@
 <script>
 	import { counters, maxStories } from '../preferences';
 	import { fetchStoryIDs, fetchItem } from '../hn-api';
+	import Loader from './Loader.svelte';
 	import Story from './Story.svelte';
 
 	export let list;
@@ -19,7 +20,7 @@
 </script>
 
 {#await stories}
-	Loading
+	<Loader />
 {:then stories}
 	<ol start={first + 1} class:counters={$counters} style="counter-reset: story-count {first}">
 		{#each stories as story (story.id)}
