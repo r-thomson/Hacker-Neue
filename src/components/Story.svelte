@@ -1,6 +1,7 @@
 <script>
 	import dayjs from 'dayjs';
-	import relativeTime from 'dayjs/plugin/relativeTime'
+	import relativeTime from 'dayjs/plugin/relativeTime';
+	import { highlightThreshold } from '../preferences';
 
 	export let story; // For properties, see https://github.com/HackerNews/API#items
 
@@ -8,12 +9,8 @@
 		console.warn(`Item ${story.id} is not a valid story type ('${story.type}')`);
 	}
 
-	let shortURL = null;
-	if (story.url) {
-		shortURL = new URL(story.url).hostname.replace(/.*\.(?=.*\.)/, '');
-	}
-
-	const highlight = story.score > 250;
+	const shortURL = story.url && new URL(story.url).hostname.replace(/.*\.(?=.*\.)/, '');
+	const highlight = $highlightThreshold > 0 && story.score > $highlightThreshold;
 
 	dayjs.extend(relativeTime);
 	const date = dayjs.unix(story.time);
@@ -92,7 +89,7 @@
 		color: var(--color-textlight);
 	}
 
-	.story::after {
+	:global(.counters) .story::after {
 		content: counter(story-count);
 		display: inline;
 		color: var(--color-textlighter);

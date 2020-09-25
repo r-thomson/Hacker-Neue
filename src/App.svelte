@@ -1,11 +1,16 @@
 <script>
 	import Header from './components/Header.svelte';
 	import RouteContent from './routing/RouteContent.svelte';
-	
+	import { theme as prefTheme, pageWidth } from './preferences';
+
 	const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-	let theme = darkMediaQuery.matches ? 'dark' : 'light';
-	darkMediaQuery.addListener(e => theme = e.matches ? 'dark' : 'light');
-	$: document.body.dataset.theme = theme;
+	$: curTheme = $prefTheme === 'auto' ? (darkMediaQuery.matches ? 'dark' : 'light') : $prefTheme;
+	darkMediaQuery.addListener(() => {
+		darkMediaQuery.matches = darkMediaQuery.matches; // Trigger a reactive re-evaluation
+	});
+
+	$: document.body.dataset.theme = curTheme;
+	$: document.body.dataset.pageWidth = $pageWidth;
 </script>
 
 <div class="page">
@@ -46,6 +51,22 @@
 		--color-accentlight: hsl(0, 0%, 32%);
 	}
 
+	:global(body[data-page-width="1"]) {
+		--page-width: 50rem;
+	}
+	
+	:global(body[data-page-width="2"]) {
+		--page-width: 60rem;
+	}
+	
+	:global(body[data-page-width="3"]) {
+		--page-width: 75rem;
+	}
+	
+	:global(body[data-page-width="full"]) {
+		--page-width: 100%;
+	}
+
 	:global(body) {
 		margin: 0;
 		background-color: var(--color-background);
@@ -62,7 +83,7 @@
 		margin: 1.5em auto;
 		padding-bottom: 1.0em;
 		min-height: 90vh;
-		max-width: 60em;
+		max-width: var(--page-width);
 		position: relative;
 		background-color: var(--color-page);
 		box-shadow: 0 0 20px 0 RGBA(0, 0, 0, 0.1);

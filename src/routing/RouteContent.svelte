@@ -1,5 +1,5 @@
 <script>
-	import { routes, currentPath } from './router.js';
+	import { routes, currentPath } from './router';
 	$: routeComponent = routes[$currentPath];
 </script>
 
