@@ -19,7 +19,7 @@ export default {
 	plugins: [
 		svelte({
 			dev: !PRODUCTION, // Enable run-time checks when not in production
-			css: css => { css.write('dist/bundle.css', !PRODUCTION); }
+			css: css => { css.write('bundle.css', !PRODUCTION); }
 		}),
 		
 		// If you have external dependencies installed from
