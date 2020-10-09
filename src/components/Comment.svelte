@@ -35,7 +35,7 @@
 		overflow-wrap: break-word;
 	}
 
-	.comment > .comment { margin-top: 0.5em; }
+	.comment > :global(.comment) { margin-top: 0.5em; }
 
 	.comment .details {
 		margin-bottom: 0.2em;
@@ -57,7 +57,7 @@
 		margin-bottom: 0;
 	}
 
-	.collapsed .content, .collapsed > .comment {
+	.collapsed .content, .collapsed > :global(.comment) {
 		display: none;
 	}
 
