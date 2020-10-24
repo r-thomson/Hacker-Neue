@@ -27,7 +27,7 @@
 			<li><Story story={story} /></li>
 		{/each}
 	</ol>
-	<div>
+	<div class="pagination-buttons">
 		{#if pageNum > 1}
 			<a href="?page={pageNum - 1}">Previous Page</a>
 		{/if}
@@ -46,5 +46,16 @@
 
 	li {
 		counter-increment: story-count;
+	}
+	
+	.pagination-buttons {
+		text-align: center;
+		margin-top: 1.5em;
+		color: var(--color-textlight);
+	}
+	
+	.pagination-buttons a {
+		text-decoration: none;
+		margin: 0 0.25em;
 	}
 </style>
