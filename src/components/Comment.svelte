@@ -1,13 +1,12 @@
 <script>
-	import dayjs from 'dayjs';
-	import relativeTime from 'dayjs/plugin/relativeTime'
+	import { format, formatISO, formatDistanceToNowStrict as formatDistance, fromUnixTime } from 'date-fns';
 
 	export let comment; // For properties, see https://github.com/HackerNews/API#items
 
 	let collapsed = false;
 	const toggleCollapse = () => { collapsed = !collapsed };
 
-	const date = dayjs.unix(comment.time);
+	const date = fromUnixTime(comment.time);
 </script>
 
 <div class="comment" class:collapsed>
@@ -16,7 +15,7 @@
 	</div>
 	<div class="details">
 		{comment.by}
-		<time datetime={date.toISOString()} title={date.format('MMM D, YYYY h:mm A')}>{date.fromNow()}</time>
+		<time datetime={formatISO(date)} title={format(date, 'PP p')}>{formatDistance(date, { addSuffix: true })}</time>
 	</div>
 	<div class="content">
 		{@html comment.text}

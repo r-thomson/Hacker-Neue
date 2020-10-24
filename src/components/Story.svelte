@@ -1,6 +1,5 @@
 <script>
-	import dayjs from 'dayjs';
-	import relativeTime from 'dayjs/plugin/relativeTime';
+	import { format, formatISO, formatDistanceToNowStrict as formatDistance, fromUnixTime } from 'date-fns';
 	import { highlightThreshold } from '../preferences';
 
 	export let story; // For properties, see https://github.com/HackerNews/API#items
@@ -12,8 +11,7 @@
 	const shortURL = story.url && new URL(story.url).hostname.replace(/.*\.(?=.*\.)/, '');
 	const highlight = $highlightThreshold > 0 && story.score > $highlightThreshold;
 
-	dayjs.extend(relativeTime);
-	const date = dayjs.unix(story.time);
+	const date = fromUnixTime(story.time);
 </script>
 
 <article class="story">
@@ -34,7 +32,7 @@
 		{/if}
 		<span>
 			by {story.by}
-			<time datetime={date.toISOString()} title={date.format('MMM D, YYYY h:mm A')}>{date.fromNow()}</time>
+			<time datetime={formatISO(date)} title={format(date, 'PP p')}>{formatDistance(date, { addSuffix: true })}</time>
 		</span>
 	</div>
 </article>
