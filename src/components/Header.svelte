@@ -1,5 +1,5 @@
 <script>
-	import { currentPath } from '../routing/router.js';
+	import { currentPath } from '../routing/router';
 </script>
 
 <header>
