@@ -4,12 +4,24 @@
 	export let comment; // For properties, see https://github.com/HackerNews/API#items
 
 	let collapsed = false;
-	const toggleCollapse = () => { collapsed = !collapsed };
+	let element;
+
+	const toggleCollapse = () => {
+		collapsed = !collapsed
+
+		if (collapsed) {
+			// Scroll up if the top of the comment is off the screen
+			const top = element.getBoundingClientRect().top;
+			if (top < 4) {
+				scrollTo(window.scrollX, window.scrollY + top - 4);
+			}
+		}
+	};
 
 	const date = fromUnixTime(comment.time);
 </script>
 
-<div class="comment" class:collapsed>
+<div class="comment" class:collapsed bind:this={element}>
 	<div on:click={toggleCollapse} class="collapse-button" aria-label="{collapsed ? 'Expand' : 'Collapse'} comment" role="button">
 		{collapsed ? '[+]' : '[-]'}
 	</div>
