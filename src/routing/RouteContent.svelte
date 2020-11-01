@@ -6,5 +6,14 @@
 {#if routeComponent}
 	<svelte:component this={ routeComponent } />
 {:else}
-	<h1>404 Error</h1>
+	<div class="message">404 Error (not found)</div>
 {/if}
+
+<style>
+	.message {
+		margin-top: 15%;
+		color: var(--color-textlighter);
+		text-align: center;
+		text-transform: uppercase;
+	}
+</style>
