@@ -28,12 +28,18 @@ export const currentPath = readable(window.location.pathname, (set) => {
 			
 			event.preventDefault();
 			window.history.pushState(null, '', tag.href);
-			set(destination.pathname);
+			// Hack to force components to be destroyed and recreated
+			set(null);
+			setTimeout(() => void set(window.location.pathname), 0);
 		}
 	};
 	
 	// Handle the browser's back button
-	const popstateListener = () => void set(window.location.pathname);
+	const popstateListener = () => {
+		// Hack to force components to be destroyed and recreated
+		set(null);
+		setTimeout(() => void set(window.location.pathname), 0);
+	};
 	
 	document.addEventListener('click', clickListener);
 	window.addEventListener('popstate', popstateListener);
