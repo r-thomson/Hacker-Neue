@@ -10,5 +10,5 @@ const persistentStore = (key, initialValue) => {
 export const theme = persistentStore('pref-theme', 'auto');
 export const pageWidth = persistentStore('pref-page-width', '2');
 export const counters = persistentStore('pref-show-counters', false);
-export const maxStories = persistentStore('pref-max-stories', 30);
-export const highlightThreshold = persistentStore('pref-highlight-threshold', 250);
+export const maxStories = persistentStore('pref-max-stories', '30');
+export const highlightThreshold = persistentStore('pref-highlight-threshold', '250');
