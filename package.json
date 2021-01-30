@@ -1,7 +1,6 @@
 {
 	"name": "hackerneat",
-	"description": "A Hacker News clone using the Hacker News API",
-	"version": "1.0.0",
+	"version": "2.0.0",
 	"license": "MIT",
 	"author": "Ryan Thomson",
 	"repository": {
@@ -21,12 +20,5 @@
 		"rollup-plugin-svelte": "^6.0.1",
 		"rollup-plugin-terser": "^7.0.2",
 		"svelte": "^3.26.0"
-	},
-	"browserslist": [
-		"> 0.5%",
-		"last 2 versions",
-		"not dead",
-		"not ie <= 11",
-		"not explorermobile <=11"
-	]
+	}
 }
