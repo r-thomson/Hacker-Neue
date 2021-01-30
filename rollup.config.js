@@ -5,6 +5,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import html from '@rollup/plugin-html';
 import { promises as fs } from 'fs';
+import copy from 'rollup-plugin-copy';
 
 const PRODUCTION = process.env.NODE_ENV === 'production';
 
@@ -65,6 +66,12 @@ export default {
 				
 				return htmlSrc;
 			},
+		}),
+		
+		copy({
+			targets: [
+				{ src: 'static/**/*', dest: 'dist/' },
+			],
 		}),
 		
 		// If building for production, minify
