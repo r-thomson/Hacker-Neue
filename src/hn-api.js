@@ -41,6 +41,7 @@ export async function fetchKids(parent, depth = 1) {
 	const kids = await Promise.all(parent.kids.map(async id => {
 		const item = await fetchItem(id);
 		if (item) {
+			if (item.deleted) { return null; }
 			item.kids = await fetchKids(item, depth + 1);
 		}
 		return item;
