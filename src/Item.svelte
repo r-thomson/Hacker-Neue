@@ -11,6 +11,9 @@
 
 {#await item then item}
 	<Story story={item} />
+	{#if item.text}
+		<div class="post-body">{@html item.text}</div>
+	{/if}
 	<hr>
 	{#await comments}
 		<Loader />
@@ -29,5 +32,14 @@
 		border: none;
 		border-bottom: 1px solid var(--color-accentlight);
 		margin: 1.5em auto;
+	}
+
+	.post-body {
+		line-height: 1.3;
+		margin-left: 2.5em;
+	}
+
+	.post-body :global(p) {
+		margin: 0.5em 0;
 	}
 </style>
