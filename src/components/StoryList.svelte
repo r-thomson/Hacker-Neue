@@ -16,7 +16,9 @@
 	const stories = fetchStoryIDs(list)
 		.then(ids => ids.slice(first, last)) // Pagination
 		.then(ids => ids.map(id => fetchItem(id)))
-		.then(stories => Promise.all(stories));
+		.then(stories => Promise.all(stories))
+		.then(stories => stories.filter(story => story != null));
+	// TODO: prevent null/undefined stories from messing up story numbers
 </script>
 
 {#await stories}
