@@ -5,7 +5,7 @@
 
 	const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 	$: curTheme = $prefTheme === 'auto' ? (darkMediaQuery.matches ? 'dark' : 'light') : $prefTheme;
-	darkMediaQuery.addListener(() => {
+	darkMediaQuery.addEventListener('change', () => {
 		darkMediaQuery.matches = darkMediaQuery.matches; // Trigger a reactive re-evaluation
 	});
 
