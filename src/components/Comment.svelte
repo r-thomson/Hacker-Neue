@@ -1,5 +1,6 @@
 <script>
 	import { format, formatISO, formatDistanceToNowStrict as formatDistance, fromUnixTime } from 'date-fns';
+	import { mods } from '../hn-api';
 
 	export let comment; // For properties, see https://github.com/HackerNews/API#items
 
@@ -26,7 +27,9 @@
 		{collapsed ? '[+]' : '[-]'}
 	</div>
 	<div class="details">
-		{comment.by}
+		<span class:mod-name={mods.has(comment.by)}>
+			{comment.by}
+		</span>
 		<time datetime={formatISO(date)} title={format(date, 'PP p')}>{formatDistance(date, { addSuffix: true })}</time>
 	</div>
 	<div class="content">
@@ -52,6 +55,11 @@
 		margin-bottom: 0.2em;
 		font-size: 0.8571428571rem;
 		color: var(--color-textlight);
+	}
+
+	.comment .details .mod-name {
+		text-decoration: underline;
+		text-decoration-style: dotted;
 	}
 
 	.comment :global(p) {

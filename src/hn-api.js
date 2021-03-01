@@ -1,5 +1,8 @@
 export const API_PREFIX = 'https://hacker-news.firebaseio.com/v0/';
 
+// Sourced from https://github.com/minimaxir/hacker-news-undocumented#moderators
+export const mods = new Set(['dang', 'sctb']);
+
 /**
  * Retrieves an array of story IDs for a given story list
  * @async
