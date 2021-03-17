@@ -73,6 +73,7 @@
 		font-family: "Open Sans", sans-serif;
 		color: var(--color-text);
 		text-size-adjust: 100%;
+		overflow-y: scroll; /* Always show scrollbar to prevent jumping when content loads */
 	}
 
 	:global(a) {
