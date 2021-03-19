@@ -81,9 +81,11 @@
 	}
 
 	.page {
-		margin: 1.5em auto;
+		--page-vertical-margin: 1.5em;
+		
+		margin: var(--page-vertical-margin) auto;
 		padding-bottom: 1.0em;
-		min-height: 90vh;
+		min-height: calc(100vh - 2 * var(--page-vertical-margin));
 		max-width: var(--page-width);
 		position: relative;
 		background-color: var(--color-page);
