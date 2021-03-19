@@ -55,16 +55,39 @@
 		--page-width: 50rem;
 	}
 	
+	@media (max-width: 43.75em) {
+		:global(body[data-page-width="1"]) .page {
+			/* The px is needed because of the calc() statement on .page max-height */
+			--page-vertical-margin: 0px;
+		}
+	}
+
 	:global(body[data-page-width="2"]) {
 		--page-width: 60rem;
 	}
-	
+
+	@media (max-width: 52.50em) {
+		:global(body[data-page-width="2"]) .page {
+			--page-vertical-margin: 0px;
+		}
+	}
+
 	:global(body[data-page-width="3"]) {
 		--page-width: 75rem;
 	}
-	
+
+	@media (max-width: 65.625em) {
+		:global(body[data-page-width="3"]) .page {
+			--page-vertical-margin: 0px;
+		}
+	}
+
 	:global(body[data-page-width="full"]) {
 		--page-width: 100%;
+	}
+
+	:global(body[data-page-width="full"]) .page {
+		--page-vertical-margin: 0px;
 	}
 
 	:global(body) {
