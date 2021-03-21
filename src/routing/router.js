@@ -31,6 +31,7 @@ export const currentPath = readable(window.location.pathname, (set) => {
 			// Hack to force components to be destroyed and recreated
 			set(null);
 			setTimeout(() => void set(window.location.pathname), 0);
+			window.scrollTo(0, 0);
 		}
 	};
 	
@@ -39,6 +40,7 @@ export const currentPath = readable(window.location.pathname, (set) => {
 		// Hack to force components to be destroyed and recreated
 		set(null);
 		setTimeout(() => void set(window.location.pathname), 0);
+		window.scrollTo(0, 0);
 	};
 	
 	document.addEventListener('click', clickListener);
