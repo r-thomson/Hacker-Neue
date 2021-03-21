@@ -9,11 +9,11 @@
 		darkMediaQuery.matches = darkMediaQuery.matches; // Trigger a reactive re-evaluation
 	});
 
+	// Cannot use <svelte:body>, see https://github.com/sveltejs/svelte/issues/3105
 	$: document.body.dataset.theme = curTheme;
-	$: document.body.dataset.pageWidth = $pageWidth;
 </script>
 
-<div class="page">
+<div class="page" data-page-width={$pageWidth}>
 	<Header />
 	<main>
 		<RouteContent />
@@ -51,42 +51,42 @@
 		--color-accentlight: hsl(0, 0%, 32%);
 	}
 
-	:global(body[data-page-width="1"]) {
+	.page[data-page-width="1"] {
 		--page-width: 50rem;
 	}
 	
 	@media (max-width: 43.75em) {
-		:global(body[data-page-width="1"]) .page {
+		.page[data-page-width="1"] {
 			/* The px is needed because of the calc() statement on .page max-height */
 			--page-vertical-margin: 0px;
 		}
 	}
 
-	:global(body[data-page-width="2"]) {
+	.page[data-page-width="2"] {
 		--page-width: 60rem;
 	}
 
 	@media (max-width: 52.50em) {
-		:global(body[data-page-width="2"]) .page {
+		.page[data-page-width="2"] {
 			--page-vertical-margin: 0px;
 		}
 	}
 
-	:global(body[data-page-width="3"]) {
+	.page[data-page-width="3"] {
 		--page-width: 75rem;
 	}
 
 	@media (max-width: 65.625em) {
-		:global(body[data-page-width="3"]) .page {
+		.page[data-page-width="3"] {
 			--page-vertical-margin: 0px;
 		}
 	}
 
-	:global(body[data-page-width="full"]) {
+	.page[data-page-width="full"] {
 		--page-width: 100%;
 	}
 
-	:global(body[data-page-width="full"]) .page {
+	.page[data-page-width="full"] {
 		--page-vertical-margin: 0px;
 	}
 
