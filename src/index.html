@@ -1,19 +1,22 @@
 <!DOCTYPE html>
-<html ${attributes}>
+<html lang="en">
+
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>${title}</title>
-	<meta name="description" content="A prettier version of Hackernews">
-	<link rel="preconnect" href="https://hacker-news.firebaseio.com/" crossorigin>
-	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
-	<link rel="stylesheet" type="text/css" href="bundle.css">
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400;1,600" rel="stylesheet">
-	<link rel="icon" type="image/png" href="">
-	<link rel="mask-icon" href="mask-icon.svg" color="#FA6827">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hackerneat</title>
+<meta name="description" content="A prettier version of Hackernews">
+<link rel="preconnect" href="https://hacker-news.firebaseio.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+{{links}}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;1,400;1,600">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="mask-icon" href="mask-icon.svg" color="#FA6827">
 </head>
+
 <body>
-	<noscript>JavaScript is required for this page.</noscript>
-	${scripts}
+{{scripts}}
+<noscript>JavaScript is required for this page.</noscript>
 </body>
+
 </html>

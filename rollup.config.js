@@ -1,26 +1,32 @@
 /* eslint-env node */
-import svelte from 'rollup-plugin-svelte';
-import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
-import { terser } from 'rollup-plugin-terser';
 import html from '@rollup/plugin-html';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import { promises as fs } from 'fs';
 import copy from 'rollup-plugin-copy';
+import css from 'rollup-plugin-css-only';
+import svelte from 'rollup-plugin-svelte';
+import { terser } from 'rollup-plugin-terser';
 
-const PRODUCTION = process.env.NODE_ENV === 'production';
+const DEV = process.env.ROLLUP_WATCH;
 
 export default {
 	input: 'src/main.js',
 	output: {
 		format: 'iife',
 		file: 'dist/bundle.js',
-		sourcemap: !PRODUCTION,
+		sourcemap: DEV,
 		name: 'hackerneat',
 	},
 	plugins: [
 		svelte({
-			dev: !PRODUCTION, // Enable run-time checks when not in production
-			css: css => { css.write('bundle.css', !PRODUCTION); }
+			compilerOptions: {
+				dev: DEV, // Enable run-time checks when not in production
+			},
+		}),
+		
+		css({
+			output: 'bundle.css',
 		}),
 		
 		// If you have external dependencies installed from
@@ -28,41 +34,25 @@ export default {
 		// some cases you'll need additional configuration -
 		// consult the documentation for details:
 		// https://github.com/rollup/plugins/tree/master/packages/commonjs
-		resolve({
+		nodeResolve({
 			browser: true,
-			dedupe: ['svelte']
+			dedupe: ['svelte'],
 		}),
 		commonjs(),
 		
 		html({
-			meta: [],
-			title: 'Hackerneat',
-			template: async ({ attributes, files, title }) => {
-				// Largely copy-pasted from rollup-html since these functions aren't exported
+			template: async ({ files, }) => {
 				let htmlSrc = (await fs.readFile('./src/index.html')).toString();
-				htmlSrc = htmlSrc.replace('${title}', title);
-				htmlSrc = htmlSrc.replace('${attributes}', html.makeHtmlAttributes(attributes.html));
 				
-				const scriptAttrs = html.makeHtmlAttributes(attributes.script);
-				const scripts = (files.js || [])
-					.map(({ fileName }) => `<script src="${fileName}" ${scriptAttrs}></script>`)
-					.join('\n');
-				htmlSrc = htmlSrc.replace('${scripts}', scripts);
-				
-				/*
-				const linkAttrs = html.makeHtmlAttributes(attributes.link);
 				const links = (files.css || [])
-					.map(({ fileName }) => `<link href="${fileName}" rel="stylesheet" ${linkAttrs}>`)
+					.map(({ fileName }) => `<link rel="stylesheet" href="${fileName}">`)
 					.join('\n');
-				htmlSrc = htmlSrc.replace('${links}', links);
-				*/
+				htmlSrc = htmlSrc.replace('{{links}}', links);
 				
-				/*
-				const metas = meta
-					.map((input) => `<meta ${html.makeHtmlAttributes(input)}>`)
+				const scripts = (files.js || [])
+					.map(({ fileName }) => `<script src="${fileName}"></script>`)
 					.join('\n');
-				htmlSrc = htmlSrc.replace('${metas}', metas);
-				*/
+				htmlSrc = htmlSrc.replace('{{scripts}}', scripts);
 				
 				return htmlSrc;
 			},
@@ -75,9 +65,35 @@ export default {
 		}),
 		
 		// If building for production, minify
-		PRODUCTION && terser()
+		!DEV && terser(),
+		
+		// When not in production, run a lightweight dev server
+		DEV && serve(),
 	],
 	watch: {
-		clearScreen: false
+		clearScreen: false,
 	}
 };
+
+function serve() {
+	let server;
+	
+	return {
+		async writeBundle() {
+			if (server) { return; }
+			
+			const getPort = require('get-port');
+			const port = process.env.PORT || getPort.makeRange(5000, 5100);
+			const hostname = process.env.HOST || 'localhost';
+			
+			const sirv = require('sirv')('dist', { dev: true, single: true });
+			server = require('http').createServer(sirv);
+			server.listen(await getPort({ host: hostname, port }), hostname, (err) => {
+				if (err) { throw err; }
+				
+				const { address, port } = server.address();
+				console.log(`Listening on ${address}:${port}`);
+			});
+		}
+	};
+}
