@@ -80,11 +80,6 @@
 		margin-top: 0.2em;
 	}
 
-	.form-footer {
-		margin-top: 1.0em;
-		text-align: right;
-	}
-
 	form select {
 		min-width: 10em;
 		margin-left: -0.25em;
