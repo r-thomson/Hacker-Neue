@@ -23,6 +23,7 @@ export default {
 			compilerOptions: {
 				dev: DEV, // Enable run-time checks when not in production
 			},
+			emitCss: !DEV, // temp workaround for css not being emitted consistently when watching
 		}),
 		
 		css({
@@ -41,7 +42,7 @@ export default {
 		commonjs(),
 		
 		html({
-			template: async ({ files, }) => {
+			template: async ({ files }) => {
 				let htmlSrc = (await fs.readFile('./src/index.html')).toString();
 				
 				const links = (files.css || [])
