@@ -9,7 +9,7 @@
 	}
 
 	const shortURL = story.url && new URL(story.url).hostname.replace(/.*\.(?=.*\.)/, '');
-	const highlight = $highlightThreshold > 0 && story.score > $highlightThreshold;
+	const highlight = $highlightThreshold > 0 && story.score >= $highlightThreshold;
 
 	const date = fromUnixTime(story.time);
 </script>
