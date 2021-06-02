@@ -4,7 +4,7 @@
 
 	export let comment; // For properties, see https://github.com/HackerNews/API#items
 
-	let collapsed = false;
+	let collapsed = !!comment.dead; // Dead comments are collapsed by default
 	let element;
 
 	const toggleCollapse = () => {
@@ -31,6 +31,7 @@
 			{comment.by}
 		</span>
 		<time datetime={formatISO(date)} title={format(date, 'PP p')}>{formatDistance(date, { addSuffix: true })}</time>
+		{#if comment.dead}(dead){/if}
 	</div>
 	<div class="content">
 		{@html comment.text}
