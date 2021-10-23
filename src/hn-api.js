@@ -1,4 +1,8 @@
-export const API_PREFIX = 'https://hacker-news.firebaseio.com/v0/';
+import { initializeApp } from 'firebase/app';
+import { child, get, getDatabase, ref } from 'firebase/database';
+
+const firebaseApp = initializeApp({ databaseURL: 'https://hacker-news.firebaseio.com' });
+const firebaseDbRef = ref(getDatabase(firebaseApp), 'v0');
 
 // Sourced from https://github.com/minimaxir/hacker-news-undocumented#moderators
 export const mods = new Set(['dang', 'sctb']);
@@ -10,10 +14,8 @@ export const mods = new Set(['dang', 'sctb']);
  * @returns {number[]} The story IDs for the specified list, ordered
  */
 export async function fetchStoryIDs(list) {
-	const res = await fetch(`${API_PREFIX}${list}stories.json`);
-	if (res.status === 200) {
-		return await res.json();
-	}
+	const snapshot = await get(child(firebaseDbRef, `${list}stories`));
+	return snapshot.val();
 }
 
 /**
@@ -26,10 +28,8 @@ export async function fetchItem(id) {
 	id = Number.parseInt(id);
 	if (isNaN(id) || id < 1) { throw TypeError(`'${id}' is not a valid story ID`); }
 	
-	const res = await fetch(`${API_PREFIX}item/${id}.json`);
-	if (res.status === 200) {
-		return await res.json();
-	}
+	const snapshot = await get(child(firebaseDbRef, `item/${id}`));
+	return snapshot.val();
 }
 
 /**
