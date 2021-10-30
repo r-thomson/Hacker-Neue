@@ -7,6 +7,11 @@
 	const itemID = new URLSearchParams(window.location.search.substring(1)).get('id');
 	const item = fetchItem(itemID);
 	const comments = item.then(item => fetchKids(item));
+
+	// Set page title manually until a proper reactive solution is implemented
+	item.then(item => {
+		document.title = `${item.title} - Hackerneat`;
+	});
 </script>
 
 {#await item then item}

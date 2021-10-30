@@ -28,6 +28,8 @@ export const currentPath = readable(window.location.pathname, (set) => {
 			
 			event.preventDefault();
 			window.history.pushState(null, '', tag.href);
+			document.title = 'Hackerneat'; // Until a proper reactive solution
+			
 			// Hack to force components to be destroyed and recreated
 			set(null);
 			setTimeout(() => void set(window.location.pathname), 0);
