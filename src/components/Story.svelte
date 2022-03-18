@@ -15,7 +15,7 @@
 </script>
 
 <article class="story">
-	<a href={story.url || '/item?id=' + story.id} class="title">{story.title}</a>
+	<a href={story.url || `/item?id=${story.id}`} class="title">{@html story.title}</a>
 	{#if shortURL}
 		<span class="site">{shortURL}</span>
 	{/if}
