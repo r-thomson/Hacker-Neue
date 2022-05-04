@@ -1,6 +1,6 @@
 <script>
 	import { format, formatISO, formatDistanceToNowStrict as formatDistance, fromUnixTime } from 'date-fns';
-	import { mods } from '../hn-api';
+	import { mods, symbols } from '../hn-api';
 
 	export let comment; // For properties, see https://github.com/HackerNews/API#items
 
@@ -36,7 +36,7 @@
 	<div class="content">
 		{@html comment.text}
 	</div>
-	{#each comment.kids || [] as childComment (childComment.id)}
+	{#each comment[symbols.resolvedKids] || [] as childComment (childComment.id)}
 		<svelte:self comment={childComment} />
 	{/each}
 </div>

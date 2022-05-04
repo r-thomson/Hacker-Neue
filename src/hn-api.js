@@ -4,6 +4,11 @@ import { child, get, getDatabase, ref } from 'firebase/database';
 const firebaseApp = initializeApp({ databaseURL: 'https://hacker-news.firebaseio.com' });
 const firebaseDbRef = ref(getDatabase(firebaseApp), 'v0');
 
+// Namespace for symbols, used to augment API-supplied JSON without name collisions
+export const symbols = {
+	resolvedKids: Symbol('resolvedKids'),
+};
+
 // Sourced from https://github.com/minimaxir/hacker-news-undocumented#moderators
 export const mods = new Set(['dang', 'sctb']);
 
@@ -45,7 +50,7 @@ export async function fetchKids(parent, depth = 1) {
 		const item = await fetchItem(id);
 		if (item) {
 			if (item.deleted) { return null; }
-			item.kids = await fetchKids(item, depth + 1);
+			item[symbols.resolvedKids] = await fetchKids(item, depth + 1);
 		}
 		return item;
 	}));
