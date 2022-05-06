@@ -7,6 +7,7 @@ const firebaseDbRef = ref(getDatabase(firebaseApp), 'v0');
 // Namespace for symbols, used to augment API-supplied JSON without name collisions
 export const symbols = {
 	resolvedKids: Symbol('resolvedKids'),
+	rootItem: Symbol('rootItem'),
 };
 
 // Sourced from https://github.com/minimaxir/hacker-news-undocumented#moderators
@@ -50,6 +51,8 @@ export async function fetchKids(parent, depth = 1) {
 		const item = await fetchItem(id);
 		if (item) {
 			if (item.deleted) { return null; }
+
+			item[symbols.rootItem] = parent[symbols.rootItem] || parent;
 			item[symbols.resolvedKids] = await fetchKids(item, depth + 1);
 		}
 		return item;

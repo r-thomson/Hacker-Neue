@@ -30,6 +30,7 @@
 		<span class:mod-name={mods.has(comment.by)}>
 			{comment.by}
 		</span>
+		{#if comment.by === comment[symbols.rootItem].by}<span class="badge">OP</span>{/if}
 		<time datetime={formatISO(date)} title={format(date, 'PP p')}>{formatDistance(date, { addSuffix: true })}</time>
 		{#if comment.dead}(dead){/if}
 	</div>
@@ -56,11 +57,27 @@
 		margin-bottom: 0.2em;
 		font-size: 0.8571428571rem;
 		color: var(--color-textlight);
+		display: flex;
+		align-items: baseline;
+	}
+
+	.comment .details * + * {
+		margin-left: 0.25em;
 	}
 
 	.comment .details .mod-name {
 		text-decoration: underline;
 		text-decoration-style: dotted;
+	}
+
+	.comment .details .badge {
+		font-size: 0.8571428571em;
+		line-height: 1.3;
+		color: var(--color-page);
+		background-color: var(--color-accentlight);
+		padding: 0 0.15em;
+		border-radius: 3px;
+		align-self: center;
 	}
 
 	.comment :global(p) {
