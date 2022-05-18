@@ -5,7 +5,7 @@
 <header>
 	<img class="logo" src="logo.svg" alt="" width="20" height="20">
 	<h1 class="title">
-		<a href="/">HackerNeat</a>
+		<a href="/">Hacker Neue</a>
 	</h1>
 	<nav>
 		<ul>

@@ -28,7 +28,7 @@ export const currentPath = readable(window.location.pathname, (set) => {
 			
 			event.preventDefault();
 			window.history.pushState(null, '', tag.href);
-			document.title = 'Hackerneat'; // Until a proper reactive solution
+			document.title = 'Hacker Neue'; // Until a proper reactive solution
 			
 			// Hack to force components to be destroyed and recreated
 			set(null);

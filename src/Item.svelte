@@ -10,7 +10,7 @@
 
 	// Set page title manually until a proper reactive solution is implemented
 	item.then(item => {
-		document.title = `${item.title} - Hackerneat`;
+		document.title = `${item.title} - Hacker Neue`;
 	});
 </script>
 
