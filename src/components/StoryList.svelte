@@ -14,26 +14,25 @@
 	const last = first + pageLength;
 
 	const stories = fetchStoryIDs(list)
-		.then(ids => ids.slice(first, last)) // Pagination
-		.then(ids => ids.map(id => fetchItem(id)))
-		.then(stories => Promise.all(stories))
-		.then(stories => stories.filter(story => story != null));
+		.then((ids) => ids.slice(first, last)) // Pagination
+		.then((ids) => ids.map((id) => fetchItem(id)))
+		.then((stories) => Promise.all(stories))
+		.then((stories) => stories.filter((story) => story != null));
 	// TODO: prevent null/undefined stories from messing up story numbers
 </script>
 
 {#await stories}
 	<Loader />
 {:then stories}
-	<ol start={first + 1} class:counters={$counters} style="counter-reset: story-count {first}">
+	<ol start={first + 1} class:counters={$counters}>
 		{#each stories as story (story.id)}
-			<li><Story story={story} /></li>
+			<li>
+				<Story {story} />
+			</li>
 		{/each}
 	</ol>
-	<div class="pagination-buttons">
-		{#if pageNum > 1}
-			<a href="?page={pageNum - 1}">Previous Page</a>
-		{/if}
-		<a href="?page={pageNum + 1}">Next Page</a>
+	<div class="pagination">
+		<a href="?page={pageNum + 1}">More Stories &rarr;</a>
 	</div>
 {:catch error}
 	<code>{error}</code>
@@ -43,21 +42,39 @@
 	ol {
 		margin: 0;
 		padding: 0;
-		list-style: none;
 	}
 
 	li {
-		counter-increment: story-count;
+		list-style-type: none;
+		position: relative;
 	}
-	
-	.pagination-buttons {
-		text-align: center;
-		margin-top: 1.5em;
-		color: var(--color-textlight);
+
+	li + li {
+		margin-top: 0.5rem;
 	}
-	
-	.pagination-buttons a {
-		text-decoration: none;
-		margin: 0 0.25em;
+
+	.counters li {
+		--counter-width: 2.0rem;
+
+		padding-left: var(--counter-width);
+	}
+
+	.counters li::before {
+		content: counter(list-item) '.';
+
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: var(--counter-width);
+		padding-right: 0.25em;
+
+		text-align: right;
+		color: var(--color-secondary);
+		font-size: 0.875rem;
+		line-height: 1.25;
+	}
+
+	.pagination {
+		margin-top: 0.75rem;
 	}
 </style>

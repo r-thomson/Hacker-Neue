@@ -12,7 +12,6 @@
 <style>
 	.message {
 		margin-top: 15%;
-		color: var(--color-textlighter);
 		text-align: center;
 		text-transform: uppercase;
 	}

@@ -15,84 +15,83 @@
 </script>
 
 <article class="story">
-	<a href={story.url || `/item?id=${story.id}`} class="title">{@html story.title}</a>
-	{#if shortURL}
-		<span class="site">{shortURL}</span>
-	{/if}
-	<span class="score" class:highlight aria-label={story.score === 1 ? 'point' : 'points'}>
-		{story.score}
-	</span>
+	<div class="details">
+		<span class="score" class:highlight>
+			{story.score} {story.score === 1 ? 'point' : 'points'}
+		</span>
+		<time datetime={formatISO(date)} title={format(date, 'PP p')}>
+			{formatDistance(date, { addSuffix: true })}
+		</time>
+	</div>
+	<div class="title">
+		<a href={story.url || `/item?id=${story.id}`}>
+			{@html story.title}
+		</a>
+	</div>
 	<div class="details">
 		{#if story.descendants !== undefined}
-			<span>
-				<a href="/item?id={story.id}">
-					{story.descendants} {story.descendants === 1 ? 'comment' : 'comments'}
-				</a>
+			<a class="comments" href="/item?id={story.id}">
+				{story.descendants} {story.descendants === 1 ? 'comment' : 'comments'}
+			</a>
+		{/if}
+		<span class="author">
+			{story.by}
+		</span>
+		{#if shortURL}
+			<span class="site">
+				{shortURL}
 			</span>
 		{/if}
-		<span>
-			by {story.by}
-			<time datetime={formatISO(date)} title={format(date, 'PP p')}>{formatDistance(date, { addSuffix: true })}</time>
-		</span>
 	</div>
 </article>
 
 <style>
-	.story {
-		margin: 1.0em 0;
-		padding: 0 0.8em 0 2.5em;
-		position: relative;
-		line-height: 1.1;
+	.story > * + * {
+		margin-top: 0.125rem;
 	}
 
 	.title {
-		font-size: 1.1428571429rem;
 		font-weight: 600;
+		line-height: 1.125;
+	}
+
+	.title a:link {
 		text-decoration: none;
 	}
 
-	.title:visited {
-		color: var(--color-textlight);
+	.title a:visited {
+		color: var(--color-secondary);
 	}
 
-	.site {
-		padding-left: 0.5em;
-		font-size: 0.7857142857rem;
-		color: var(--color-textlighter);
+	.details {
+		display: flex;
+		color: var(--color-secondary);
+		font-size: 0.875rem;
+		line-height: 1.25;
+	}
+
+	.details > * {
+		flex: none;
+		white-space: nowrap;
+	}
+
+	.details > * + * {
+		margin-left: 0.5rem;
 	}
 
 	.score {
-		display: block;
-		width: 2.0em;
-		position: absolute;
-		top: 0.1em; left: 0;
-		color: var(--color-textlight);
-		text-align: center;
-		letter-spacing: -0.02em;
+		font-weight: 500;
 	}
 
 	.score.highlight {
 		color: var(--color-accent);
 	}
 
-	.details {
-		margin-top: 0.2em;
-		font-size: 0.8571428571rem;
-		color: var(--color-textlight);
-	}
-
-	.details > *:not(:last-child)::after {
-		content: "\2022";
-		padding: 0 0.3em;
-		color: var(--color-textlight);
-	}
-
-	:global(.counters) .story::after {
-		content: counter(story-count);
-		display: inline;
-		color: var(--color-textlighter);
-		font-size: 0.7857142857em;
-		position: absolute;
-		top: 0.4em; right: 0;
+	.site {
+		font-style: italic;
+		flex: initial;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: normal;
 	}
 </style>
