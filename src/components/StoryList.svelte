@@ -3,6 +3,7 @@
 	import { fetchStoryIDs, fetchItem } from '../hn-api';
 	import Loader from './Loader.svelte';
 	import Story from './Story.svelte';
+	import StorySkeleton from './StorySkeleton.svelte';
 
 	export let list;
 
@@ -22,7 +23,13 @@
 </script>
 
 {#await stories}
-	<Loader />
+	<ol start={first + 1} class:counters={$counters}>
+		{#each { length: 10 } as _, i}
+		<li style:opacity={(10 - i) * 0.1}>
+			<StorySkeleton />
+		</li>
+		{/each}
+	</ol>
 {:then stories}
 	<ol start={first + 1} class:counters={$counters}>
 		{#each stories as story (story.id)}

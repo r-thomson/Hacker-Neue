@@ -4,6 +4,7 @@
 	import Content from './components/Content.svelte';
 	import Loader from './components/Loader.svelte';
 	import Story from './components/Story.svelte';
+	import StorySkeleton from './components/StorySkeleton.svelte';
 
 	const itemID = new URLSearchParams(window.location.search.substring(1)).get('id');
 	const item = fetchItem(itemID);
@@ -15,7 +16,11 @@
 	});
 </script>
 
-{#await item then item}
+{#await item}
+	<StorySkeleton />
+
+	<hr class="comments-divider" />
+{:then item}
 	<Story story={item} />
 
 	{#if item.text}
