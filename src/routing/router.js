@@ -22,32 +22,33 @@ export const currentPath = readable(window.location.pathname, (set) => {
 			// These checks minimize interference with the browser's default link handling
 			if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) { return; }
 			if (tag.target === '_blank') { return; }
-			
+
 			const destination = new URL(tag.href);
 			if (window.location.origin !== destination.origin) { return; }
-			
+
 			event.preventDefault();
 			window.history.pushState(null, '', tag.href);
 			document.title = 'Hacker Neue'; // Until a proper reactive solution
-			
+
 			// Hack to force components to be destroyed and recreated
 			set(null);
 			setTimeout(() => void set(window.location.pathname), 0);
 			window.scrollTo(0, 0);
 		}
 	};
-	
+
 	// Handle the browser's back button
 	const popstateListener = () => {
 		// Hack to force components to be destroyed and recreated
 		set(null);
 		setTimeout(() => void set(window.location.pathname), 0);
 		window.scrollTo(0, 0);
+		document.title = 'Hacker Neue'; // Until a proper reactive solution
 	};
-	
+
 	document.addEventListener('click', clickListener);
 	window.addEventListener('popstate', popstateListener);
-	
+
 	// Called when the last subscriber unsubscribes
 	return () => {
 		document.removeEventListener('click', clickListener);
