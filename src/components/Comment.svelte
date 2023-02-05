@@ -70,7 +70,7 @@
 	}
 
 	:global(.comment) + .comment {
-		margin-top: 0.625rem;;
+		margin-top: 1rem;
 	}
 
 	.child-comments {
