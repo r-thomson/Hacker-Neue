@@ -32,6 +32,7 @@ body {
 	background-color: var(--color-bg);
 
 	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 
 	/* Prevent mobile browsers from adjusting font size */
 	-webkit-text-size-adjust: none;
