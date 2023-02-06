@@ -55,6 +55,7 @@
 		background-color: var(--color-accent);
 		color: #fff;
 		white-space: nowrap;
+		overflow-x: hidden;
 	}
 
 	.header-container {
