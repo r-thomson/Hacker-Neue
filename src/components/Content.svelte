@@ -9,6 +9,7 @@
 <style>
 	.content {
 		max-width: 80ch;
+		overflow-wrap: break-word;
 	}
 
 	.content :global(p) {
