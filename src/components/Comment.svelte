@@ -133,6 +133,10 @@
 		font-weight: 500;
 	}
 
+	.details .author.mod-name {
+		color: var(--color-accent);
+	}
+
 	.body {
 		font-size: 0.875rem;
 	}
