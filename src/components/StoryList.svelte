@@ -1,7 +1,6 @@
 <script>
 	import { counters, maxStories } from '../preferences';
 	import { fetchStoryIDs, fetchItem } from '../hn-api';
-	import Loader from './Loader.svelte';
 	import Story from './Story.svelte';
 	import StorySkeleton from './StorySkeleton.svelte';
 

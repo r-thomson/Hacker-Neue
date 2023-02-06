@@ -2,13 +2,15 @@
 	import { fetchItem, fetchKids } from './hn-api.js';
 	import Comment from './components/Comment.svelte';
 	import Content from './components/Content.svelte';
-	import Loader from './components/Loader.svelte';
+	import ProgressBar from './components/ProgressBar.svelte';
 	import Story from './components/Story.svelte';
 	import StorySkeleton from './components/StorySkeleton.svelte';
 
+	let commentsFetched = 0;
+
 	const itemID = new URLSearchParams(window.location.search.substring(1)).get('id');
 	const item = fetchItem(itemID);
-	const comments = item.then((item) => fetchKids(item));
+	const comments = item.then((item) => fetchKids(item, () => commentsFetched++));
 
 	// Set page title manually until a proper reactive solution is implemented
 	item.then((item) => {
@@ -32,7 +34,9 @@
 	<hr class="comments-divider" />
 
 	{#await comments}
-		<Loader />
+		<div class="progress-container">
+			<ProgressBar progress={commentsFetched / (item.descendants || 1)} />
+		</div>
 	{:then comments}
 		<div class="story-comments">
 			{#each comments || [] as comment (comment.id)}
@@ -58,5 +62,9 @@
 		margin: 1.25rem 0;
 		border: none;
 		border-top: 1px solid var(--color-tertiary);
+	}
+
+	.progress-container {
+		margin: 8rem 0 4rem;
 	}
 </style>
