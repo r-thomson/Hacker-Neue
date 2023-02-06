@@ -11,11 +11,9 @@
 		"build": "vite build"
 	},
 	"dependencies": {
-		"date-fns": "^2.29.3",
-		"firebase": "^9.17.1"
-	},
-	"devDependencies": {
 		"@sveltejs/vite-plugin-svelte": "^2.0.2",
+		"date-fns": "^2.29.3",
+		"firebase": "^9.17.1",
 		"svelte": "^3.55.1",
 		"vite": "^4.1.1"
 	}
