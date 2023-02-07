@@ -4,7 +4,7 @@
 </script>
 
 {#if routeComponent}
-	<svelte:component this={ routeComponent } />
+	<svelte:component this={routeComponent} />
 {:else}
 	<div class="message">404 Error (not found)</div>
 {/if}

@@ -6,7 +6,8 @@
 
 	export let list;
 
-	const pageNum = Number.parseInt(new URLSearchParams(window.location.search).get('page'), 10) || 1;
+	const pageNum =
+		Number.parseInt(new URLSearchParams(window.location.search).get('page'), 10) || 1;
 	const pageLength = Number.parseInt($maxStories);
 
 	// Indices of first and last items on the current page
@@ -24,9 +25,9 @@
 {#await stories}
 	<ol start={first + 1} class:counters={$counters}>
 		{#each { length: 10 } as _, i}
-		<li style:opacity={(10 - i) * 0.1}>
-			<StorySkeleton />
-		</li>
+			<li style:opacity={(10 - i) * 0.1}>
+				<StorySkeleton />
+			</li>
 		{/each}
 	</ol>
 {:then stories}
@@ -60,7 +61,7 @@
 	}
 
 	.counters li {
-		--counter-width: 2.0rem;
+		--counter-width: 2rem;
 
 		padding-left: var(--counter-width);
 	}

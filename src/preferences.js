@@ -3,7 +3,7 @@ import { writable } from 'svelte/store';
 const persistentStore = (key, initialValue) => {
 	const storedValue = JSON.parse(localStorage.getItem(key));
 	const store = writable(storedValue !== null ? storedValue : initialValue);
-	store.subscribe(newValue => localStorage.setItem(key, JSON.stringify(newValue)));
+	store.subscribe((newValue) => localStorage.setItem(key, JSON.stringify(newValue)));
 	return store;
 };
 

@@ -1,7 +1,14 @@
 import { readable } from 'svelte/store';
 import Info from '../Info.svelte';
 import Item from '../Item.svelte';
-import { AskStories, BestStories, JobStories, NewStories, ShowStories, TopStories } from '../lists.js';
+import {
+	AskStories,
+	BestStories,
+	JobStories,
+	NewStories,
+	ShowStories,
+	TopStories,
+} from '../lists.js';
 
 export const routes = {
 	'/': TopStories,
@@ -20,11 +27,11 @@ export const currentPath = readable(window.location.pathname, (set) => {
 		const tag = event.target;
 		if (tag.tagName === 'A' && tag.href && event.button === 0) {
 			// These checks minimize interference with the browser's default link handling
-			if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) { return; }
-			if (tag.target === '_blank') { return; }
+			if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+			if (tag.target === '_blank') return;
 
 			const destination = new URL(tag.href);
-			if (window.location.origin !== destination.origin) { return; }
+			if (window.location.origin !== destination.origin) return;
 
 			event.preventDefault();
 			window.history.pushState(null, '', tag.href);

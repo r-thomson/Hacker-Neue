@@ -32,7 +32,9 @@ export async function fetchStoryIDs(list) {
  */
 export async function fetchItem(id) {
 	id = Number.parseInt(id);
-	if (isNaN(id) || id < 1) { throw TypeError(`'${id}' is not a valid story ID`); }
+	if (isNaN(id) || id < 1) {
+		throw TypeError(`'${id}' is not a valid story ID`);
+	}
 
 	const snapshot = await get(child(firebaseDbRef, `item/${id}`));
 	return snapshot.val();
@@ -46,25 +48,27 @@ export async function fetchItem(id) {
  * @param {number} depth Tracks the current level of recursion
  */
 export async function fetchKids(parent, onFetchItem = null, depth = 1) {
-	if (!parent.kids) { return; } // Base case
+	if (!parent.kids) return; // Base case
 
-	const kids = await Promise.all(parent.kids.map(async id => {
-		const item = await fetchItem(id);
+	const kids = await Promise.all(
+		parent.kids.map(async (id) => {
+			const item = await fetchItem(id);
 
-		if (item) {
-			if (item.deleted) { return null; }
+			if (item) {
+				if (item.deleted) return null;
 
-			// Hack to support tracking progress on the items page (dead don't count)
-			if (!item.dead) {
-				onFetchItem?.();
+				// Hack to support tracking progress on the items page (dead don't count)
+				if (!item.dead) {
+					onFetchItem?.();
+				}
+
+				item[symbols.rootItem] = parent[symbols.rootItem] || parent;
+				item[symbols.resolvedKids] = await fetchKids(item, onFetchItem, depth + 1);
 			}
 
-			item[symbols.rootItem] = parent[symbols.rootItem] || parent;
-			item[symbols.resolvedKids] = await fetchKids(item, onFetchItem, depth + 1);
-		}
+			return item;
+		})
+	);
 
-		return item;
-	}));
-
-	return kids.filter(item => item !== null);
+	return kids.filter((item) => item !== null);
 }

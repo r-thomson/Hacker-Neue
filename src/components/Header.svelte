@@ -62,7 +62,9 @@
 		display: flex;
 		align-items: stretch;
 
-		max-width: calc(var(--content-max-width) - 2 * (var(--content-padding-x) - var(--header-padding)));
+		max-width: calc(
+			var(--content-max-width) - 2 * (var(--content-padding-x) - var(--header-padding))
+		);
 		margin: 0 auto;
 		padding: var(--header-padding);
 	}

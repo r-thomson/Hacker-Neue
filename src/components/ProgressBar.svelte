@@ -3,9 +3,7 @@
 </script>
 
 <div class="container">
-	<progress value={progress}>
-		Loading&hellip;
-	</progress>
+	<progress value={progress} />
 </div>
 
 <style>

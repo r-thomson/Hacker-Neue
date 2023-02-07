@@ -2,11 +2,17 @@
 	import { counters, maxStories, highlightThreshold } from './preferences';
 </script>
 
-<p>A clone of Hacker News made using the <a href="https://github.com/HackerNews/API">Hacker News API</a>.</p>
+<p>
+	A clone of Hacker News made using the
+	<a href="https://github.com/HackerNews/API">Hacker News API</a>.
+</p>
 
 <form>
 	<div class="form-group">
-		<label><input type="checkbox" bind:checked={$counters}> Show post counters</label>
+		<label>
+			<input type="checkbox" bind:checked={$counters} />
+			Show post counters
+		</label>
 	</div>
 	<div class="form-group">
 		<label class="form-left" for="select_maxStories">Stories per page</label>
@@ -49,7 +55,8 @@
 		text-align: right;
 	}
 
-	.form-group > :first-child:not(.form-left), .form-group > :not(.form-left) + * {
+	.form-group > :first-child:not(.form-left),
+	.form-group > :not(.form-left) + * {
 		margin-left: 40%;
 	}
 
@@ -62,7 +69,7 @@
 		margin-left: -0.25em;
 	}
 
-	form input[type="checkbox"], form input[type="radio"] {
+	form input[type='checkbox'] {
 		vertical-align: 0.08em;
 		margin-right: 0.35em;
 	}

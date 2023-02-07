@@ -27,7 +27,9 @@
 
 <style>
 	@keyframes pulsing {
-		50% { opacity: 0.5; }
+		50% {
+			opacity: 0.5;
+		}
 	}
 
 	@media (prefers-reduced-motion: no-preference) {

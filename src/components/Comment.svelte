@@ -2,7 +2,12 @@
 	import Content from './Content.svelte';
 	import ExpandCollapseIcon from './ExpandCollapseIcon.svelte';
 
-	import { format, formatISO, formatDistanceToNowStrict as formatDistance, fromUnixTime } from 'date-fns';
+	import {
+		format,
+		formatISO,
+		formatDistanceToNowStrict as formatDistance,
+		fromUnixTime,
+	} from 'date-fns';
 	import { mods, symbols } from '../hn-api';
 
 	export let comment; // For properties, see https://github.com/HackerNews/API#items

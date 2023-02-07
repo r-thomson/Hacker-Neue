@@ -1,5 +1,10 @@
 <script>
-	import { format, formatISO, formatDistanceToNowStrict as formatDistance, fromUnixTime } from 'date-fns';
+	import {
+		format,
+		formatISO,
+		formatDistanceToNowStrict as formatDistance,
+		fromUnixTime,
+	} from 'date-fns';
 	import { highlightThreshold } from '../preferences';
 
 	export let story; // For properties, see https://github.com/HackerNews/API#items
@@ -17,7 +22,8 @@
 <article class="story">
 	<div class="details">
 		<span class="score" class:highlight>
-			{story.score} {story.score === 1 ? 'point' : 'points'}
+			{story.score}
+			{story.score === 1 ? 'point' : 'points'}
 		</span>
 		<time datetime={formatISO(date)} title={format(date, 'PP p')}>
 			{formatDistance(date, { addSuffix: true })}
@@ -31,7 +37,8 @@
 	<div class="details">
 		{#if story.descendants !== undefined}
 			<a class="comments" href="/item?id={story.id}">
-				{story.descendants} {story.descendants === 1 ? 'comment' : 'comments'}
+				{story.descendants}
+				{story.descendants === 1 ? 'comment' : 'comments'}
 			</a>
 		{/if}
 		<span class="author">
