@@ -12,6 +12,6 @@
 	main {
 		max-width: var(--content-max-width);
 		margin: 0 auto;
-		padding: 0.875rem var(--content-padding-x) 3rem;
+		padding: 0.875rem var(--content-padding-x) 4.5rem;
 	}
 </style>
