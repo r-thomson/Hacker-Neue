@@ -41,7 +41,7 @@
 			{comment.by}
 		</span>
 		{#if comment.by === comment[symbols.rootItem].by}
-			<span class="badge">OP</span>
+			<abb class="badge" title="Original poster">OP</abb>
 		{/if}
 		<time datetime={formatISO(date)} title={format(date, 'PP p')}>
 			{formatDistance(date, { addSuffix: true })}
