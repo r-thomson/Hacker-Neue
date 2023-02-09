@@ -138,6 +138,13 @@
 		font-weight: 500;
 	}
 
+	.details .badge {
+		font-size: 0.75rem;
+		padding: 0 0.125rem;
+		border: 1px solid var(--color-tertiary);
+		border-radius: 3px;
+	}
+
 	.details .author.mod-name {
 		color: var(--color-accent);
 	}
