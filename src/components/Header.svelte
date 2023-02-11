@@ -1,5 +1,5 @@
 <script>
-	import { currentPath } from '../routing/router';
+	import { currentUrl } from '../routing/router';
 	import SiteLogo from '../components/SiteLogo.svelte';
 </script>
 
@@ -11,22 +11,22 @@
 		</a>
 		<nav>
 			<ul>
-				<li class:active={$currentPath === '/'}>
+				<li class:active={$currentUrl.pathname === '/'}>
 					<a href="/">top</a>
 				</li>
-				<li class:active={$currentPath === '/new'}>
+				<li class:active={$currentUrl.pathname === '/new'}>
 					<a href="/new">new</a>
 				</li>
-				<li class:active={$currentPath === '/best'}>
+				<li class:active={$currentUrl.pathname === '/best'}>
 					<a href="/best">best</a>
 				</li>
-				<li class:active={$currentPath === '/ask'}>
+				<li class:active={$currentUrl.pathname === '/ask'}>
 					<a href="/ask">ask</a>
 				</li>
-				<li class:active={$currentPath === '/show'}>
+				<li class:active={$currentUrl.pathname === '/show'}>
 					<a href="/show">show</a>
 				</li>
-				<li class:active={$currentPath === '/jobs'}>
+				<li class:active={$currentUrl.pathname === '/jobs'}>
 					<a href="/jobs">jobs</a>
 				</li>
 			</ul>
@@ -36,7 +36,7 @@
 				<li>
 					<a href="https://hn.algolia.com">search</a>
 				</li>
-				<li class:active={$currentPath === '/info'}>
+				<li class:active={$currentUrl.pathname === '/info'}>
 					<a href="/info">prefs</a>
 				</li>
 			</ul>
