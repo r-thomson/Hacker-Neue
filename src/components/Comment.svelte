@@ -1,14 +1,9 @@
 <script>
+	import { fromUnixTime } from 'date-fns';
+	import { mods, symbols } from '../hn-api';
 	import Content from './Content.svelte';
 	import ExpandCollapseIcon from './ExpandCollapseIcon.svelte';
-
-	import {
-		format,
-		formatISO,
-		formatDistanceToNowStrict as formatDistance,
-		fromUnixTime,
-	} from 'date-fns';
-	import { mods, symbols } from '../hn-api';
+	import Timestamp from './Timestamp.svelte';
 
 	export let comment; // For properties, see https://github.com/HackerNews/API#items
 
@@ -29,7 +24,7 @@
 		}
 	};
 
-	const date = fromUnixTime(comment.time);
+	$: date = fromUnixTime(comment.time);
 </script>
 
 <div bind:this={element} class="comment" class:collapsed>
@@ -43,9 +38,7 @@
 		{#if comment.by === comment[symbols.rootItem].by}
 			<abb class="badge" title="Original poster">OP</abb>
 		{/if}
-		<time datetime={formatISO(date)} title={format(date, 'PP p')}>
-			{formatDistance(date, { addSuffix: true })}
-		</time>
+		<Timestamp {date} />
 		{#if comment.dead}
 			<span>(dead)</span>
 		{/if}
@@ -125,12 +118,12 @@
 		color: var(--color-secondary);
 	}
 
-	.details > * {
+	.details > :global(*) {
 		flex: none;
 		white-space: nowrap;
 	}
 
-	.details > * + * {
+	.details > :global(* + *) {
 		margin-left: 8px;
 	}
 

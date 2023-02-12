@@ -47,8 +47,3 @@ body {
 a {
 	color: unset;
 }
-
-time[title]:hover {
-	text-decoration-line: underline;
-	text-decoration-style: dotted;
-}

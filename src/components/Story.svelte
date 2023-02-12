@@ -1,11 +1,7 @@
 <script>
-	import {
-		format,
-		formatISO,
-		formatDistanceToNowStrict as formatDistance,
-		fromUnixTime,
-	} from 'date-fns';
+	import { fromUnixTime } from 'date-fns';
 	import { highlightThreshold } from '../preferences';
+	import Timestamp from './Timestamp.svelte';
 
 	export let story; // For properties, see https://github.com/HackerNews/API#items
 
@@ -16,7 +12,7 @@
 	const shortURL = story.url && new URL(story.url).hostname.replace(/.*\.(?=.*\.)/, '');
 	const highlight = $highlightThreshold > 0 && story.score >= $highlightThreshold;
 
-	const date = fromUnixTime(story.time);
+	$: date = fromUnixTime(story.time);
 </script>
 
 <article class="story">
@@ -25,9 +21,7 @@
 			{story.score}
 			{story.score === 1 ? 'point' : 'points'}
 		</span>
-		<time datetime={formatISO(date)} title={format(date, 'PP p')}>
-			{formatDistance(date, { addSuffix: true })}
-		</time>
+		<Timestamp {date} />
 	</div>
 	<div class="title">
 		<a href={story.url || `/item?id=${story.id}`}>
@@ -77,12 +71,12 @@
 		line-height: 1.25;
 	}
 
-	.details > * {
+	.details > :global(*) {
 		flex: none;
 		white-space: nowrap;
 	}
 
-	.details > * + * {
+	.details > :global(* + *) {
 		margin-left: 0.5rem;
 	}
 
