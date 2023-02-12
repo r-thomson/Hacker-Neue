@@ -56,6 +56,10 @@
 		color: #fff;
 		white-space: nowrap;
 		overflow-x: hidden;
+
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		user-select: none;
 	}
 
 	.header-container {
