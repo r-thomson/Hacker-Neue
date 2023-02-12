@@ -7,7 +7,7 @@
 
 	const routes: { [key: string]: ComponentType } = {
 		'/': storyLists.TopStories,
-		'/new': storyLists.NewStories,
+		'/newest': storyLists.NewStories,
 		'/best': storyLists.BestStories,
 		'/ask': storyLists.AskStories,
 		'/show': storyLists.ShowStories,

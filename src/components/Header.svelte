@@ -14,8 +14,8 @@
 				<li class:active={$currentUrl.pathname === '/'}>
 					<a href="/">top</a>
 				</li>
-				<li class:active={$currentUrl.pathname === '/new'}>
-					<a href="/new">new</a>
+				<li class:active={$currentUrl.pathname === '/newest'}>
+					<a href="/newest">new</a>
 				</li>
 				<li class:active={$currentUrl.pathname === '/best'}>
 					<a href="/best">best</a>
