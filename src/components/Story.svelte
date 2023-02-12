@@ -25,7 +25,7 @@
 	</div>
 	<div class="title">
 		<a href={story.url || `/item?id=${story.id}`}>
-			{@html story.title}
+			{story.title}
 		</a>
 	</div>
 	<div class="details">
