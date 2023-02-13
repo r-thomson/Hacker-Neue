@@ -1,6 +1,7 @@
 {
+	"name": "hacker-neue",
+	"private": true,
 	"license": "MIT",
-	"author": "Ryan Thomson",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/r-thomson/Hacker-Neue.git"
