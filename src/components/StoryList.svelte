@@ -1,13 +1,15 @@
 <script>
+	import { fetchItem, fetchStoryIDs } from '../hn-api';
 	import { counters, maxStories } from '../preferences';
-	import { fetchStoryIDs, fetchItem } from '../hn-api';
+	import { currentUrl } from '../routing/router';
 	import Story from './Story.svelte';
 	import StorySkeleton from './StorySkeleton.svelte';
 
+	const PAGE_PARAM = 'p';
+
 	export let list;
 
-	const pageNum =
-		Number.parseInt(new URLSearchParams(window.location.search).get('page'), 10) || 1;
+	const pageNum = Number.parseInt($currentUrl.searchParams.get(PAGE_PARAM) ?? '', 10) || 1;
 	const pageLength = Number.parseInt($maxStories);
 
 	// Indices of first and last items on the current page
@@ -39,7 +41,7 @@
 		{/each}
 	</ol>
 	<div class="pagination">
-		<a href="?page={pageNum + 1}">More Stories &rarr;</a>
+		<a href="?${PAGE_PARAM}={pageNum + 1}">More Stories &rarr;</a>
 	</div>
 {:catch error}
 	<code>{error}</code>
