@@ -1,18 +1,16 @@
-<script>
+<script lang="ts">
 	import { fromUnixTime } from 'date-fns';
+	import type { DeletedHNItem, HNJob, HNPoll, HNStory } from '../hacker-news/types';
 	import { highlightThreshold } from '../preferences';
 	import Timestamp from './Timestamp.svelte';
 
-	export let story; // For properties, see https://github.com/HackerNews/API#items
+	export let story: Exclude<HNStory | HNJob | HNPoll, DeletedHNItem>;
 
-	if (!['story', 'job', 'poll'].includes(story.type)) {
-		console.warn(`Item ${story.id} is not a valid story type ('${story.type}')`);
-	}
-
-	const shortURL = story.url && new URL(story.url).hostname.replace(/.*\.(?=.*\.)/, '');
-	const highlight = $highlightThreshold > 0 && story.score >= $highlightThreshold;
+	const formatShortUrl = (url: string) => new URL(url).hostname.replace(/.*\.(?=.*\.)/, '');
 
 	$: date = fromUnixTime(story.time);
+	$: shortUrl = 'url' in story && story.url ? formatShortUrl(story.url) : null;
+	$: highlight = $highlightThreshold > 0 && story.score >= $highlightThreshold;
 </script>
 
 <article class="story">
@@ -24,12 +22,12 @@
 		<Timestamp {date} />
 	</div>
 	<div class="title">
-		<a href={story.url || `/item?id=${story.id}`}>
+		<a href={('url' in story && story.url) || `/item?id=${story.id}`}>
 			{story.title}
 		</a>
 	</div>
 	<div class="details">
-		{#if story.descendants !== undefined}
+		{#if 'descendants' in story && story.descendants !== undefined}
 			<a class="comments" href="/item?id={story.id}">
 				{story.descendants}
 				{story.descendants === 1 ? 'comment' : 'comments'}
@@ -38,9 +36,9 @@
 		<span class="author">
 			{story.by}
 		</span>
-		{#if shortURL}
+		{#if shortUrl}
 			<span class="site">
-				{shortURL}
+				{shortUrl}
 			</span>
 		{/if}
 	</div>

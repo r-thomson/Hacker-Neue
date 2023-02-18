@@ -1,13 +1,14 @@
-<script>
-	import { fetchItem, fetchStoryIDs } from '../hn-api';
+<script lang="ts">
+	import { fetchItem, fetchStoryIds } from '../hacker-news/api';
+	import type { HNJob, HNList, HNPoll, HNStory } from '../hacker-news/types';
 	import { counters, maxStories } from '../preferences';
 	import { currentUrl } from '../routing/router';
 	import Story from './Story.svelte';
 	import StorySkeleton from './StorySkeleton.svelte';
 
-	const PAGE_PARAM = 'p';
+	export let list: HNList;
 
-	export let list;
+	const PAGE_PARAM = 'p';
 
 	const pageNum = Number.parseInt($currentUrl.searchParams.get(PAGE_PARAM) ?? '', 10) || 1;
 	const pageLength = Number.parseInt($maxStories);
@@ -16,12 +17,10 @@
 	const first = pageLength * (pageNum - 1);
 	const last = first + pageLength;
 
-	const stories = fetchStoryIDs(list)
+	const stories = fetchStoryIds(list)
 		.then((ids) => ids.slice(first, last)) // Pagination
-		.then((ids) => ids.map((id) => fetchItem(id)))
-		.then((stories) => Promise.all(stories))
-		.then((stories) => stories.filter((story) => story != null));
-	// TODO: prevent null/undefined stories from messing up story numbers
+		.then((ids) => ids.map((id) => fetchItem(id) as Promise<HNStory | HNJob | HNPoll>))
+		.then((stories) => Promise.all(stories));
 </script>
 
 {#await stories}
@@ -35,9 +34,11 @@
 {:then stories}
 	<ol start={first + 1} class:counters={$counters}>
 		{#each stories as story (story.id)}
-			<li>
-				<Story {story} />
-			</li>
+			{#if !story.deleted}
+				<li>
+					<Story {story} />
+				</li>
+			{/if}
 		{/each}
 	</ol>
 	<div class="pagination">

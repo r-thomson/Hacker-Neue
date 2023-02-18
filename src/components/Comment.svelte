@@ -1,14 +1,21 @@
-<script>
+<script lang="ts">
 	import { fromUnixTime } from 'date-fns';
-	import { mods, symbols } from '../hn-api';
+	import { modNames, symbols, type FetchedKids } from '../hacker-news/api';
+	import type { DeletedHNItem, HNComment } from '../hacker-news/types';
 	import Content from './Content.svelte';
 	import ExpandCollapseIcon from './ExpandCollapseIcon.svelte';
 	import Timestamp from './Timestamp.svelte';
 
-	export let comment; // For properties, see https://github.com/HackerNews/API#items
+	export let comment: Exclude<HNComment | (HNComment & FetchedKids), DeletedHNItem>;
+
+	$: date = fromUnixTime(comment.time);
+	$: isByOp =
+		symbols.rootItem in comment &&
+		'by' in comment[symbols.rootItem] &&
+		comment.by === comment[symbols.rootItem].by;
 
 	let collapsed = !!comment.dead; // Dead comments are collapsed by default
-	let element;
+	let element: HTMLElement;
 
 	const COLLAPSE_TOP_SPACE = 4;
 
@@ -23,8 +30,6 @@
 			}
 		}
 	};
-
-	$: date = fromUnixTime(comment.time);
 </script>
 
 <div bind:this={element} class="comment" class:collapsed>
@@ -32,10 +37,10 @@
 		<ExpandCollapseIcon {collapsed} />
 	</button>
 	<div class="details">
-		<span class="author" class:mod-name={mods.has(comment.by)}>
+		<span class="author" class:mod-name={modNames.has(comment.by)}>
 			{comment.by}
 		</span>
-		{#if comment.by === comment[symbols.rootItem].by}
+		{#if isByOp}
 			<abb class="badge" title="Original poster">OP</abb>
 		{/if}
 		<Timestamp {date} />
@@ -46,7 +51,7 @@
 	<div class="body" hidden={collapsed}>
 		<Content content={comment.text} />
 	</div>
-	{#if comment[symbols.resolvedKids]?.length > 1}
+	{#if symbols.resolvedKids in comment && comment[symbols.resolvedKids].length > 1}
 		<div class="child-comments" hidden={collapsed}>
 			{#each comment[symbols.resolvedKids] as childComment (childComment.id)}
 				<svelte:self comment={childComment} />

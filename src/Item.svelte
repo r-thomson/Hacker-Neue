@@ -1,20 +1,26 @@
-<script>
-	import { fetchItem, fetchKids } from './hn-api.js';
+<script lang="ts">
 	import Comment from './components/Comment.svelte';
 	import Content from './components/Content.svelte';
 	import ProgressBar from './components/ProgressBar.svelte';
 	import Story from './components/Story.svelte';
 	import StorySkeleton from './components/StorySkeleton.svelte';
+	import { fetchItem, fetchKids } from './hacker-news/api';
+	import { currentUrl } from './routing/router';
 
 	let commentsFetched = 0;
 
-	const itemID = new URLSearchParams(window.location.search.substring(1)).get('id');
-	const item = fetchItem(itemID);
+	const itemId = Number.parseInt($currentUrl.searchParams.get('id') ?? '');
+	const item = fetchItem(itemId).then((item) => {
+		if (!item) throw Error('Item does not exist');
+		return item;
+	});
 	const comments = item.then((item) => fetchKids(item, () => commentsFetched++));
 
-	// Set page title manually until a proper reactive solution is implemented
+	// TODO: Implement a proper reactive solution for setting the page title
 	item.then((item) => {
-		document.title = `${item.title} - Hacker Neue`;
+		if ('title' in item) {
+			document.title = `${item.title} - Hacker Neue`;
+		}
 	});
 </script>
 
@@ -23,9 +29,14 @@
 
 	<hr class="comments-divider" />
 {:then item}
-	<Story story={item} />
+	{#if !item.deleted}
+		{#if item.type === 'story' || item.type === 'job' || item.type === 'poll'}
+			<Story story={item} />
+		{/if}
+		<!-- TODO: support comment permalinks -->
+	{/if}
 
-	{#if item.text}
+	{#if 'text' in item && item.text}
 		<div class="item-body">
 			<Content content={item.text} />
 		</div>
@@ -35,17 +46,23 @@
 
 	{#await comments}
 		<div class="progress-container">
-			<ProgressBar progress={commentsFetched / (item.descendants || 1)} />
+			<ProgressBar
+				progress={commentsFetched / (('descendants' in item && item.descendants) || 1)}
+			/>
 		</div>
 	{:then comments}
 		<div class="story-comments">
-			{#each comments || [] as comment (comment.id)}
-				<Comment {comment} />
+			{#each comments as comment (comment.id)}
+				{#if comment.type === 'comment' && !comment.deleted}
+					<Comment {comment} />
+				{/if}
 			{/each}
 		</div>
 	{:catch error}
 		<code>{error}</code>
 	{/await}
+{:catch error}
+	<code>{error}</code>
 {/await}
 
 <style>
