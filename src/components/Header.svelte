@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { currentUrl } from '../routing/router';
 	import SiteLogo from '../components/SiteLogo.svelte';
 </script>

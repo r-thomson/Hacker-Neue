@@ -1,5 +1,5 @@
-<script>
-	export let progress;
+<script lang="ts">
+	export let progress: number;
 </script>
 
 <div class="container">

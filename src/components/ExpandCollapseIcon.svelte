@@ -1,5 +1,5 @@
-<script>
-	export let collapsed;
+<script lang="ts">
+	export let collapsed: boolean;
 </script>
 
 <svg

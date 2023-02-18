@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { counters, maxStories, highlightThreshold } from './preferences';
 </script>
 

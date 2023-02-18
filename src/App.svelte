@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Header from './components/Header.svelte';
 	import RouteContent from './routing/RouteContent.svelte';
 </script>
