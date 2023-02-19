@@ -32,7 +32,7 @@
 	};
 </script>
 
-<div bind:this={element} class="comment" class:collapsed>
+<div bind:this={element} class="comment" class:collapsed id={comment.id.toString()}>
 	<button class="collapse-button" on:click={toggleCollapse}>
 		<ExpandCollapseIcon {collapsed} />
 	</button>

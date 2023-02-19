@@ -13,7 +13,7 @@
 	$: highlight = $highlightThreshold > 0 && story.score >= $highlightThreshold;
 </script>
 
-<article class="story">
+<article class="story" id={story.id.toString()}>
 	<div class="details">
 		<span class="score" class:highlight>
 			{story.score}
