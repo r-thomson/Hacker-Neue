@@ -1,5 +1,3 @@
-import { initializeApp } from 'firebase/app';
-import { child, get, getDatabase, ref } from 'firebase/database';
 import type { HNItem, HNList } from './types';
 
 export namespace symbols {
@@ -7,14 +5,13 @@ export namespace symbols {
 	export const rootItem: unique symbol = Symbol('rootItem');
 }
 
-const firebaseApp = initializeApp({ databaseURL: 'https://hacker-news.firebaseio.com' });
-const firebaseDbRef = ref(getDatabase(firebaseApp), 'v0');
-
 /**
  * Retrieves an array of story IDs for a given story list.
  * @param list - Name of the story list (top, new, ask, etc.)
  */
 export async function fetchStoryIds(list: HNList): Promise<number[]> {
+	const { get, child, firebaseDbRef } = await import('./firebase');
+
 	const snapshot = await get(child(firebaseDbRef, `${list}stories`));
 	return snapshot.val();
 }
@@ -24,6 +21,8 @@ export async function fetchStoryIds(list: HNList): Promise<number[]> {
  * @param id - The item's ID
  */
 export async function fetchItem(id: number): Promise<HNItem | null> {
+	const { get, child, firebaseDbRef } = await import('./firebase');
+
 	const snapshot = await get(child(firebaseDbRef, `item/${id}`));
 	return snapshot.val();
 }
