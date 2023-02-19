@@ -54,7 +54,9 @@
 	{#if symbols.resolvedKids in comment && comment[symbols.resolvedKids].length > 1}
 		<div class="child-comments" hidden={collapsed}>
 			{#each comment[symbols.resolvedKids] as childComment (childComment.id)}
-				<svelte:self comment={childComment} />
+				{#if childComment.type === 'comment' && !childComment.deleted}
+					<svelte:self comment={childComment} />
+				{/if}
 			{/each}
 		</div>
 	{/if}
