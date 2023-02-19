@@ -91,6 +91,6 @@
 		flex: initial;
 		overflow: hidden;
 		text-overflow: ellipsis;
-		white-space: normal;
+		white-space: nowrap;
 	}
 </style>
