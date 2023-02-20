@@ -42,7 +42,7 @@
 		{/each}
 	</ol>
 	<div class="pagination">
-		<a href="?${PAGE_PARAM}={pageNum + 1}">More Stories &rarr;</a>
+		<a href="?{PAGE_PARAM}={pageNum + 1}">More Stories &rarr;</a>
 	</div>
 {:catch error}
 	<code>{error}</code>
