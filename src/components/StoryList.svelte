@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fetchItem, fetchStoryIds } from '../hacker-news/api';
 	import type { HNJob, HNList, HNPoll, HNStory } from '../hacker-news/types';
-	import { counters, maxStories } from '../preferences';
+	import { showCounters, maxStories } from '../preferences';
 	import { currentUrl } from '../routing/router';
 	import Story from './Story.svelte';
 	import StorySkeleton from './StorySkeleton.svelte';
@@ -11,7 +11,7 @@
 	const PAGE_PARAM = 'p';
 
 	const pageNum = Number.parseInt($currentUrl.searchParams.get(PAGE_PARAM) ?? '', 10) || 1;
-	const pageLength = Number.parseInt($maxStories);
+	const pageLength = $maxStories;
 
 	// Indices of first and last items on the current page
 	const first = pageLength * (pageNum - 1);
@@ -24,7 +24,7 @@
 </script>
 
 {#await stories}
-	<ol start={first + 1} class:counters={$counters}>
+	<ol start={first + 1} class:counters={$showCounters}>
 		{#each { length: 10 } as _, i}
 			<li style:opacity={(10 - i) * 0.1}>
 				<StorySkeleton />
@@ -32,7 +32,7 @@
 		{/each}
 	</ol>
 {:then stories}
-	<ol start={first + 1} class:counters={$counters}>
+	<ol start={first + 1} class:counters={$showCounters}>
 		{#each stories as story (story.id)}
 			{#if !story.deleted}
 				<li>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { counters, maxStories, highlightThreshold } from './preferences';
+	import { highlightThreshold, maxStories, showCounters } from './preferences';
 </script>
 
 <p>
@@ -10,32 +10,32 @@
 <form>
 	<div class="form-group">
 		<label>
-			<input type="checkbox" bind:checked={$counters} />
+			<input type="checkbox" bind:checked={$showCounters} />
 			Show post counters
 		</label>
 	</div>
 	<div class="form-group">
 		<label class="form-left" for="select_maxStories">Stories per page</label>
 		<select bind:value={$maxStories} id="select_maxStories">
-			<option>20</option>
-			<option>30</option>
-			<option>50</option>
-			<option>100</option>
+			<option value={20}>20</option>
+			<option value={30}>30</option>
+			<option value={50}>50</option>
+			<option value={100}>100</option>
 		</select>
 	</div>
 	<div class="form-group">
 		<label class="form-left" for="select_highlightThreshold">Highlight post scores above</label>
 		<select bind:value={$highlightThreshold} id="select_highlightThreshold">
-			<option value="-1">Never</option>
-			<option>100</option>
-			<option>150</option>
-			<option>200</option>
-			<option>250</option>
-			<option>300</option>
-			<option>350</option>
-			<option>400</option>
-			<option>450</option>
-			<option>500</option>
+			<option value={0}>Never</option>
+			<option value={100}>100</option>
+			<option value={150}>150</option>
+			<option value={200}>200</option>
+			<option value={250}>250</option>
+			<option value={300}>300</option>
+			<option value={350}>350</option>
+			<option value={400}>400</option>
+			<option value={450}>450</option>
+			<option value={500}>500</option>
 		</select>
 	</div>
 </form>
