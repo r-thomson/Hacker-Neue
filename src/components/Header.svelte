@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { currentUrl } from '../routing/router';
 	import SiteLogo from '../components/SiteLogo.svelte';
+	import { currentUrl } from '../routing/router';
 </script>
 
 <header>
@@ -9,7 +9,7 @@
 			<SiteLogo />
 			<span class="title">Hacker Neue</span>
 		</a>
-		<nav>
+		<nav class="lists">
 			<ul>
 				<li class:active={$currentUrl.pathname === '/'}>
 					<a href="/">top</a>
@@ -31,7 +31,7 @@
 				</li>
 			</ul>
 		</nav>
-		<nav>
+		<nav class="links">
 			<ul>
 				<li>
 					<a href="https://hn.algolia.com">search</a>
@@ -89,7 +89,7 @@
 		line-height: 1;
 	}
 
-	@media (max-width: 32em) {
+	@media (max-width: 33em) {
 		.title-container > .title {
 			display: none;
 		}
@@ -128,5 +128,17 @@
 
 	li.active {
 		border-bottom-color: currentColor;
+	}
+
+	@media (max-width: 26em) {
+		.lists li:nth-child(6) {
+			display: none;
+		}
+	}
+
+	@media (max-width: 23em) {
+		.lists li:nth-child(5) {
+			display: none;
+		}
 	}
 </style>
