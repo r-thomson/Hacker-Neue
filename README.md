@@ -1,12 +1,16 @@
 # Hacker Neue
 
-A web-based Hacker News client using the [Hacker News API](https://github.com/HackerNews/API). **Live at [www.hackerneue.com](https://www.hackerneue.com).**
+A web-based [Hacker News](https://news.ycombinator.com) client using the [Hacker News API](https://github.com/HackerNews/API). **Live at [www.hackerneue.com](https://www.hackerneue.com).**
 
-![Screenshot of Hacker Neue running in a browser](./screenshot.png)
+![Screenshot of Hacker Neue running in a web browser](./screenshot.png)
 
 ## Running Locally
 
-* Check out the repository locally
+* Clone the repository
+
+  ```sh
+  git clone https://github.com/r-thomson/Hacker-Neue.git
+  ```
 
 * Install dependencies
 
