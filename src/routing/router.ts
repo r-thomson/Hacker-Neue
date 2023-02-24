@@ -4,6 +4,8 @@ import { writable } from 'svelte/store';
 const isSameOrigin = (destination: URL) => destination.origin === window.location.origin;
 
 const _currentUrl = writable(new URL(window.location.href), (set) => {
+	set(new URL(window.location.href));
+
 	function onPopState(event: PopStateEvent) {
 		set(new URL(window.location.href));
 	}

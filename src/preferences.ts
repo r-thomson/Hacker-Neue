@@ -17,6 +17,8 @@ function persistedStore<T>(key: string, defaultValue: T, storage = localStorage)
 	}
 
 	const store = writable<T>(loadValue(), (set) => {
+		set(loadValue());
+
 		function onStorage(event: StorageEvent) {
 			if (event.storageArea === storage && event.key === key) {
 				set(loadValue());
