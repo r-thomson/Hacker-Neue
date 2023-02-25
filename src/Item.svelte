@@ -6,21 +6,19 @@
 	import { fetchItem, fetchKids } from './hacker-news/api';
 	import { currentUrl } from './routing/router';
 
-	let commentsFetched = 0;
-
 	const itemId = Number.parseInt($currentUrl.searchParams.get('id') ?? '');
 	const item = fetchItem(itemId).then((item) => {
 		if (!item) throw Error('Item does not exist');
-		return item;
-	});
-	const comments = item.then((item) => fetchKids(item, () => commentsFetched++));
 
-	// TODO: Implement a proper reactive solution for setting the page title
-	item.then((item) => {
-		if ('title' in item) {
+		if ('title' in item && item.title) {
 			document.title = `${item.title} - Hacker Neue`;
 		}
+
+		return item;
 	});
+
+	let commentsFetched = 0;
+	const comments = item.then((item) => fetchKids(item, () => commentsFetched++));
 </script>
 
 {#await item}

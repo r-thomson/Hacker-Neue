@@ -18,17 +18,18 @@
 
 	$: routeComponent = routes[$currentUrl.pathname];
 
-	let key = Symbol();
+	let routeKey = Symbol();
 
 	$: {
 		$currentUrl;
-		key = Symbol();
+		routeKey = Symbol();
+		document.title = 'Hacker Neue';
 		window.scrollTo(0, 0);
 	}
 </script>
 
 {#if routeComponent}
-	{#key key}
+	{#key routeKey}
 		<svelte:component this={routeComponent} />
 	{/key}
 {:else}
