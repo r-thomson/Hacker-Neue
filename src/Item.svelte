@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Comment from './components/Comment.svelte';
-	import Content from './components/Content.svelte';
 	import ProgressBar from './components/ProgressBar.svelte';
 	import Story from './components/Story.svelte';
 	import StorySkeleton from './components/StorySkeleton.svelte';
@@ -31,15 +30,9 @@
 {:then item}
 	{#if !item.deleted}
 		{#if item.type === 'story' || item.type === 'job' || item.type === 'poll'}
-			<Story story={item} />
+			<Story story={item} expanded />
 		{/if}
 		<!-- TODO: support comment permalinks -->
-	{/if}
-
-	{#if 'text' in item && item.text}
-		<div class="item-body">
-			<Content content={item.text} />
-		</div>
 	{/if}
 
 	<hr class="comments-divider" />
@@ -68,11 +61,6 @@
 <style>
 	.story-comments > :global(.comment + .comment) {
 		margin-top: 0.5rem;
-	}
-
-	.item-body {
-		margin-top: 0.75rem;
-		font-size: 0.875rem;
 	}
 
 	.comments-divider {

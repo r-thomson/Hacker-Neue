@@ -2,9 +2,11 @@
 	import { fromUnixTime } from 'date-fns';
 	import type { DeletedHNItem, HNJob, HNPoll, HNStory } from '../hacker-news/types';
 	import { highlightThreshold } from '../preferences';
+	import Content from './Content.svelte';
 	import Timestamp from './Timestamp.svelte';
 
 	export let story: Exclude<HNStory | HNJob | HNPoll, DeletedHNItem>;
+	export let expanded: Boolean = false;
 
 	const formatShortUrl = (url: string) => new URL(url).hostname.replace(/.*\.(?=.*\.)/, '');
 
@@ -21,11 +23,13 @@
 		</span>
 		<Timestamp {date} />
 	</div>
+
 	<div class="title">
 		<a href={('url' in story && story.url) || `/item?id=${story.id}`}>
 			{story.title}
 		</a>
 	</div>
+
 	<div class="details">
 		{#if 'descendants' in story && story.descendants !== undefined}
 			<a class="comments" href="/item?id={story.id}">
@@ -42,6 +46,12 @@
 			</span>
 		{/if}
 	</div>
+
+	{#if expanded && story.text}
+		<div class="story-text">
+			<Content content={story.text} />
+		</div>
+	{/if}
 </article>
 
 <style>
@@ -92,5 +102,10 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+	}
+
+	.story-text {
+		margin-top: 0.75rem;
+		font-size: 0.875rem;
 	}
 </style>
