@@ -127,7 +127,7 @@
 	}
 
 	li.active {
-		border-bottom-color: currentColor;
+		border-bottom-color: var(--color-bg);
 	}
 
 	@media (max-width: 26em) {
