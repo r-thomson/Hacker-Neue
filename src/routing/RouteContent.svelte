@@ -2,7 +2,7 @@
 	import type { ComponentType } from 'svelte';
 	import Item from '../Item.svelte';
 	import * as storyLists from '../lists.js';
-	import Preferenes from '../Preferences.svelte';
+	import Preferences from '../Preferences.svelte';
 	import { currentUrl } from './router';
 
 	const routes: { [key: string]: ComponentType } = {
@@ -12,7 +12,7 @@
 		'/ask': storyLists.AskStories,
 		'/show': storyLists.ShowStories,
 		'/jobs': storyLists.JobStories,
-		'/info': Preferenes,
+		'/info': Preferences,
 		'/item': Item,
 	};
 
