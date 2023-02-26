@@ -127,7 +127,7 @@
 	}
 
 	li.active {
-		border-bottom-color: var(--color-bg);
+		border-bottom-color: #fafaf9;
 	}
 
 	@media (max-width: 26em) {
