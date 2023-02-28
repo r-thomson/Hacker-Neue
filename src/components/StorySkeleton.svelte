@@ -69,7 +69,7 @@
 	}
 
 	:is(.score, .time) .skeleton-content {
-		width: 4.5rem;
+		width: 5rem;
 	}
 
 	.title .skeleton-content {
