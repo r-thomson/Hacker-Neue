@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fetchItem, fetchStoryIds } from '../hacker-news/api';
 	import type { HNJob, HNList, HNPoll, HNStory } from '../hacker-news/types';
-	import { showCounters, maxStories } from '../preferences';
+	import { maxStories, showCounters } from '../preferences';
 	import { currentUrl } from '../routing/router';
 	import Story from './Story.svelte';
 	import StorySkeleton from './StorySkeleton.svelte';
@@ -19,7 +19,7 @@
 
 	const stories = fetchStoryIds(list)
 		.then((ids) => ids.slice(first, last)) // Pagination
-		.then((ids) => ids.map((id) => fetchItem(id) as Promise<HNStory | HNJob | HNPoll>))
+		.then((ids) => ids.map((id) => fetchItem(id) as Promise<HNStory | HNJob | HNPoll | null>))
 		.then((stories) => Promise.all(stories));
 </script>
 
@@ -33,8 +33,8 @@
 	</ol>
 {:then stories}
 	<ol start={first + 1} class:counters={$showCounters}>
-		{#each stories as story (story.id)}
-			{#if !story.deleted}
+		{#each stories as story (story?.id)}
+			{#if story && !story.deleted}
 				<li>
 					<Story {story} />
 				</li>
