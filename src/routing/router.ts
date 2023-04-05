@@ -1,5 +1,5 @@
 import type { Readable } from 'svelte/store';
-import { writable } from 'svelte/store';
+import { readonly, writable } from 'svelte/store';
 
 const isSameOrigin = (destination: URL) => destination.origin === window.location.origin;
 
@@ -24,9 +24,7 @@ const _currentUrl = writable(new URL(window.location.href), (set) => {
 });
 
 // Read-only interface for _currentURL
-export const currentUrl: Readable<URL> = {
-	subscribe: _currentUrl.subscribe,
-};
+export const currentUrl: Readable<URL> = readonly(_currentUrl);
 
 /**
  * Navigate to a page within the app without a full page reload.
