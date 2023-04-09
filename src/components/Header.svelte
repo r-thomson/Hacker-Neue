@@ -33,8 +33,8 @@
 		</nav>
 		<nav class="links">
 			<ul>
-				<li>
-					<a href="https://hn.algolia.com">search</a>
+				<li class:active={$currentUrl.pathname === '/search'}>
+					<a href="/search">search</a>
 				</li>
 				<li class:active={$currentUrl.pathname === '/info'}>
 					<a href="/info">prefs</a>
