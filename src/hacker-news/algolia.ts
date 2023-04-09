@@ -27,7 +27,7 @@ type SearchResult = Exclude<HNItem, DeletedHNItem | DeadHNItem>;
  * @param options - Additional search options
  */
 export async function search(query: string, options: SearchOptions = {}): Promise<SearchResult[]> {
-	const url = new URL('http://hn.algolia.com/api/v1');
+	const url = new URL('https://hn.algolia.com/api/v1');
 	url.pathname += options.ordering === 'date' ? '/search_by_date' : '/search';
 
 	url.searchParams.set('query', query);
