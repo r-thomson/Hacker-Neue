@@ -45,7 +45,7 @@
 		<div class="story-comments">
 			{#each comments as comment (comment.id)}
 				{#if comment.type === 'comment' && !comment.deleted}
-					<Comment {comment} />
+					<Comment {comment} collapsible />
 				{/if}
 			{/each}
 		</div>

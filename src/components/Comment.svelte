@@ -7,6 +7,7 @@
 	import Timestamp from './Timestamp.svelte';
 
 	export let comment: Exclude<HNComment | (HNComment & FetchedKids), DeletedHNItem>;
+	export let collapsible: boolean = false;
 
 	$: date = fromUnixTime(comment.time);
 	$: isByOp =
@@ -14,7 +15,7 @@
 		'by' in comment[symbols.rootItem] &&
 		comment.by === comment[symbols.rootItem].by;
 
-	let collapsed = !!comment.dead; // Dead comments are collapsed by default
+	let collapsed = collapsible && !!comment.dead; // Dead comments are collapsed by default
 	let element: HTMLElement;
 
 	const COLLAPSE_TOP_SPACE = 4;
@@ -32,10 +33,12 @@
 	};
 </script>
 
-<div bind:this={element} class="comment" class:collapsed id={comment.id.toString()}>
-	<button class="collapse-button" on:click={toggleCollapse}>
-		<ExpandCollapseIcon {collapsed} />
-	</button>
+<div bind:this={element} class="comment" class:collapsible id={comment.id.toString()}>
+	{#if collapsible}
+		<button class="collapse-button" on:click={toggleCollapse}>
+			<ExpandCollapseIcon {collapsed} />
+		</button>
+	{/if}
 	<div class="details">
 		<span class="author" class:mod-name={modNames.has(comment.by)}>
 			{comment.by}
@@ -48,14 +51,14 @@
 			<span>(dead)</span>
 		{/if}
 	</div>
-	<div class="body" hidden={collapsed}>
+	<div class="body" hidden={collapsible && collapsed}>
 		<Content content={comment.text} />
 	</div>
 	{#if symbols.resolvedKids in comment && comment[symbols.resolvedKids].length > 1}
 		<div class="child-comments" hidden={collapsed}>
 			{#each comment[symbols.resolvedKids] as childComment (childComment.id)}
 				{#if childComment.type === 'comment' && !childComment.deleted}
-					<svelte:self comment={childComment} />
+					<svelte:self comment={childComment} collapsible />
 				{/if}
 			{/each}
 		</div>
@@ -67,6 +70,9 @@
 		--collapse-button-width: 17px;
 
 		position: relative;
+	}
+
+	.comment.collapsible {
 		padding-left: calc(var(--collapse-button-width) + 4px);
 	}
 
