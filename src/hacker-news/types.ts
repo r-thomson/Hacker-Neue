@@ -1,5 +1,6 @@
 export type HNItem = HNStory | HNComment | HNJob | HNPoll | HNPollOpt;
 export type DeletedHNItem = HNItem & { deleted: true };
+export type DeadHNItem = HNItem & { dead: true };
 
 interface Story {
 	id: number;
