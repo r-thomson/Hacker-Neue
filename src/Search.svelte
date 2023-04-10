@@ -25,16 +25,16 @@
 	<label>
 		Type
 		<select bind:value={type}>
-			<option value={null} label="All items" />
-			<option value={'story'} label="Stories" />
-			<option value={'comment'} label="Comments" />
+			<option value={null}>All items</option>
+			<option value={'story'}>Stories</option>
+			<option value={'comment'}>Comments</option>
 		</select>
 	</label>
 	<label>
 		Sort by
 		<select bind:value={sort}>
-			<option value={'popularity'} label="Popularity" />
-			<option value={'date'} label="Most Recent" />
+			<option value={'popularity'}>Popularity</option>
+			<option value={'date'}>Most Recent</option>
 		</select>
 	</label>
 </form>
