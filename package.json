@@ -11,7 +11,8 @@
 		"dev": "vite",
 		"build": "vite build",
 		"check": "svelte-check --tsconfig ./tsconfig.json",
-		"format": "prettier --write ."
+		"format": "prettier --write .",
+		"analyze": "vite build --mode=analyze"
 	},
 	"dependencies": {
 		"@sveltejs/vite-plugin-svelte": "^2.0.4",
@@ -24,6 +25,7 @@
 	"devDependencies": {
 		"prettier": "^2.8.7",
 		"prettier-plugin-svelte": "^2.10.0",
+		"rollup-plugin-visualizer": "^5.9.0",
 		"svelte-check": "^3.2.0",
 		"tslib": "^2.5.0",
 		"typescript": "^5.0.3"

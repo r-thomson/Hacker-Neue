@@ -1,12 +1,29 @@
 import { svelte } from '@sveltejs/vite-plugin-svelte';
+import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 
-export default defineConfig({
-	plugins: [svelte()],
-	server: {
-		port: 3000,
-	},
-	esbuild: {
-		legalComments: 'eof',
-	},
+export default defineConfig(({ command, mode }) => {
+	const analyze = command === 'build' && mode === 'analyze';
+
+	return {
+		plugins: [
+			svelte(),
+			analyze &&
+				visualizer({
+					template: 'sunburst',
+				}),
+		],
+		server: {
+			port: 3000,
+		},
+		esbuild: {
+			legalComments: 'eof',
+		},
+	};
 });
+
+async function visualizer(options: PluginVisualizerOptions) {
+	// Async import so the dependency is optional
+	const { visualizer } = await import('rollup-plugin-visualizer');
+	return visualizer(options);
+}
