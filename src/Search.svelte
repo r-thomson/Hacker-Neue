@@ -20,7 +20,7 @@
 		: null;
 </script>
 
-<form class="search-form">
+<form class="search-form" on:submit|preventDefault>
 	<input type="search" bind:value={$searchQuery} placeholder="Search" aria-label="Search" />
 	<label>
 		Type
