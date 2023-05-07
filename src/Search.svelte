@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { writable } from 'svelte/store';
 	import Comment from './components/Comment.svelte';
+	import ErrorMessage from './components/ErrorMessage.svelte';
 	import Story from './components/Story.svelte';
 	import { search } from './hacker-news/algolia';
 	import { debouncedStore } from './utils';
@@ -55,7 +56,7 @@
 			{/each}
 		</ol>
 	{:catch error}
-		<code>{error}</code>
+		<ErrorMessage {error} />
 	{/await}
 {/if}
 

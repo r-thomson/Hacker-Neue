@@ -5,6 +5,7 @@
 	import StorySkeleton from './components/StorySkeleton.svelte';
 	import { fetchItem, fetchKids } from './hacker-news/api';
 	import { currentUrl } from './routing/router';
+	import ErrorMessage from './components/ErrorMessage.svelte';
 
 	const itemId = Number.parseInt($currentUrl.searchParams.get('id') ?? '');
 	const item = fetchItem(itemId).then((item) => {
@@ -50,10 +51,10 @@
 			{/each}
 		</div>
 	{:catch error}
-		<code>{error}</code>
+		<ErrorMessage {error} />
 	{/await}
 {:catch error}
-	<code>{error}</code>
+	<ErrorMessage {error} />
 {/await}
 
 <style>

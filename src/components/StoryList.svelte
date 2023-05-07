@@ -3,6 +3,7 @@
 	import type { HNJob, HNList, HNPoll, HNStory } from '../hacker-news/types';
 	import { maxStories, showCounters } from '../preferences';
 	import { currentUrl } from '../routing/router';
+	import ErrorMessage from './ErrorMessage.svelte';
 	import Story from './Story.svelte';
 	import StorySkeleton from './StorySkeleton.svelte';
 
@@ -45,7 +46,7 @@
 		<a href="?{PAGE_PARAM}={pageNum + 1}">More Stories &rarr;</a>
 	</div>
 {:catch error}
-	<code>{error}</code>
+	<ErrorMessage {error} />
 {/await}
 
 <style>
