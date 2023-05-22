@@ -27,7 +27,7 @@
 		"prettier-plugin-svelte": "^2.10.0",
 		"rollup-plugin-visualizer": "^5.9.0",
 		"svelte-check": "^3.3.2",
-		"tslib": "^2.5.0",
+		"tslib": "^2.5.2",
 		"typescript": "^5.0.4"
 	}
 }
