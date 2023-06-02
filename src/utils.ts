@@ -1,4 +1,4 @@
-import { derived, type Readable } from 'svelte/store';
+import { derived, writable, type Readable, type Writable } from 'svelte/store';
 
 /**
  * A derived store that updates after a delay since the latest change
@@ -6,7 +6,11 @@ import { derived, type Readable } from 'svelte/store';
  * @param delay Minimum delay in milliseconds
  * @param initialValue Initial value of the store
  */
-export function debouncedStore<T>(store: Readable<T>, delay: number, initialValue?: T) {
+export function debouncedStore<T>(
+	store: Readable<T>,
+	delay: number,
+	initialValue?: T
+): Readable<T> {
 	return derived(
 		store,
 		(store, set) => {
@@ -20,4 +24,50 @@ export function debouncedStore<T>(store: Readable<T>, delay: number, initialValu
 		},
 		initialValue
 	);
+}
+
+/**
+ * A writable store that persists its value with the Web Storage API.
+ * @param key Storage key
+ * @param defaultValue Value to return if the key isn't found in storage
+ * @param storage Either `localStorage` or `sessionStorage`
+ */
+export function persistedStore<T>(
+	key: string,
+	defaultValue: T,
+	storage: Storage = localStorage
+): Writable<T> {
+	function loadValue(): T {
+		const storedValue = storage.getItem(key);
+		return storedValue === null ? defaultValue : JSON.parse(storedValue);
+	}
+
+	function saveValue(value: T) {
+		storage.setItem(key, JSON.stringify(value));
+	}
+
+	const store = writable<T>(loadValue(), (set) => {
+		set(loadValue());
+
+		function onStorage(event: StorageEvent) {
+			if (event.storageArea === storage && event.key === key) {
+				set(loadValue());
+			}
+		}
+
+		window.addEventListener('storage', onStorage);
+
+		return () => {
+			window.removeEventListener('storage', onStorage);
+		};
+	});
+
+	return {
+		subscribe: store.subscribe,
+		set(value: T) {
+			store.set(value);
+			saveValue(value);
+		},
+		update: store.update,
+	};
 }
