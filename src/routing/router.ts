@@ -29,7 +29,7 @@ export const currentUrl: Readable<URL> = readonly(_currentUrl);
 /**
  * Navigate to a page within the app without a full page reload.
  * @param to Root-relative path to navigate to.
- * @param false Prevent navigation from creating a new history entry.
+ * @param replace Prevent navigation from creating a new history entry.
  */
 export function navigate(to: string, replace = false) {
 	const toURL = new URL(to, window.location.origin);
