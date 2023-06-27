@@ -47,7 +47,7 @@ function stringifyArray(array: Array<string | string[]>): string {
 	return array.map((value) => (Array.isArray(value) ? `(${value.join(',')})` : value)).join(',');
 }
 
-function searchItemToHNItem(searchHit: any): HNItem {
+function searchItemToHNItem(searchHit: any): SearchResult {
 	// Working off the assumption that the item's "type" is always the first tag
 	const typeTags = new Set(['story', 'comment', 'poll', 'pollopt']);
 	const type: string | undefined = searchHit._tags.find((tag: string) => typeTags.has(tag));
