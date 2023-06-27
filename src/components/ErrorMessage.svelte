@@ -3,7 +3,7 @@
 </script>
 
 <div class="container">
-	<pre class="ascii-art">
+	<pre class="ascii-art" role="img">
            ____________________
    _..--""||                   |
   /       ||  _______________  |
