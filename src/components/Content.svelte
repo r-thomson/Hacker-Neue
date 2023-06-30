@@ -1,8 +1,27 @@
 <script lang="ts">
+	import { afterUpdate } from 'svelte';
+
+	/** User-generated HTML (safe subset, hopefully) to display */
 	export let content: string;
+
+	const HN_ORIGIN = 'https://news.ycombinator.com';
+	const THIS_ORIGIN = location.origin;
+
+	function rewriteHNLinks(node: HTMLElement) {
+		node.querySelectorAll('a').forEach((anchorEl) => {
+			if (anchorEl.href.startsWith(HN_ORIGIN + '/')) {
+				anchorEl.href = anchorEl.href.replace(HN_ORIGIN, THIS_ORIGIN);
+				anchorEl.innerText = anchorEl.innerText.replace(HN_ORIGIN, THIS_ORIGIN);
+			}
+		});
+	}
+
+	let containerEl: HTMLElement;
+
+	afterUpdate(() => rewriteHNLinks(containerEl));
 </script>
 
-<div class="content">
+<div class="content" bind:this={containerEl}>
 	{@html content}
 </div>
 
