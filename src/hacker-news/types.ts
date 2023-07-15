@@ -120,4 +120,12 @@ interface DeletedPollOpt {
 
 export type HNPollOpt = PollOpt | DeletedPollOpt;
 
+export interface HNUser {
+	id: string;
+	created: number;
+	about?: string;
+	karma: number;
+	submitted: number[];
+}
+
 export type HNList = 'top' | 'new' | 'best' | 'ask' | 'show' | 'job';

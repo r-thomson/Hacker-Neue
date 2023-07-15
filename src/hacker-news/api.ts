@@ -1,4 +1,4 @@
-import type { HNItem, HNList } from './types';
+import type { HNItem, HNList, HNUser } from './types';
 
 export namespace symbols {
 	export const resolvedKids: unique symbol = Symbol('resolvedKids');
@@ -24,6 +24,17 @@ export async function fetchItem(id: number): Promise<HNItem | null> {
 	const { get, child, firebaseDbRef } = await import('./firebase');
 
 	const snapshot = await get(child(firebaseDbRef, `item/${id}`));
+	return snapshot.val();
+}
+
+/**
+ * Retrieves the user with the given ID. Returns `null` if it doesn't exist.
+ * @param id - The user's ID
+ */
+export async function fetchUser(id: string): Promise<HNUser | null> {
+	const { get, child, firebaseDbRef } = await import('./firebase');
+
+	const snapshot = await get(child(firebaseDbRef, `user/${id}`));
 	return snapshot.val();
 }
 
