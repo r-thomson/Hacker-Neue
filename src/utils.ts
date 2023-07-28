@@ -1,4 +1,4 @@
-import { derived, writable, type Readable, type Writable } from 'svelte/store';
+import { derived, writable, type Readable, type Updater, type Writable } from 'svelte/store';
 
 /**
  * A derived store that updates after a delay since the latest change
@@ -68,6 +68,10 @@ export function persistedStore<T>(
 			store.set(value);
 			saveValue(value);
 		},
-		update: store.update,
+		update(fn: Updater<T>) {
+			const newValue = fn(loadValue());
+			store.set(newValue);
+			saveValue(newValue);
+		},
 	};
 }
