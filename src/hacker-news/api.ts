@@ -51,7 +51,7 @@ export type FetchedKids = {
 export async function fetchKids(
 	parent: HNItem,
 	onFetchItem?: () => void,
-	_depth = 1
+	_depth = 1,
 ): Promise<(HNItem & FetchedKids)[]> {
 	if (!('kids' in parent) || !parent.kids) return [];
 

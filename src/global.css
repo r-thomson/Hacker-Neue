@@ -26,7 +26,11 @@
 
 body {
 	margin: 0;
-	font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+	font-family:
+		ui-sans-serif,
+		system-ui,
+		-apple-system,
+		sans-serif;
 	line-height: 1.5;
 	color-scheme: light dark;
 

@@ -9,7 +9,7 @@ import { derived, writable, type Readable, type Updater, type Writable } from 's
 export function debouncedStore<T>(
 	store: Readable<T>,
 	delay: number,
-	initialValue?: T
+	initialValue?: T,
 ): Readable<T> {
 	return derived(
 		store,
@@ -22,7 +22,7 @@ export function debouncedStore<T>(
 				clearInterval(timeout);
 			};
 		},
-		initialValue
+		initialValue,
 	);
 }
 
@@ -35,7 +35,7 @@ export function debouncedStore<T>(
 export function persistedStore<T>(
 	key: string,
 	defaultValue: T,
-	storage: Storage = localStorage
+	storage: Storage = localStorage,
 ): Writable<T> {
 	function loadValue(): T {
 		const storedValue = storage.getItem(key);

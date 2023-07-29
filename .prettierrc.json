@@ -2,7 +2,6 @@
 	"printWidth": 100,
 	"singleQuote": true,
 	"plugins": ["prettier-plugin-svelte"],
-	"pluginSearchDirs": false,
 	"overrides": [
 		{
 			"files": "*.svelte",
