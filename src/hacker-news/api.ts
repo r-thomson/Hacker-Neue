@@ -24,7 +24,16 @@ export async function fetchItem(id: number): Promise<HNItem | null> {
 	const { get, child, firebaseDbRef } = await import('./firebase');
 
 	const snapshot = await get(child(firebaseDbRef, `item/${id}`));
-	return snapshot.val();
+	const item = snapshot.val();
+
+	// Sometimes the API returns a comment with "* * *" as the text. It's not clear why
+	// this happens. These comments aren't visible on Hacker News, so we'll treat them
+	// as deleted for now.
+	if (item?.text === '* * *') {
+		item.deleted = true;
+	}
+
+	return item;
 }
 
 /**
