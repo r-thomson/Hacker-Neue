@@ -49,7 +49,7 @@ function stringifyArray(array: Array<string | string[]>): string {
 
 function searchItemToHNItem(searchHit: any): SearchResult {
 	// Working off the assumption that the item's "type" is always the first tag
-	const typeTags = new Set(['story', 'comment', 'poll', 'pollopt']);
+	const typeTags = new Set(['story', 'comment', 'poll', 'pollopt', 'job']);
 	const type: string | undefined = searchHit._tags.find((tag: string) => typeTags.has(tag));
 
 	switch (type) {
@@ -93,6 +93,17 @@ function searchItemToHNItem(searchHit: any): SearchResult {
 				by: searchHit.author,
 				text: searchHit.story_text,
 				poll: searchHit.parent_id,
+				score: searchHit.points,
+			};
+		case 'job':
+			return {
+				id: searchHit.objectID,
+				type: 'job',
+				time: searchHit.created_at_i,
+				title: searchHit.title,
+				url: searchHit.url,
+				text: searchHit.story_text,
+				by: searchHit.author,
 				score: searchHit.points,
 			};
 		default:
