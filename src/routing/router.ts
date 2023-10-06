@@ -35,6 +35,11 @@ export function navigate(to: string, replace = false) {
 	const toURL = new URL(to, window.location.origin);
 	if (!isSameOrigin(toURL)) throw Error('Destination URL is not same-origin');
 
+	// Don't create consecutive duplicate history entries
+	if (toURL.href === window.location.href) {
+		replace = true;
+	}
+
 	if (replace) {
 		window.history.replaceState(null, '', toURL);
 	} else {
