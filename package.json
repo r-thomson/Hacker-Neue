@@ -15,7 +15,7 @@
 		"analyze": "vite build --mode=analyze"
 	},
 	"dependencies": {
-		"@sveltejs/vite-plugin-svelte": "^2.4.5",
+		"@sveltejs/vite-plugin-svelte": "^2.4.6",
 		"@tsconfig/svelte": "^5.0.2",
 		"date-fns": "^2.30.0",
 		"firebase": "^10.3.0",
