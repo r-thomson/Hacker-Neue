@@ -74,10 +74,15 @@ export async function fetchKids(
 			onFetchItem?.();
 		}
 
-		return Object.assign(item, {
+		// We need to assign @@rootItem before recursively calling fetchKids()
+		// Admittedly I am not sure how to represent this well in TypeScript
+		const itemWithRoot = Object.assign(item, {
 			[symbols.rootItem]: symbols.rootItem in parent ? parent[symbols.rootItem] : parent,
-			[symbols.resolvedKids]: await fetchKids(item, onFetchItem, _depth + 1),
-		} as FetchedKids);
+		} as Pick<FetchedKids, typeof symbols.rootItem>);
+
+		return Object.assign(itemWithRoot, {
+			[symbols.resolvedKids]: await fetchKids(itemWithRoot, onFetchItem, _depth + 1),
+		} as Pick<FetchedKids, typeof symbols.resolvedKids>);
 	});
 
 	const kids = await Promise.all(kidsPromises);
