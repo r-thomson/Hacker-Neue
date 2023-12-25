@@ -7,9 +7,12 @@
 	const HN_ORIGIN = 'https://news.ycombinator.com';
 	const THIS_ORIGIN = location.origin;
 
+	/** Hacker News paths that have a Hacker Neue equivalent */
+	const HN_PATH_WHITELIST = new Set(['/', '/newest', '/best', '/ask', '/show', '/jobs', '/item']);
+
 	function rewriteHNLinks(node: HTMLElement) {
 		node.querySelectorAll('a').forEach((anchorEl) => {
-			if (anchorEl.href.startsWith(HN_ORIGIN + '/')) {
+			if (anchorEl.origin === HN_ORIGIN && HN_PATH_WHITELIST.has(anchorEl.pathname)) {
 				anchorEl.href = anchorEl.href.replace(HN_ORIGIN, THIS_ORIGIN);
 				anchorEl.innerText = anchorEl.innerText.replace(HN_ORIGIN, THIS_ORIGIN);
 			}
