@@ -23,7 +23,7 @@
 		"vite": "^4.5.1"
 	},
 	"devDependencies": {
-		"prettier": "^3.1.1",
+		"prettier": "^3.2.2",
 		"prettier-plugin-svelte": "^3.1.2",
 		"rollup-plugin-visualizer": "^5.12.0",
 		"svelte-check": "^3.6.2",
