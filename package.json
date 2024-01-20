@@ -20,7 +20,7 @@
 		"date-fns": "3.2.0",
 		"firebase": "10.7.1",
 		"svelte": "4.2.8",
-		"vite": "4.5.1"
+		"vite": "4.5.2"
 	},
 	"devDependencies": {
 		"prettier": "3.2.2",
