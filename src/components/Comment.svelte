@@ -100,6 +100,7 @@
 		left: 0;
 
 		color: var(--color-secondary);
+		user-select: none;
 	}
 
 	.collapse-button :global(svg) {
