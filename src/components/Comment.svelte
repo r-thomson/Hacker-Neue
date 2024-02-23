@@ -101,6 +101,7 @@
 
 		color: var(--color-secondary);
 		user-select: none;
+		touch-action: manipulation;
 	}
 
 	.collapse-button :global(svg) {
