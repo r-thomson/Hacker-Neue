@@ -17,7 +17,7 @@
 				tags: type ? [type] : undefined,
 				ordering: sort,
 				hitsPerPage: 50,
-		  })
+			})
 		: null;
 </script>
 
@@ -55,6 +55,7 @@
 				{/if}
 			{/each}
 		</ol>
+		<p class="empty-message">There are no results for this search.</p>
 	{:catch error}
 		<ErrorMessage {error} />
 	{/await}
@@ -99,5 +100,16 @@
 
 	li + li {
 		margin-top: 0.5rem;
+	}
+
+	.empty-message {
+		margin: 6rem 0 4rem;
+		text-align: center;
+		font-size: 0.875rem;
+		color: var(--color-secondary);
+	}
+
+	:not(:empty) + .empty-message {
+		display: none;
 	}
 </style>

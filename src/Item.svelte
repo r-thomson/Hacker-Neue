@@ -50,6 +50,7 @@
 				{/if}
 			{/each}
 		</div>
+		<p class="empty-message">This story has no comments currently.</p>
 	{:catch error}
 		<ErrorMessage {error} />
 	{/await}
@@ -70,5 +71,16 @@
 
 	.progress-container {
 		margin: 8rem 0 4rem;
+	}
+
+	.empty-message {
+		margin: 6rem 0 4rem;
+		text-align: center;
+		font-size: 0.875rem;
+		color: var(--color-secondary);
+	}
+
+	:not(:empty) + .empty-message {
+		display: none;
 	}
 </style>
