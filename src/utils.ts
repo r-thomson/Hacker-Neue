@@ -26,6 +26,11 @@ export function debouncedStore<T>(
 	);
 }
 
+interface PersistedStore<T> extends Writable<T> {
+	/** Remove any stored value. */
+	unset(): void;
+}
+
 /**
  * A writable store that persists its value with the Web Storage API.
  * @param key Storage key
@@ -36,7 +41,7 @@ export function persistedStore<T>(
 	key: string,
 	defaultValue: T,
 	storage: Storage = localStorage,
-): Writable<T> {
+): PersistedStore<T> {
 	function loadValue(): T {
 		const storedValue = storage.getItem(key);
 		return storedValue === null ? defaultValue : JSON.parse(storedValue);
@@ -44,6 +49,10 @@ export function persistedStore<T>(
 
 	function saveValue(value: T) {
 		storage.setItem(key, JSON.stringify(value));
+	}
+
+	function clearValue() {
+		storage.removeItem(key);
 	}
 
 	const store = writable<T>(undefined, (set) => {
@@ -72,6 +81,10 @@ export function persistedStore<T>(
 			const newValue = fn(loadValue());
 			store.set(newValue);
 			saveValue(newValue);
+		},
+		unset() {
+			clearValue();
+			store.set(defaultValue);
 		},
 	};
 }
