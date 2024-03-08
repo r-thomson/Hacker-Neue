@@ -46,7 +46,7 @@ export function persistedStore<T>(
 		storage.setItem(key, JSON.stringify(value));
 	}
 
-	const store = writable<T>(loadValue(), (set) => {
+	const store = writable<T>(undefined, (set) => {
 		set(loadValue());
 
 		function onStorage(event: StorageEvent) {
