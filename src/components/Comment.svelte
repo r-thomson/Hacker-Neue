@@ -100,7 +100,7 @@
 		left: 0;
 
 		color: var(--color-secondary);
-		user-select: none;
+
 		touch-action: manipulation;
 	}
 
