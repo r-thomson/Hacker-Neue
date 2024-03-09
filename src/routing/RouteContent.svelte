@@ -2,7 +2,6 @@
 	import type { ComponentType } from 'svelte';
 	import Item from '../Item.svelte';
 	import * as storyLists from '../lists.js';
-	import Preferences from '../Preferences.svelte';
 	import Search from '../Search.svelte';
 	import { currentUrl } from './router';
 
@@ -13,7 +12,6 @@
 		'/ask': storyLists.AskStories,
 		'/show': storyLists.ShowStories,
 		'/jobs': storyLists.JobStories,
-		'/info': Preferences,
 		'/search': Search,
 		'/item': Item,
 	};

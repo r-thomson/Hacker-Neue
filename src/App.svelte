@@ -3,7 +3,7 @@
 	import RouteContent from './routing/RouteContent.svelte';
 	import { currentUrl } from './routing/router';
 
-	$: showOpenInHN = !['/search', '/info'].includes($currentUrl.pathname);
+	$: showOpenInHN = !['/search'].includes($currentUrl.pathname);
 	$: relativeUrl = $currentUrl.href.slice($currentUrl.origin.length);
 </script>
 
