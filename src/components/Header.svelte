@@ -1,6 +1,9 @@
 <script lang="ts">
 	import SiteLogo from '../components/SiteLogo.svelte';
 	import { currentUrl } from '../routing/router';
+	import PreferencesModal from './PreferencesModal.svelte';
+
+	let prefsModalOpen = false;
 </script>
 
 <header>
@@ -36,17 +39,25 @@
 				<li class:active={$currentUrl.pathname === '/search'}>
 					<a href="/search">search</a>
 				</li>
-				<li class:active={$currentUrl.pathname === '/info'}>
-					<a href="/info">prefs</a>
+				<li>
+					<button type="button" on:click={() => (prefsModalOpen = true)}>prefs</button>
 				</li>
 			</ul>
 		</nav>
 	</div>
 </header>
 
+<PreferencesModal bind:open={prefsModalOpen} />
+
 <style>
 	a:link {
 		text-decoration: none;
+	}
+
+	button {
+		all: unset;
+		outline: revert;
+		cursor: pointer;
 	}
 
 	header {
