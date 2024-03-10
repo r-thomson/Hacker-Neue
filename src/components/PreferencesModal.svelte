@@ -12,12 +12,28 @@
 		}
 	}
 
+	function isWithinBoundingRect(event: MouseEvent, boundingRect: DOMRectReadOnly): boolean {
+		return (
+			event.clientY >= boundingRect.top &&
+			event.clientX >= boundingRect.left &&
+			event.clientY <= boundingRect.bottom &&
+			event.clientX <= boundingRect.right
+		);
+	}
+
+	function onClick(event: MouseEvent) {
+		if (!isWithinBoundingRect(event, dialogEl!.getBoundingClientRect())) {
+			dialogEl!.close();
+		}
+	}
+
 	function onReset(_event: Event) {
 		resetPreferences();
 	}
 </script>
 
-<dialog bind:this={dialogEl} on:close={() => (open = false)}>
+<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
+<dialog bind:this={dialogEl} on:close={() => (open = false)} on:click={onClick}>
 	<h2>Preferences</h2>
 
 	<form method="dialog" on:reset|preventDefault={onReset}>
