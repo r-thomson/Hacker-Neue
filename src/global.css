@@ -59,3 +59,10 @@ label {
 
 	touch-action: manipulation;
 }
+
+noscript {
+	display: block;
+	margin: 25vh auto;
+	padding: 24px;
+	max-width: 48rem;
+}
