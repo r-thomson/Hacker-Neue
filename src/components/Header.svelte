@@ -1,5 +1,7 @@
 <script lang="ts">
-	import SiteLogo from '../components/SiteLogo.svelte';
+	import HackerNeueIcon from '../icons/HackerNeueIcon.svelte';
+	import SearchIcon from '../icons/SearchIcon.svelte';
+	import SlidersIcon from '../icons/SlidersIcon.svelte';
 	import { currentUrl } from '../routing/router';
 	import PreferencesModal from './PreferencesModal.svelte';
 
@@ -9,10 +11,10 @@
 <header>
 	<div class="header-container">
 		<a class="title-container" href="/">
-			<SiteLogo />
+			<HackerNeueIcon />
 			<span class="title">Hacker Neue</span>
 		</a>
-		<nav class="lists">
+		<nav>
 			<ul>
 				<li class:active={$currentUrl.pathname === '/'}>
 					<a href="/">top</a>
@@ -34,13 +36,17 @@
 				</li>
 			</ul>
 		</nav>
-		<nav class="links">
+		<nav>
 			<ul>
 				<li class:active={$currentUrl.pathname === '/search'}>
-					<a href="/search">search</a>
+					<a href="/search">
+						<SearchIcon aria-label="search" role="img" />
+					</a>
 				</li>
 				<li>
-					<button type="button" on:click={() => (prefsModalOpen = true)}>prefs</button>
+					<button type="button" on:click={() => (prefsModalOpen = true)}>
+						<SlidersIcon aria-label="preferences" role="img" />
+					</button>
 				</li>
 			</ul>
 		</nav>
@@ -100,7 +106,7 @@
 		line-height: 1;
 	}
 
-	@media (max-width: 33em) {
+	@media (max-width: 32em) {
 		.title-container > .title {
 			display: none;
 		}
@@ -141,15 +147,9 @@
 		border-bottom-color: #fafaf9;
 	}
 
-	@media (max-width: 26em) {
-		.lists li:nth-child(6) {
-			display: none;
-		}
-	}
-
-	@media (max-width: 23em) {
-		.lists li:nth-child(5) {
-			display: none;
-		}
+	li :global(svg) {
+		margin: 0.25rem 0.125rem;
+		width: 1rem;
+		height: 1rem;
 	}
 </style>
