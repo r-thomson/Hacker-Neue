@@ -6,7 +6,7 @@ const isSameOrigin = (destination: URL) => destination.origin === window.locatio
 const _currentUrl = writable(new URL(window.location.href), (set) => {
 	set(new URL(window.location.href));
 
-	function onPopState(event: PopStateEvent) {
+	function onPopState(_event: PopStateEvent) {
 		set(new URL(window.location.href));
 	}
 
@@ -51,9 +51,12 @@ export function navigate(to: string, replace = false) {
 
 // Convert link clicks to in-app navigation
 document.addEventListener('click', (event: MouseEvent) => {
-	if (event.target instanceof HTMLAnchorElement) {
-		const anchorTag = event.target;
+	const anchorTag =
+		event.target instanceof Element
+			? (event.target.closest('a[href]') as HTMLAnchorElement)
+			: null;
 
+	if (anchorTag) {
 		// Don't interfere with the browser's standard link behavior
 		if (event.button !== 0 /* left click */) return;
 		if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
