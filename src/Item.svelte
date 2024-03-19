@@ -13,6 +13,8 @@
 
 		if ('title' in item && item.title) {
 			document.title = `${item.title} - Hacker Neue`;
+		} else if (item.type === 'comment' && !item.deleted) {
+			document.title = `Comment by ${item.by} - Hacker Neue`;
 		}
 
 		return item;
@@ -30,8 +32,9 @@
 	{#if !item.deleted}
 		{#if item.type === 'story' || item.type === 'job' || item.type === 'poll'}
 			<Story story={item} expanded />
+		{:else if item.type === 'comment'}
+			<Comment comment={item} />
 		{/if}
-		<!-- TODO: support comment permalinks -->
 	{/if}
 
 	<hr class="comments-divider" />
@@ -43,14 +46,14 @@
 			/>
 		</div>
 	{:then comments}
-		<div class="story-comments">
+		<div class="item-comments">
 			{#each comments as comment (comment.id)}
 				{#if comment.type === 'comment' && !comment.deleted}
 					<Comment {comment} collapsible />
 				{/if}
 			{/each}
 		</div>
-		<p class="empty-message">This story has no comments currently.</p>
+		<p class="empty-message">This item has no comments currently.</p>
 	{:catch error}
 		<ErrorMessage {error} />
 	{/await}
@@ -59,7 +62,7 @@
 {/await}
 
 <style>
-	.story-comments > :global(.comment + .comment) {
+	.item-comments > :global(.comment + .comment) {
 		margin-top: 0.5rem;
 	}
 
