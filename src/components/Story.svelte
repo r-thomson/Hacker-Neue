@@ -17,10 +17,12 @@
 
 <article class="story" id={story.id.toString()}>
 	<div class="details">
-		<span class="score" class:highlight>
-			{story.score}
-			{story.score === 1 ? 'point' : 'points'}
-		</span>
+		{#if story.type !== 'job'}
+			<span class="score" class:highlight>
+				{story.score}
+				{story.score === 1 ? 'point' : 'points'}
+			</span>
+		{/if}
 		<Timestamp {date} />
 	</div>
 
