@@ -9,7 +9,7 @@
 </script>
 
 <header>
-	<div class="header-container">
+	<div class="header-contents">
 		<a class="title-container" href="/">
 			<HackerNeueIcon />
 			<span class="title">Hacker Neue</span>
@@ -67,7 +67,12 @@
 	}
 
 	header {
-		--header-padding: 0.5rem;
+		--header-inset: 8px;
+
+		padding-top: var(--header-inset);
+		padding-right: max(var(--header-inset), env(safe-area-inset-right));
+		padding-bottom: var(--header-inset);
+		padding-left: max(var(--header-inset), env(safe-area-inset-left));
 
 		background-color: var(--color-accent);
 		color: #fff;
@@ -79,24 +84,27 @@
 		user-select: none;
 	}
 
-	.header-container {
+	.header-contents {
 		display: flex;
 		align-items: stretch;
 
-		max-width: calc(
-			var(--content-max-width) - 2 * (var(--content-padding-x) - var(--header-padding))
-		);
+		box-sizing: content-box;
+		max-width: var(--content-max-width);
 		margin: 0 auto;
-		padding: var(--header-padding);
 	}
 
-	.header-container > * + * {
-		margin-left: var(--header-padding);
+	.header-contents > * + * {
+		margin-left: 0.5rem;
 	}
 
 	.title-container {
 		display: flex;
 		align-items: center;
+	}
+
+	.title-container > :global(svg) {
+		width: 1.25rem;
+		height: 1.25rem;
 	}
 
 	.title-container > .title {
@@ -113,7 +121,7 @@
 	}
 
 	nav {
-		margin: calc(-1 * var(--header-padding)) 0; /* fill height */
+		margin: calc(-1 * var(--header-inset)) 0; /* fill height */
 	}
 
 	nav:first-of-type {

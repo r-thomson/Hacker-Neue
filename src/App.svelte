@@ -21,17 +21,22 @@
 <style>
 	main,
 	footer {
+		box-sizing: content-box;
 		max-width: var(--content-max-width);
 		margin: 0 auto;
+		padding-left: max(16px, env(safe-area-inset-left));
+		padding-right: max(16px, env(safe-area-inset-right));
 	}
 
 	main {
 		min-height: calc(90vh - 8rem);
-		padding: 1rem var(--content-padding-x) 2.5rem;
+		padding-top: 1rem;
+		padding-bottom: 2.5rem;
 	}
 
 	footer {
-		padding: 1rem var(--content-padding-x) 6rem;
+		padding-top: 1rem;
+		padding-bottom: 6rem;
 		display: flex;
 		border-top: 1px solid var(--color-tertiary);
 		color: var(--color-secondary);
