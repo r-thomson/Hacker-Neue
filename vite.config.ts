@@ -1,4 +1,5 @@
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
+import autoprefixer from 'autoprefixer';
 import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 
@@ -15,6 +16,11 @@ export default defineConfig(({ command, mode }) => {
 					template: 'sunburst',
 				}),
 		],
+		css: {
+			postcss: {
+				plugins: [autoprefixer()],
+			},
+		},
 		server: {
 			port: 3000,
 		},
