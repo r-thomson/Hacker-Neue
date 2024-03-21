@@ -19,10 +19,7 @@
 		overflow: hidden;
 		background-color: var(--color-tertiary);
 
-		-webkit-appearance: none;
-		-moz-appearance: none;
 		appearance: none;
-
 		border: none; /* Firefox defaults */
 	}
 

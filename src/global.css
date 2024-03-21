@@ -40,7 +40,6 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 
 	/* Prevent mobile browsers from adjusting font size */
-	-webkit-text-size-adjust: none;
 	text-size-adjust: none;
 
 	/* Always show the scrollbar to prevent jumping when content loads */
@@ -52,10 +51,7 @@ a {
 }
 
 label {
-	-webkit-user-select: none;
-	-moz-user-select: none;
 	user-select: none;
-
 	touch-action: manipulation;
 }
 
