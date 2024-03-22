@@ -54,7 +54,7 @@
 	<div class="body" hidden={collapsible && collapsed}>
 		<Content content={comment.text} />
 	</div>
-	{#if symbols.resolvedKids in comment && comment[symbols.resolvedKids].length > 1}
+	{#if symbols.resolvedKids in comment && comment[symbols.resolvedKids].length > 0}
 		<div class="child-comments" hidden={collapsed}>
 			{#each comment[symbols.resolvedKids] as childComment (childComment.id)}
 				{#if childComment.type === 'comment' && !childComment.deleted}
