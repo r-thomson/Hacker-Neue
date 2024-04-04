@@ -33,7 +33,7 @@
 		{#if item.type === 'story' || item.type === 'job' || item.type === 'poll'}
 			<Story story={item} expanded />
 		{:else if item.type === 'comment'}
-			<Comment comment={item} />
+			<Comment comment={item} parentLink />
 		{/if}
 	{/if}
 

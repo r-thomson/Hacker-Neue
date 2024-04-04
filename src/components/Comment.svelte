@@ -8,6 +8,7 @@
 
 	export let comment: Exclude<HNComment | (HNComment & FetchedKids), DeletedHNItem>;
 	export let collapsible: boolean = false;
+	export let parentLink: boolean = false;
 
 	$: date = fromUnixTime(comment.time);
 	$: isByOp =
@@ -44,9 +45,12 @@
 			{comment.by}
 		</span>
 		{#if isByOp}
-			<abb class="badge" title="Original poster">OP</abb>
+			<abb class="op-badge" title="Original poster">OP</abb>
 		{/if}
-		<Timestamp {date} />
+		<a class="permalink" href={`item?id=${comment.id}`}><Timestamp {date} /></a>
+		{#if parentLink}
+			<a class="parent" href={`item?id=${comment.parent}`}>parent</a>
+		{/if}
 		{#if comment.dead}
 			<span>(dead)</span>
 		{/if}
@@ -146,15 +150,19 @@
 		font-weight: 500;
 	}
 
-	.details .badge {
+	.details .author.mod-name {
+		color: var(--color-accent);
+	}
+
+	.details .op-badge {
 		font-size: 0.75rem;
 		padding: 0 0.125rem;
 		border: 1px solid var(--color-tertiary);
 		border-radius: 3px;
 	}
 
-	.details .author.mod-name {
-		color: var(--color-accent);
+	.details .permalink {
+		text-decoration: unset;
 	}
 
 	.body {
