@@ -51,16 +51,16 @@ export function navigate(to: string, replace = false) {
 
 // Convert link clicks to in-app navigation
 document.addEventListener('click', (event: MouseEvent) => {
+	if (event.defaultPrevented) return;
+
+	// Don't interfere with the browser's standard link behavior
+	if (event.button !== 0 /* left click */) return;
+	if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+
 	const anchorTag =
-		event.target instanceof Element
-			? (event.target.closest('a[href]') as HTMLAnchorElement)
-			: null;
+		event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
 
 	if (anchorTag) {
-		// Don't interfere with the browser's standard link behavior
-		if (event.button !== 0 /* left click */) return;
-		if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
-
 		if (!isSameOrigin(new URL(anchorTag.href, window.location.origin))) return;
 		if (anchorTag.target && anchorTag.target !== '_self') return;
 
