@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import autoprefixer from 'autoprefixer';
 import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
@@ -26,6 +27,9 @@ export default defineConfig(({ command, mode }) => {
 		},
 		esbuild: {
 			legalComments: 'eof',
+		},
+		test: {
+			environment: 'happy-dom',
 		},
 	};
 });
