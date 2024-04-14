@@ -19,7 +19,7 @@ export function debouncedStore<T>(
 			}, delay);
 
 			return () => {
-				clearInterval(timeout);
+				clearTimeout(timeout);
 			};
 		},
 		initialValue,
