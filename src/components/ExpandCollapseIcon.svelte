@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let collapsed: boolean;
+	interface ExpandCollapseIconProps {
+		collapsed: boolean;
+	}
+
+	let { collapsed }: ExpandCollapseIconProps = $props();
 </script>
 
 <svg

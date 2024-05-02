@@ -11,6 +11,9 @@ export default defineConfig(({ command, mode }) => {
 		plugins: [
 			svelte({
 				preprocess: vitePreprocess(),
+				compilerOptions: {
+					runes: true,
+				},
 			}),
 			analyze &&
 				visualizer({

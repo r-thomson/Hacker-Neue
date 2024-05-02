@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { differenceInDays, formatISO, intlFormat, intlFormatDistance } from 'date-fns';
 
-	export let date: Date;
+	interface TimestampProps {
+		date: Date;
+	}
+
+	let { date }: TimestampProps = $props();
 
 	function formatForDisplay(date: Date) {
 		const daysAgo = differenceInDays(date, Date.now()) * -1;

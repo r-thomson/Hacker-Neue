@@ -1,26 +1,26 @@
 <article class="story" aria-hidden="true">
 	<div class="details">
 		<span class="skeleton-container score">
-			<span class="skeleton-content" />
+			<span class="skeleton-content"></span>
 		</span>
 		<span class="skeleton-container time">
-			<span class="skeleton-content" />
+			<span class="skeleton-content"></span>
 		</span>
 	</div>
 	<div class="title">
 		<span class="skeleton-container">
-			<span class="skeleton-content" />
+			<span class="skeleton-content"></span>
 		</span>
 	</div>
 	<div class="details">
 		<span class="skeleton-container comments">
-			<span class="skeleton-content" />
+			<span class="skeleton-content"></span>
 		</span>
 		<span class="skeleton-container author">
-			<span class="skeleton-content" />
+			<span class="skeleton-content"></span>
 		</span>
 		<span class="skeleton-container site">
-			<span class="skeleton-content" />
+			<span class="skeleton-content"></span>
 		</span>
 	</div>
 </article>

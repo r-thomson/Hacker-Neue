@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let error: Error;
+	interface ErrorMessageType {
+		error: Error;
+	}
+
+	let { error }: ErrorMessageType = $props();
 </script>
 
 <div class="container">

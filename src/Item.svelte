@@ -20,7 +20,7 @@
 		return item;
 	});
 
-	let commentsFetched = 0;
+	let commentsFetched = $state(0);
 	const comments = item.then((item) => fetchKids(item, () => commentsFetched++));
 </script>
 

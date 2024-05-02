@@ -9,19 +9,21 @@
 	const searchQuery = writable('');
 	const debouncedSearchQuery = debouncedStore(searchQuery, 350, '');
 
-	let type: 'story' | 'comment' | null = null;
-	let sort: 'popularity' | 'date' = 'popularity';
+	let type: 'story' | 'comment' | null = $state(null);
+	let sort: 'popularity' | 'date' = $state('popularity');
 
-	$: searchResults = $debouncedSearchQuery
-		? search($debouncedSearchQuery, {
-				tags: type ? [type] : undefined,
-				ordering: sort,
-				hitsPerPage: 50,
-			})
-		: null;
+	let searchResults = $derived(
+		$debouncedSearchQuery
+			? search($debouncedSearchQuery, {
+					tags: type ? [type] : undefined,
+					ordering: sort,
+					hitsPerPage: 50,
+				})
+			: null,
+	);
 </script>
 
-<form class="search-form" on:submit|preventDefault={() => {}}>
+<form class="search-form" onsubmit={(e) => e.preventDefault()}>
 	<input type="search" bind:value={$searchQuery} placeholder="Search" aria-label="Search" />
 	<label>
 		Type

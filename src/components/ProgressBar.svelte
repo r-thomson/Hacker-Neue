@@ -1,9 +1,13 @@
 <script lang="ts">
-	export let progress: number;
+	interface ProgressBarProps {
+		progress: number;
+	}
+
+	let { progress }: ProgressBarProps = $props();
 </script>
 
 <div class="container">
-	<progress value={progress} />
+	<progress value={progress}></progress>
 </div>
 
 <style>

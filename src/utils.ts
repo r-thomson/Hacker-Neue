@@ -13,7 +13,7 @@ export function debouncedStore<T>(
 ): Readable<T> {
 	return derived(
 		store,
-		(store, set) => {
+		(store: T, set: (value: T) => void) => {
 			const timeout = setTimeout(() => {
 				set(store);
 			}, delay);

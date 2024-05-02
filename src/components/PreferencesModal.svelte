@@ -1,16 +1,20 @@
 <script lang="ts">
 	import { highlightThreshold, maxStories, resetPreferences, showCounters } from '../preferences';
 
-	/** Whether or not the modal is open. */
-	export let open: boolean;
+	interface PreferencesModalProps {
+		/** Whether or not the modal is open. */
+		open: boolean;
+	}
+
+	let { open = $bindable() }: PreferencesModalProps = $props();
 
 	let dialogEl: HTMLDialogElement | undefined;
 
-	$: {
+	$effect(() => {
 		if (dialogEl && open) {
 			dialogEl.showModal();
 		}
-	}
+	});
 
 	function isWithinBoundingRect(event: MouseEvent, boundingRect: DOMRectReadOnly): boolean {
 		return (
@@ -21,22 +25,23 @@
 		);
 	}
 
-	function onClick(event: MouseEvent) {
+	function onclick(event: MouseEvent) {
 		if (!isWithinBoundingRect(event, dialogEl!.getBoundingClientRect())) {
 			dialogEl!.close();
 		}
 	}
 
-	function onReset(_event: Event) {
+	function onreset(event: Event) {
+		event.preventDefault();
 		resetPreferences();
 	}
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-<dialog bind:this={dialogEl} on:close={() => (open = false)} on:click={onClick}>
+<dialog bind:this={dialogEl} onclose={() => (open = false)} {onclick}>
 	<h2>Preferences</h2>
 
-	<form method="dialog" on:reset|preventDefault={onReset}>
+	<form method="dialog" {onreset}>
 		<label id="showCountersSelect">
 			<input type="checkbox" bind:checked={$showCounters} />
 			Show counters in story lists

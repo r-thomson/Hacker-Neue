@@ -6,37 +6,42 @@
 	import ExpandCollapseIcon from './ExpandCollapseIcon.svelte';
 	import Timestamp from './Timestamp.svelte';
 
-	export let comment: Exclude<HNComment | (HNComment & FetchedKids), DeletedHNItem>;
-	export let collapsible: boolean = false;
-	export let parentLink: boolean = false;
+	interface CommentProps {
+		comment: Exclude<HNComment | (HNComment & FetchedKids), DeletedHNItem>;
+		collapsible?: boolean;
+		parentLink?: boolean;
+	}
 
-	$: date = fromUnixTime(comment.time);
-	$: isByOp =
+	const { comment, collapsible = false, parentLink = false }: CommentProps = $props();
+
+	let date = $derived(fromUnixTime(comment.time));
+	let isByOp = $derived(
 		symbols.rootItem in comment &&
-		'by' in comment[symbols.rootItem] &&
-		comment.by === comment[symbols.rootItem].by;
+			'by' in comment[symbols.rootItem] &&
+			comment.by === comment[symbols.rootItem].by,
+	);
 
-	let collapsed = collapsible && !!comment.dead; // Dead comments are collapsed by default
-	let element: HTMLElement;
+	let collapsed = $state(collapsible && !!comment.dead); // Dead comments are collapsed by default
+	let element: HTMLElement | undefined;
 
 	const COLLAPSE_TOP_SPACE = 4;
 
-	const toggleCollapse = () => {
+	function toggleCollapse() {
 		collapsed = !collapsed;
 
-		if (collapsed) {
+		if (collapsed && element) {
 			// Scroll up if the top of the comment is off the screen
 			const { top } = element.getBoundingClientRect();
 			if (top < COLLAPSE_TOP_SPACE) {
 				scrollTo(window.scrollX, window.scrollY + top - COLLAPSE_TOP_SPACE);
 			}
 		}
-	};
+	}
 </script>
 
 <div bind:this={element} class="comment" class:collapsible id={comment.id.toString()}>
 	{#if collapsible}
-		<button class="collapse-button" on:click={toggleCollapse}>
+		<button class="collapse-button" onclick={toggleCollapse}>
 			<ExpandCollapseIcon {collapsed} />
 		</button>
 	{/if}

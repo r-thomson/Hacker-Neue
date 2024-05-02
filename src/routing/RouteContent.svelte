@@ -16,16 +16,16 @@
 		'/item': Item,
 	};
 
-	$: routeComponent = routes[$currentUrl.pathname];
+	let routeComponent = $derived(routes[$currentUrl.pathname]);
 
-	let routeKey = Symbol();
+	let routeKey = $state(Symbol());
 
-	$: {
+	$effect(() => {
 		$currentUrl;
 		routeKey = Symbol();
 		document.title = 'Hacker Neue';
 		window.scrollTo(0, 0);
-	}
+	});
 </script>
 
 {#if routeComponent}
