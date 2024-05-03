@@ -3,7 +3,7 @@
 	import Item from '../Item.svelte';
 	import * as storyLists from '../lists.js';
 	import Search from '../Search.svelte';
-	import { currentUrl } from './router';
+	import { router } from './router.svelte.js';
 
 	const routes: { [key: string]: ComponentType } = {
 		'/': storyLists.TopStories,
@@ -16,12 +16,12 @@
 		'/item': Item,
 	};
 
-	let routeComponent = $derived(routes[$currentUrl.pathname]);
+	let routeComponent = $derived(routes[router.currentUrl.pathname]);
 
 	let routeKey = $state(Symbol());
 
 	$effect(() => {
-		$currentUrl;
+		router.currentUrl;
 		routeKey = Symbol();
 		document.title = 'Hacker Neue';
 		window.scrollTo(0, 0);

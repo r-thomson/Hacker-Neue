@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Header from './components/Header.svelte';
 	import RouteContent from './routing/RouteContent.svelte';
-	import { currentUrl } from './routing/router';
+	import { router } from './routing/router.svelte.js';
 
-	let showOpenInHN = $derived(!['/search'].includes($currentUrl.pathname));
-	let relativeUrl = $derived($currentUrl.href.slice($currentUrl.origin.length));
+	let showOpenInHN = $derived(!['/search'].includes(router.currentUrl.pathname));
+	let relativeUrl = $derived(router.currentUrl.href.slice(router.currentUrl.origin.length));
 </script>
 
 <Header />
