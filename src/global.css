@@ -46,6 +46,10 @@ body {
 	overflow-y: scroll;
 }
 
+body:has(dialog[open]) {
+	overflow: hidden !important;
+}
+
 a {
 	color: unset;
 }

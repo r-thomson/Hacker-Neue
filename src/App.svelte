@@ -29,7 +29,7 @@
 	}
 
 	main {
-		min-height: calc(90vh - 8rem);
+		min-height: calc(90vh - 10rem);
 		padding-top: 1rem;
 		padding-bottom: 2.5rem;
 	}
