@@ -41,6 +41,13 @@
 			}
 		}
 	}
+
+	function countChildComments(comment: HNComment & FetchedKids): number {
+		return comment[symbols.resolvedKids]
+			.filter((comment) => !comment.deleted)
+			.map((comment) => 1 + countChildComments(comment as HNComment & FetchedKids))
+			.reduce((a, b) => a + b, 0);
+	}
 </script>
 
 <div bind:this={element} class="comment" class:collapsible id={comment.id.toString()}>
@@ -49,6 +56,7 @@
 			<ExpandCollapseIcon {collapsed} />
 		</button>
 	{/if}
+
 	<div class="details">
 		<span class="author" class:mod-name={modNames.has(comment.by)}>
 			{comment.by}
@@ -64,16 +72,24 @@
 			<span>(dead)</span>
 		{/if}
 	</div>
+
 	<div class="body" hidden={collapsible && collapsed}>
 		<Content content={comment.text} />
 	</div>
+
 	{#if symbols.resolvedKids in comment && comment[symbols.resolvedKids].length > 0}
 		<div class="child-comments" hidden={collapsed}>
-			{#each comment[symbols.resolvedKids] as childComment (childComment.id)}
-				{#if childComment.type === 'comment' && !childComment.deleted}
-					<svelte:self comment={childComment} collapsible />
-				{/if}
-			{/each}
+			{#if depth === 6 && countChildComments(comment) > 1}
+				<a class="more-comments" href="item?id={comment.id}">
+					{countChildComments(comment)} More Comments &rarr;
+				</a>
+			{:else}
+				{#each comment[symbols.resolvedKids] as childComment (childComment.id)}
+					{#if childComment.type === 'comment' && !childComment.deleted}
+						<svelte:self comment={childComment} collapsible />
+					{/if}
+				{/each}
+			{/if}
 		</div>
 	{/if}
 </div>
@@ -175,6 +191,10 @@
 	}
 
 	.body {
+		font-size: 0.875rem;
+	}
+
+	.more-comments {
 		font-size: 0.875rem;
 	}
 </style>
