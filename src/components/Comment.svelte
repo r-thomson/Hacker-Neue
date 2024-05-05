@@ -7,6 +7,7 @@
 	import { getContext, setContext } from 'svelte';
 	import { modNames, symbols, type FetchedKids } from '../hacker-news/api';
 	import type { DeletedHNItem, HNComment } from '../hacker-news/types';
+	import { collapseLongThreads } from '../preferences';
 	import Content from './Content.svelte';
 	import ExpandCollapseIcon from './ExpandCollapseIcon.svelte';
 	import Timestamp from './Timestamp.svelte';
@@ -79,7 +80,7 @@
 
 	{#if symbols.resolvedKids in comment && comment[symbols.resolvedKids].length > 0}
 		<div class="child-comments" hidden={collapsed}>
-			{#if depth === 6 && countChildComments(comment) > 1}
+			{#if $collapseLongThreads && depth === 5 && countChildComments(comment) > 1}
 				<a class="more-comments" href="item?id={comment.id}">
 					{countChildComments(comment)} More Comments &rarr;
 				</a>

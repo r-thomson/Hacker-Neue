@@ -1,5 +1,11 @@
 <script lang="ts">
-	import { highlightThreshold, maxStories, resetPreferences, showCounters } from '../preferences';
+	import {
+		highlightThreshold,
+		maxStories,
+		resetPreferences,
+		showCounters,
+		collapseLongThreads,
+	} from '../preferences';
 
 	/** Whether or not the modal is open. */
 	export let open: boolean;
@@ -37,7 +43,7 @@
 	<h2>Preferences</h2>
 
 	<form method="dialog" on:reset|preventDefault={onReset}>
-		<label id="showCountersSelect">
+		<label>
 			<input type="checkbox" bind:checked={$showCounters} />
 			Show counters in story lists
 		</label>
@@ -55,6 +61,11 @@
 				<option {value}>{value || 'Never'}</option>
 			{/each}
 		</select>
+
+		<label>
+			<input type="checkbox" bind:checked={$collapseLongThreads} />
+			Collapse long comment threads
+		</label>
 
 		<div class="actions">
 			<button type="submit">Done</button>
