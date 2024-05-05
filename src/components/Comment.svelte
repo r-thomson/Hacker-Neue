@@ -1,5 +1,10 @@
+<script context="module" lang="ts">
+	const DEPTH_KEY = Symbol();
+</script>
+
 <script lang="ts">
 	import { fromUnixTime } from 'date-fns';
+	import { getContext, setContext } from 'svelte';
 	import { modNames, symbols, type FetchedKids } from '../hacker-news/api';
 	import type { DeletedHNItem, HNComment } from '../hacker-news/types';
 	import Content from './Content.svelte';
@@ -9,6 +14,10 @@
 	export let comment: Exclude<HNComment | (HNComment & FetchedKids), DeletedHNItem>;
 	export let collapsible: boolean = false;
 	export let parentLink: boolean = false;
+
+	// Track how deep into <Comment> recursion we are
+	const depth = getContext<number>(DEPTH_KEY) ?? 0;
+	setContext(DEPTH_KEY, depth + 1);
 
 	$: date = fromUnixTime(comment.time);
 	$: isByOp =
@@ -21,7 +30,7 @@
 
 	const COLLAPSE_TOP_SPACE = 4;
 
-	const toggleCollapse = () => {
+	function toggleCollapse() {
 		collapsed = !collapsed;
 
 		if (collapsed) {
@@ -31,7 +40,7 @@
 				scrollTo(window.scrollX, window.scrollY + top - COLLAPSE_TOP_SPACE);
 			}
 		}
-	};
+	}
 </script>
 
 <div bind:this={element} class="comment" class:collapsible id={comment.id.toString()}>
