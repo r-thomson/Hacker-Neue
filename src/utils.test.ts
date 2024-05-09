@@ -8,7 +8,7 @@ describe('debouncedStore', () => {
 	});
 
 	afterEach(() => {
-		vi.restoreAllMocks();
+		vi.useRealTimers();
 	});
 
 	test('subscribers receive default value immediately', () => {
