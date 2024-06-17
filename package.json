@@ -22,7 +22,7 @@
 		"date-fns": "3.6.0",
 		"firebase": "10.12.1",
 		"svelte": "4.2.17",
-		"vite": "5.2.11"
+		"vite": "5.3.1"
 	},
 	"devDependencies": {
 		"happy-dom": "14.11.0",
