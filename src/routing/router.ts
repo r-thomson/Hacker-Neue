@@ -1,13 +1,13 @@
 import type { Readable } from 'svelte/store';
 import { readonly, writable } from 'svelte/store';
 
-const isSameOrigin = (destination: URL) => destination.origin === window.location.origin;
+const isSameOrigin = (destination: URL) => destination.origin === location.origin;
 
-const _currentUrl = writable(new URL(window.location.href), (set) => {
-	set(new URL(window.location.href));
+const _currentUrl = writable(new URL(location.href), (set) => {
+	set(new URL(location.href));
 
 	function onPopState(_event: PopStateEvent) {
-		set(new URL(window.location.href));
+		set(new URL(location.href));
 	}
 
 	function onHashChange(event: HashChangeEvent) {
@@ -32,18 +32,18 @@ export const currentUrl: Readable<URL> = readonly(_currentUrl);
  * @param replace Prevent navigation from creating a new history entry.
  */
 export function navigate(to: string, replace = false) {
-	const toURL = new URL(to, window.location.origin);
+	const toURL = new URL(to, location.origin);
 	if (!isSameOrigin(toURL)) throw Error('Destination URL is not same-origin');
 
 	// Don't create consecutive duplicate history entries
-	if (toURL.href === window.location.href) {
+	if (toURL.href === location.href) {
 		replace = true;
 	}
 
 	if (replace) {
-		window.history.replaceState(null, '', toURL);
+		history.replaceState(null, '', toURL);
 	} else {
-		window.history.pushState(null, '', toURL);
+		history.pushState(null, '', toURL);
 	}
 
 	_currentUrl.set(toURL);
@@ -61,7 +61,7 @@ document.addEventListener('click', (event: MouseEvent) => {
 		event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('a[href]') : null;
 
 	if (anchorTag) {
-		if (!isSameOrigin(new URL(anchorTag.href, window.location.origin))) return;
+		if (!isSameOrigin(new URL(anchorTag.href, location.origin))) return;
 		if (anchorTag.target && anchorTag.target !== '_self') return;
 
 		event.preventDefault();
