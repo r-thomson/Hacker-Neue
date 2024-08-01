@@ -1,4 +1,5 @@
 import { derived, writable, type Readable, type Updater, type Writable } from 'svelte/store';
+import { currentUrl, navigate } from './routing/router';
 
 /**
  * A derived store that updates after a delay since the latest change.
@@ -87,4 +88,37 @@ export function persistedStore<T>(
 			store.set(defaultValue);
 		},
 	};
+}
+
+/**
+ * A writable store that represents a value in the current URL's query string.
+ * @param param The name of the query parameter
+ * @param initialValue Fallback value if the parameter isn't present in the URL
+ * @param replace Navigate with push (`false`) or replace (`true`)
+ */
+export function searchParamStore(param: string, initialValue = ''): Writable<string> {
+	function getValue(params: URLSearchParams) {
+		return params.get(param) ?? initialValue;
+	}
+
+	const { subscribe } = derived(currentUrl, ($url) => getValue($url.searchParams));
+
+	function set(value: string) {
+		const newUrl = new URL(location.href);
+		if (value) {
+			newUrl.searchParams.set(param, value);
+		} else {
+			newUrl.searchParams.delete(param);
+		}
+
+		navigate(newUrl.pathname + newUrl.search + newUrl.hash, { replace: true });
+	}
+
+	function update(fn: Updater<string>) {
+		const curValue = getValue(new URLSearchParams(location.search));
+		const newValue = fn(curValue);
+		set(newValue);
+	}
+
+	return { subscribe, set, update };
 }
