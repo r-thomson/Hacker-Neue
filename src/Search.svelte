@@ -1,21 +1,24 @@
 <script lang="ts">
-	import { writable } from 'svelte/store';
 	import Comment from './components/Comment.svelte';
 	import ErrorMessage from './components/ErrorMessage.svelte';
 	import Story from './components/Story.svelte';
 	import { search } from './hacker-news/algolia';
-	import { debouncedStore } from './utils';
+	import { debouncedStore, searchParamStore } from './utils';
 
-	const searchQuery = writable('');
+	const searchQuery = searchParamStore('q');
 	const debouncedSearchQuery = debouncedStore(searchQuery, 350, '');
 
-	let type: 'story' | 'comment' | null = null;
-	let sort: 'popularity' | 'date' = 'popularity';
+	let type = searchParamStore('type');
+	let sort = searchParamStore('sort', 'popularity');
+
+	function isValidType(type: string): type is 'story' | 'comment' {
+		return type === 'story' || type === 'comment';
+	}
 
 	$: searchResults = $debouncedSearchQuery
 		? search($debouncedSearchQuery, {
-				tags: type ? [type] : undefined,
-				ordering: sort,
+				tags: isValidType($type) ? [$type] : undefined,
+				ordering: $sort === 'date' ? 'date' : 'popularity',
 				hitsPerPage: 50,
 			})
 		: null;
@@ -25,15 +28,15 @@
 	<input type="search" bind:value={$searchQuery} placeholder="Search" aria-label="Search" />
 	<label>
 		Type
-		<select bind:value={type}>
-			<option value={null}>All items</option>
+		<select bind:value={$type}>
+			<option value={''}>All items</option>
 			<option value={'story'}>Stories</option>
 			<option value={'comment'}>Comments</option>
 		</select>
 	</label>
 	<label>
 		Sort by
-		<select bind:value={sort}>
+		<select bind:value={$sort}>
 			<option value={'popularity'}>Popularity</option>
 			<option value={'date'}>Most Recent</option>
 		</select>
