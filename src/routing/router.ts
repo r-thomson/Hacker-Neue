@@ -26,12 +26,18 @@ const _currentUrl = writable(new URL(location.href), (set) => {
 // Read-only interface for _currentURL
 export const currentUrl: Readable<URL> = readonly(_currentUrl);
 
+interface NavigateOptions {
+	/** Prevent navigation from creating a new history entry */
+	replace?: boolean;
+}
+
 /**
  * Navigate to a page within the app without a full page reload.
  * @param to Root-relative path to navigate to.
- * @param replace Prevent navigation from creating a new history entry.
  */
-export function navigate(to: string, replace = false) {
+export function navigate(to: string, options?: NavigateOptions) {
+	let { replace = false } = options ?? {};
+
 	const toURL = new URL(to, location.origin);
 	if (!isSameOrigin(toURL)) throw Error('Destination URL is not same-origin');
 
