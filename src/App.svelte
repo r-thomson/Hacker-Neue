@@ -5,6 +5,20 @@
 
 	$: showOpenInHN = !['/search'].includes($currentUrl.pathname);
 	$: relativeUrl = $currentUrl.href.slice($currentUrl.origin.length);
+
+	// GoatCounter analytics. It's easier to put this in a component so we can
+	// use Svelte's reactivity syntax.
+	$: currentPath = $currentUrl.pathname;
+	let prevPath: string | undefined = undefined;
+	$: {
+		if (typeof window.goatcounter?.count === 'function') {
+			goatcounter.count({
+				path: currentPath,
+				referrer: prevPath ? new URL(prevPath, location.origin).href : undefined,
+			});
+		}
+		prevPath = currentPath;
+	}
 </script>
 
 <Header />
