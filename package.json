@@ -16,7 +16,7 @@
 		"analyze": "vite build --mode=analyze"
 	},
 	"dependencies": {
-		"@sveltejs/vite-plugin-svelte": "3.1.1",
+		"@sveltejs/vite-plugin-svelte": "3.1.2",
 		"@tsconfig/svelte": "5.0.4",
 		"autoprefixer": "10.4.20",
 		"date-fns": "3.6.0",
