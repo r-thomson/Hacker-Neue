@@ -23,6 +23,10 @@
 	}
 }
 
+html {
+	overflow-x: clip;
+}
+
 body {
 	margin: 0;
 	font-family:
@@ -42,6 +46,7 @@ body {
 	/* Prevent mobile browsers from adjusting font size */
 	text-size-adjust: none;
 
+	overflow-x: clip;
 	/* Always show the scrollbar to prevent jumping when content loads */
 	overflow-y: scroll;
 }
