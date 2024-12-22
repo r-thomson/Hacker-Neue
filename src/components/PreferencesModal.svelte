@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { preventDefault } from 'svelte/legacy';
-
 	import {
 		highlightThreshold,
 		maxStories,
@@ -33,22 +31,23 @@
 		);
 	}
 
-	function onClick(event: MouseEvent) {
+	function onclick(event: MouseEvent) {
 		if (!isWithinBoundingRect(event, dialogEl!.getBoundingClientRect())) {
 			dialogEl!.close();
 		}
 	}
 
-	function onReset(_event: Event) {
+	function onreset(event: Event) {
+		event.preventDefault();
 		resetPreferences();
 	}
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
-<dialog bind:this={dialogEl} onclose={() => (open = false)} onclick={onClick}>
+<dialog bind:this={dialogEl} onclose={() => (open = false)} {onclick}>
 	<h2>Preferences</h2>
 
-	<form method="dialog" onreset={preventDefault(onReset)}>
+	<form method="dialog" {onreset}>
 		<label>
 			<input type="checkbox" bind:checked={$showCounters} />
 			Show counters in story lists

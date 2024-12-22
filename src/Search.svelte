@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { preventDefault } from 'svelte/legacy';
-
 	import Comment from './components/Comment.svelte';
 	import ErrorMessage from './components/ErrorMessage.svelte';
 	import Story from './components/Story.svelte';
@@ -28,7 +26,7 @@
 	);
 </script>
 
-<form class="search-form" onsubmit={preventDefault(() => {})}>
+<form class="search-form" onsubmit={(e) => e.preventDefault()}>
 	<input type="search" bind:value={$searchQuery} placeholder="Search" aria-label="Search" />
 	<label>
 		Type
