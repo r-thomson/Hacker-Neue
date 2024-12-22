@@ -62,10 +62,6 @@
 {/await}
 
 <style>
-	.item-comments > :global(.comment + .comment) {
-		margin-top: 0.5rem;
-	}
-
 	.comments-divider {
 		margin: 1.25rem 0;
 		border: none;
