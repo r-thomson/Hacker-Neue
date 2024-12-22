@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { preventDefault } from 'svelte/legacy';
+
 	import Comment from './components/Comment.svelte';
 	import ErrorMessage from './components/ErrorMessage.svelte';
 	import Story from './components/Story.svelte';
@@ -15,16 +17,18 @@
 		return type === 'story' || type === 'comment';
 	}
 
-	$: searchResults = $debouncedSearchQuery
-		? search($debouncedSearchQuery, {
-				tags: isValidType($type) ? [$type] : undefined,
-				ordering: $sort === 'date' ? 'date' : 'popularity',
-				hitsPerPage: 50,
-			})
-		: null;
+	let searchResults = $derived(
+		$debouncedSearchQuery
+			? search($debouncedSearchQuery, {
+					tags: isValidType($type) ? [$type] : undefined,
+					ordering: $sort === 'date' ? 'date' : 'popularity',
+					hitsPerPage: 50,
+				})
+			: null,
+	);
 </script>
 
-<form class="search-form" on:submit|preventDefault={() => {}}>
+<form class="search-form" onsubmit={preventDefault(() => {})}>
 	<input type="search" bind:value={$searchQuery} placeholder="Search" aria-label="Search" />
 	<label>
 		Type

@@ -1,8 +1,9 @@
-<script context="module" lang="ts">
+<script module lang="ts">
 	const DEPTH_KEY = Symbol();
 </script>
 
 <script lang="ts">
+	import Comment from './Comment.svelte';
 	import { fromUnixTime } from 'date-fns';
 	import { getContext, setContext } from 'svelte';
 	import { modNames, symbols, type FetchedKids } from '../hacker-news/api';
@@ -12,21 +13,26 @@
 	import ExpandCollapseIcon from './ExpandCollapseIcon.svelte';
 	import Timestamp from './Timestamp.svelte';
 
-	export let comment: Exclude<HNComment | (HNComment & FetchedKids), DeletedHNItem>;
-	export let collapsible: boolean = false;
-	export let parentLink: boolean = false;
+	interface Props {
+		comment: Exclude<HNComment | (HNComment & FetchedKids), DeletedHNItem>;
+		collapsible?: boolean;
+		parentLink?: boolean;
+	}
+
+	let { comment, collapsible = false, parentLink = false }: Props = $props();
 
 	// Track how deep into <Comment> recursion we are
 	const depth = getContext<number>(DEPTH_KEY) ?? 0;
 	setContext(DEPTH_KEY, depth + 1);
 
-	$: date = fromUnixTime(comment.time);
-	$: isByOp =
+	let date = $derived(fromUnixTime(comment.time));
+	let isByOp = $derived(
 		symbols.rootItem in comment &&
-		'by' in comment[symbols.rootItem] &&
-		comment.by === comment[symbols.rootItem].by;
+			'by' in comment[symbols.rootItem] &&
+			comment.by === comment[symbols.rootItem].by,
+	);
 
-	let collapsed = collapsible && !!comment.dead; // Dead comments are collapsed by default
+	let collapsed = $state(collapsible && !!comment.dead); // Dead comments are collapsed by default
 	let element: HTMLElement;
 
 	const COLLAPSE_TOP_SPACE = 4;
@@ -53,7 +59,7 @@
 
 <div bind:this={element} class="comment" class:collapsible id={comment.id.toString()}>
 	{#if collapsible}
-		<button class="collapse-button" on:click={toggleCollapse}>
+		<button class="collapse-button" onclick={toggleCollapse}>
 			<ExpandCollapseIcon {collapsed} />
 		</button>
 	{/if}
@@ -87,7 +93,7 @@
 			{:else}
 				{#each comment[symbols.resolvedKids] as childComment (childComment.id)}
 					{#if childComment.type === 'comment' && !childComment.deleted}
-						<svelte:self comment={childComment} collapsible />
+						<Comment comment={childComment} collapsible />
 					{/if}
 				{/each}
 			{/if}

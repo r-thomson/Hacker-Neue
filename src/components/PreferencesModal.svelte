@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { preventDefault } from 'svelte/legacy';
+
 	import {
 		highlightThreshold,
 		maxStories,
@@ -7,16 +9,20 @@
 		collapseLongThreads,
 	} from '../preferences';
 
-	/** Whether or not the modal is open. */
-	export let open: boolean;
+	interface Props {
+		/** Whether or not the modal is open. */
+		open: boolean;
+	}
 
-	let dialogEl: HTMLDialogElement | undefined;
+	let { open = $bindable() }: Props = $props();
 
-	$: {
+	let dialogEl: HTMLDialogElement | undefined = $state();
+
+	$effect(() => {
 		if (dialogEl && open) {
 			dialogEl.showModal();
 		}
-	}
+	});
 
 	function isWithinBoundingRect(event: MouseEvent, boundingRect: DOMRectReadOnly): boolean {
 		return (
@@ -38,11 +44,11 @@
 	}
 </script>
 
-<!-- svelte-ignore a11y-click-events-have-key-events a11y-no-noninteractive-element-interactions -->
-<dialog bind:this={dialogEl} on:close={() => (open = false)} on:click={onClick}>
+<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
+<dialog bind:this={dialogEl} onclose={() => (open = false)} onclick={onClick}>
 	<h2>Preferences</h2>
 
-	<form method="dialog" on:reset|preventDefault={onReset}>
+	<form method="dialog" onreset={preventDefault(onReset)}>
 		<label>
 			<input type="checkbox" bind:checked={$showCounters} />
 			Show counters in story lists
@@ -114,7 +120,7 @@
 		line-height: 1.25;
 	}
 
-	label:has(input) {
+	label:has(:global(input)) {
 		display: flex;
 		align-items: first baseline;
 		column-gap: 6px;
@@ -144,7 +150,7 @@
 	}
 
 	select,
-	label:has(input) {
+	label:has(:global(input)) {
 		grid-column: 2 / 3;
 		justify-self: start;
 		text-align: start;
@@ -161,7 +167,7 @@
 			min-width: auto;
 		}
 
-		label:has(input) {
+		label:has(:global(input)) {
 			grid-column: 1 / -1;
 		}
 	}

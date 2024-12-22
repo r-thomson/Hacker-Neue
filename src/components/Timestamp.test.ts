@@ -1,4 +1,5 @@
 import { subDays, subMinutes } from 'date-fns';
+import { mount } from 'svelte';
 import { afterEach, assert, beforeEach, describe, test, vi } from 'vitest';
 import Timestamp from './Timestamp.svelte';
 
@@ -18,7 +19,7 @@ describe('<Timestamp>', () => {
 	});
 
 	test('renders a single time element', () => {
-		new Timestamp({
+		mount(Timestamp, {
 			target: container,
 			props: {
 				date: new Date(),
@@ -30,7 +31,7 @@ describe('<Timestamp>', () => {
 	});
 
 	test('title attribute is absolute timestamp', () => {
-		new Timestamp({
+		mount(Timestamp, {
 			target: container,
 			props: {
 				date: new Date(),
@@ -42,7 +43,7 @@ describe('<Timestamp>', () => {
 	});
 
 	test('innerText is relative timestamp for near dates', () => {
-		new Timestamp({
+		mount(Timestamp, {
 			target: container,
 			props: {
 				date: subMinutes(Date.now(), 5),
@@ -54,7 +55,7 @@ describe('<Timestamp>', () => {
 	});
 
 	test('innerText is relative timestamp for distant dates', () => {
-		new Timestamp({
+		mount(Timestamp, {
 			target: container,
 			props: {
 				date: subDays(Date.now(), 10),
@@ -66,7 +67,7 @@ describe('<Timestamp>', () => {
 	});
 
 	test('datetime attribute is properly formatted', () => {
-		new Timestamp({
+		mount(Timestamp, {
 			target: container,
 			props: {
 				date: new Date(),

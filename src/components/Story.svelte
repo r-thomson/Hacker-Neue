@@ -5,14 +5,18 @@
 	import Content from './Content.svelte';
 	import Timestamp from './Timestamp.svelte';
 
-	export let story: Exclude<HNStory | HNJob | HNPoll, DeletedHNItem>;
-	export let expanded: Boolean = false;
+	interface Props {
+		story: Exclude<HNStory | HNJob | HNPoll, DeletedHNItem>;
+		expanded?: Boolean;
+	}
+
+	let { story, expanded = false }: Props = $props();
 
 	const formatShortUrl = (url: string) => new URL(url).hostname.replace(/.*\.(?=.*\.)/, '');
 
-	$: date = fromUnixTime(story.time);
-	$: shortUrl = 'url' in story && story.url ? formatShortUrl(story.url) : null;
-	$: highlight = $highlightThreshold > 0 && story.score >= $highlightThreshold;
+	let date = $derived(fromUnixTime(story.time));
+	let shortUrl = $derived('url' in story && story.url ? formatShortUrl(story.url) : null);
+	let highlight = $derived($highlightThreshold > 0 && story.score >= $highlightThreshold);
 </script>
 
 <article class="story" id={story.id.toString()}>

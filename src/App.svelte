@@ -3,14 +3,15 @@
 	import RouteContent from './routing/RouteContent.svelte';
 	import { currentUrl } from './routing/router';
 
-	$: showOpenInHN = !['/search'].includes($currentUrl.pathname);
-	$: relativeUrl = $currentUrl.href.slice($currentUrl.origin.length);
+	let showOpenInHN = $derived(!['/search'].includes($currentUrl.pathname));
+	let relativeUrl = $derived($currentUrl.href.slice($currentUrl.origin.length));
 
 	// GoatCounter analytics. It's easier to put this in a component so we can
 	// use Svelte's reactivity syntax.
-	$: currentPath = $currentUrl.pathname;
-	let prevPath: string | undefined = undefined;
-	$: {
+	let currentPath = $derived($currentUrl.pathname);
+	let prevPath: string | undefined = $state(undefined);
+
+	$effect(() => {
 		if (typeof window.goatcounter?.count === 'function') {
 			goatcounter.count({
 				path: currentPath,
@@ -18,7 +19,7 @@
 			});
 		}
 		prevPath = currentPath;
-	}
+	});
 </script>
 
 <Header />

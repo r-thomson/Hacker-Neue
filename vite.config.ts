@@ -17,6 +17,7 @@ export default defineConfig(({ command, mode }) => {
 					template: 'sunburst',
 				}),
 		],
+		resolve: process.env.VITEST ? { conditions: ['browser'] } : undefined,
 		css: {
 			postcss: {
 				plugins: [autoprefixer()],

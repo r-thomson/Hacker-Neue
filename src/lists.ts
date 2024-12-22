@@ -1,38 +1,20 @@
-import type { ComponentConstructorOptions } from 'svelte';
+import type { Component } from 'svelte';
 import StoryList from './components/StoryList.svelte';
 
-export class TopStories extends StoryList {
-	constructor(options: ComponentConstructorOptions) {
-		super({ ...options, props: { list: 'top' } });
-	}
-}
+export const TopStories: Component = (anchor, props) =>
+	StoryList(anchor, { ...props, list: 'top' });
 
-export class NewStories extends StoryList {
-	constructor(options: ComponentConstructorOptions) {
-		super({ ...options, props: { list: 'new' } });
-	}
-}
+export const NewStories: Component = (anchor, props) =>
+	StoryList(anchor, { ...props, list: 'new' });
 
-export class BestStories extends StoryList {
-	constructor(options: ComponentConstructorOptions) {
-		super({ ...options, props: { list: 'best' } });
-	}
-}
+export const BestStories: Component = (anchor, props) =>
+	StoryList(anchor, { ...props, list: 'best' });
 
-export class AskStories extends StoryList {
-	constructor(options: ComponentConstructorOptions) {
-		super({ ...options, props: { list: 'ask' } });
-	}
-}
+export const AskStories: Component = (anchor, props) =>
+	StoryList(anchor, { ...props, list: 'ask' });
 
-export class ShowStories extends StoryList {
-	constructor(options: ComponentConstructorOptions) {
-		super({ ...options, props: { list: 'show' } });
-	}
-}
+export const ShowStories: Component = (anchor, props) =>
+	StoryList(anchor, { ...props, list: 'show' });
 
-export class JobStories extends StoryList {
-	constructor(options: ComponentConstructorOptions) {
-		super({ ...options, props: { list: 'job' } });
-	}
-}
+export const JobStories: Component = (anchor, props) =>
+	StoryList(anchor, { ...props, list: 'job' });

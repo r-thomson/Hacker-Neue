@@ -7,7 +7,11 @@
 	import Story from './Story.svelte';
 	import StorySkeleton from './StorySkeleton.svelte';
 
-	export let list: HNList;
+	interface Props {
+		list: HNList;
+	}
+
+	let { list }: Props = $props();
 
 	const PAGE_PARAM = 'p';
 

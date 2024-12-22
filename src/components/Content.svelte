@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { afterUpdate } from 'svelte';
+	interface Props {
+		/** User-generated HTML (safe subset, hopefully) to display */
+		content: string;
+	}
 
-	/** User-generated HTML (safe subset, hopefully) to display */
-	export let content: string;
+	let { content }: Props = $props();
 
 	const HN_ORIGIN = 'https://news.ycombinator.com';
 	const THIS_ORIGIN = location.origin;
@@ -21,7 +23,7 @@
 
 	let containerEl: HTMLElement;
 
-	afterUpdate(() => rewriteHNLinks(containerEl));
+	$effect(() => rewriteHNLinks(containerEl));
 </script>
 
 <div class="content" bind:this={containerEl}>

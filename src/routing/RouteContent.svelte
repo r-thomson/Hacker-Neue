@@ -1,11 +1,11 @@
 <script lang="ts">
-	import type { ComponentType } from 'svelte';
+	import type { Component } from 'svelte';
 	import Item from '../Item.svelte';
 	import * as storyLists from '../lists.js';
 	import Search from '../Search.svelte';
 	import { currentUrl } from './router';
 
-	const routes: { [key: string]: ComponentType } = {
+	const routes: { [key: string]: Component } = {
 		'/': storyLists.TopStories,
 		'/newest': storyLists.NewStories,
 		'/best': storyLists.BestStories,
@@ -16,11 +16,11 @@
 		'/item': Item,
 	};
 
-	$: routeComponent = routes[$currentUrl.pathname];
+	let RouteComponent = $derived(routes[$currentUrl.pathname]);
 
-	let routeKey = Symbol();
+	let routeKey = $state(Symbol());
 
-	$: {
+	$effect(() => {
 		// This is a hack just to make the search page work. Otherwise, every keystroke
 		// would refresh the page, which sucks. To correctly fix this you'd need to make
 		// Item.svelte and a few others be properly reactive when they read $currentUrl,
@@ -30,12 +30,12 @@
 			document.title = 'Hacker Neue';
 			window.scrollTo(0, 0);
 		}
-	}
+	});
 </script>
 
-{#if routeComponent}
+{#if RouteComponent}
 	{#key routeKey}
-		<svelte:component this={routeComponent} />
+		<RouteComponent />
 	{/key}
 {:else}
 	<div class="message">404 Error (not found)</div>

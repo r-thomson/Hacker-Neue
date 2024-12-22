@@ -1,5 +1,9 @@
 <script lang="ts">
-	export let collapsed: boolean;
+	interface Props {
+		collapsed: boolean;
+	}
+
+	let { collapsed }: Props = $props();
 </script>
 
 <svg

@@ -1,3 +1,7 @@
+<script lang="ts">
+	let props = $props();
+</script>
+
 <svg
 	xmlns="http://www.w3.org/2000/svg"
 	width="24"
@@ -9,7 +13,7 @@
 	stroke-linecap="round"
 	stroke-linejoin="round"
 	display="block"
-	{...$$props}
+	{...props}
 >
 	<line x1="21" x2="14" y1="4" y2="4" />
 	<line x1="10" x2="3" y1="4" y2="4" />

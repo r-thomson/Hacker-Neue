@@ -5,7 +5,7 @@
 	import { currentUrl } from '../routing/router';
 	import PreferencesModal from './PreferencesModal.svelte';
 
-	let prefsModalOpen = false;
+	let prefsModalOpen = $state(false);
 </script>
 
 <header>
@@ -44,7 +44,7 @@
 					</a>
 				</li>
 				<li>
-					<button type="button" on:click={() => (prefsModalOpen = true)}>
+					<button type="button" onclick={() => (prefsModalOpen = true)}>
 						<SlidersIcon aria-label="preferences" role="img" />
 					</button>
 				</li>
