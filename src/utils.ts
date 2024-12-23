@@ -1,5 +1,12 @@
-import { derived, writable, type Readable, type Updater, type Writable } from 'svelte/store';
-import { currentUrl, navigate } from './routing/router';
+import {
+	derived,
+	toStore,
+	writable,
+	type Readable,
+	type Updater,
+	type Writable,
+} from 'svelte/store';
+import { router } from './routing/router.svelte';
 
 /**
  * A derived store that updates after a delay since the latest change.
@@ -101,7 +108,7 @@ export function searchParamStore(param: string, initialValue = ''): Writable<str
 		return params.get(param) ?? initialValue;
 	}
 
-	const { subscribe } = derived(currentUrl, ($url) => getValue($url.searchParams));
+	const { subscribe } = toStore(() => getValue(router.currentUrl.searchParams));
 
 	function set(value: string) {
 		const newUrl = new URL(location.href);
@@ -111,7 +118,7 @@ export function searchParamStore(param: string, initialValue = ''): Writable<str
 			newUrl.searchParams.delete(param);
 		}
 
-		navigate(newUrl.pathname + newUrl.search + newUrl.hash, { replace: true });
+		router.navigate(newUrl.pathname + newUrl.search + newUrl.hash, { replace: true });
 	}
 
 	function update(fn: Updater<string>) {

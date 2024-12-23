@@ -1,14 +1,14 @@
 <script lang="ts">
 	import Header from './components/Header.svelte';
 	import RouteContent from './routing/RouteContent.svelte';
-	import { currentUrl } from './routing/router';
+	import { router } from './routing/router.svelte';
 
-	let showOpenInHN = $derived(!['/search'].includes($currentUrl.pathname));
-	let relativeUrl = $derived($currentUrl.href.slice($currentUrl.origin.length));
+	let showOpenInHN = $derived(!['/search'].includes(router.currentUrl.pathname));
+	let relativeUrl = $derived(router.currentUrl.href.slice(router.currentUrl.origin.length));
 
 	// GoatCounter analytics. It's easier to put this in a component so we can
 	// use Svelte's reactivity syntax.
-	let currentPath = $derived($currentUrl.pathname);
+	let currentPath = $derived(router.currentUrl.pathname);
 	let prevPath: string | undefined = $state(undefined);
 
 	$effect(() => {

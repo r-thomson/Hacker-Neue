@@ -3,7 +3,7 @@
 	import Item from '../Item.svelte';
 	import * as storyLists from '../lists.js';
 	import Search from '../Search.svelte';
-	import { currentUrl } from './router';
+	import { router } from './router.svelte';
 
 	const routes: { [key: string]: Component } = {
 		'/': storyLists.TopStories,
@@ -16,7 +16,7 @@
 		'/item': Item,
 	};
 
-	let RouteComponent = $derived(routes[$currentUrl.pathname]);
+	let RouteComponent = $derived(routes[router.currentUrl.pathname]);
 
 	let routeKey = $state(Symbol());
 
@@ -25,7 +25,7 @@
 		// would refresh the page, which sucks. To correctly fix this you'd need to make
 		// Item.svelte and a few others be properly reactive when they read $currentUrl,
 		// but that's easier said than done. Probably best to wait for runes.
-		if ($currentUrl.pathname !== '/search') {
+		if (router.currentUrl.pathname !== '/search') {
 			routeKey = Symbol();
 			document.title = 'Hacker Neue';
 			window.scrollTo(0, 0);

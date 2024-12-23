@@ -2,7 +2,7 @@
 	import HackerNeueIcon from '../icons/HackerNeueIcon.svelte';
 	import SearchIcon from '../icons/SearchIcon.svelte';
 	import SlidersIcon from '../icons/SlidersIcon.svelte';
-	import { currentUrl } from '../routing/router';
+	import { router } from '../routing/router.svelte';
 	import PreferencesModal from './PreferencesModal.svelte';
 
 	let prefsModalOpen = $state(false);
@@ -16,29 +16,29 @@
 		</a>
 		<nav>
 			<ul>
-				<li class:active={$currentUrl.pathname === '/'}>
+				<li class:active={router.currentUrl.pathname === '/'}>
 					<a href="/">top</a>
 				</li>
-				<li class:active={$currentUrl.pathname === '/newest'}>
+				<li class:active={router.currentUrl.pathname === '/newest'}>
 					<a href="/newest">new</a>
 				</li>
-				<li class:active={$currentUrl.pathname === '/best'}>
+				<li class:active={router.currentUrl.pathname === '/best'}>
 					<a href="/best">best</a>
 				</li>
-				<li class:active={$currentUrl.pathname === '/ask'}>
+				<li class:active={router.currentUrl.pathname === '/ask'}>
 					<a href="/ask">ask</a>
 				</li>
-				<li class:active={$currentUrl.pathname === '/show'}>
+				<li class:active={router.currentUrl.pathname === '/show'}>
 					<a href="/show">show</a>
 				</li>
-				<li class:active={$currentUrl.pathname === '/jobs'}>
+				<li class:active={router.currentUrl.pathname === '/jobs'}>
 					<a href="/jobs">jobs</a>
 				</li>
 			</ul>
 		</nav>
 		<nav>
 			<ul>
-				<li class:active={$currentUrl.pathname === '/search'}>
+				<li class:active={router.currentUrl.pathname === '/search'}>
 					<a href="/search">
 						<SearchIcon aria-label="search" role="img" />
 					</a>

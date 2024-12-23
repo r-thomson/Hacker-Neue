@@ -2,7 +2,7 @@
 	import { fetchItem, fetchStoryIds } from '../hacker-news/api';
 	import type { HNJob, HNList, HNPoll, HNStory } from '../hacker-news/types';
 	import { maxStories, showCounters } from '../preferences';
-	import { currentUrl } from '../routing/router';
+	import { router } from '../routing/router.svelte';
 	import ErrorMessage from './ErrorMessage.svelte';
 	import Story from './Story.svelte';
 	import StorySkeleton from './StorySkeleton.svelte';
@@ -15,7 +15,7 @@
 
 	const PAGE_PARAM = 'p';
 
-	const pageNum = Number.parseInt($currentUrl.searchParams.get(PAGE_PARAM) ?? '', 10) || 1;
+	const pageNum = Number.parseInt(router.currentUrl.searchParams.get(PAGE_PARAM) ?? '', 10) || 1;
 	const pageLength = $maxStories;
 
 	// Indices of first and last items on the current page

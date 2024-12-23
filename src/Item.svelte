@@ -4,10 +4,10 @@
 	import Story from './components/Story.svelte';
 	import StorySkeleton from './components/StorySkeleton.svelte';
 	import { fetchItem, fetchKids } from './hacker-news/api';
-	import { currentUrl } from './routing/router';
+	import { router } from './routing/router.svelte';
 	import ErrorMessage from './components/ErrorMessage.svelte';
 
-	const itemId = Number.parseInt($currentUrl.searchParams.get('id') ?? '');
+	const itemId = Number.parseInt(router.currentUrl.searchParams.get('id') ?? '');
 	const item = fetchItem(itemId).then((item) => {
 		if (!item) throw Error('Item does not exist');
 
