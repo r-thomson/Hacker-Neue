@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { fetchItem, fetchStoryIds } from '../hacker-news/api';
-	import type { HNJob, HNList, HNPoll, HNStory } from '../hacker-news/types';
-	import { maxStories, showCounters } from '../preferences';
-	import { router } from '../routing/router.svelte';
-	import ErrorMessage from './ErrorMessage.svelte';
-	import Story from './Story.svelte';
-	import StorySkeleton from './StorySkeleton.svelte';
+	import { fetchItem, fetchStoryIds } from './hacker-news/api';
+	import type { HNJob, HNList, HNPoll, HNStory } from './hacker-news/types';
+	import { maxStories, showCounters } from './preferences';
+	import { router } from './routing/router.svelte';
+	import ErrorMessage from './components/ErrorMessage.svelte';
+	import Story from './components/Story.svelte';
+	import StorySkeleton from './components/StorySkeleton.svelte';
 
 	interface Props {
 		list: HNList;

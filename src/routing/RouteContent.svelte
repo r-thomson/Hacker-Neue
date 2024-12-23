@@ -1,22 +1,8 @@
 <script lang="ts">
-	import type { Component } from 'svelte';
-	import Item from '../Item.svelte';
-	import * as storyLists from '../lists.js';
-	import Search from '../Search.svelte';
 	import { router } from './router.svelte';
+	import { routes } from './routes';
 
-	const routes: { [key: string]: Component } = {
-		'/': storyLists.TopStories,
-		'/newest': storyLists.NewStories,
-		'/best': storyLists.BestStories,
-		'/ask': storyLists.AskStories,
-		'/show': storyLists.ShowStories,
-		'/jobs': storyLists.JobStories,
-		'/search': Search,
-		'/item': Item,
-	};
-
-	let RouteComponent = $derived(routes[router.currentUrl.pathname]);
+	let currentRoute = $derived(routes[router.currentUrl.pathname]);
 
 	let routeKey = $state(Symbol());
 
@@ -33,9 +19,9 @@
 	});
 </script>
 
-{#if RouteComponent}
+{#if currentRoute}
 	{#key routeKey}
-		<RouteComponent />
+		<currentRoute.component {...currentRoute.props} />
 	{/key}
 {:else}
 	<div class="message">404 Error (not found)</div>
