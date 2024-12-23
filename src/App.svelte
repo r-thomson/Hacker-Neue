@@ -5,21 +5,6 @@
 
 	let showOpenInHN = $derived(!['/search'].includes(router.currentUrl.pathname));
 	let relativeUrl = $derived(router.currentUrl.href.slice(router.currentUrl.origin.length));
-
-	// GoatCounter analytics. It's easier to put this in a component so we can
-	// use Svelte's reactivity syntax.
-	let currentPath = $derived(router.currentUrl.pathname);
-	let prevPath: string | undefined = $state(undefined);
-
-	$effect(() => {
-		if (typeof window.goatcounter?.count === 'function') {
-			goatcounter.count({
-				path: currentPath,
-				referrer: prevPath ? new URL(prevPath, location.origin).href : undefined,
-			});
-		}
-		prevPath = currentPath;
-	});
 </script>
 
 <Header />
