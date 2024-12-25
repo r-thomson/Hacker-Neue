@@ -6,22 +6,33 @@
 	import { fetchItem, fetchKids } from './hacker-news/api';
 	import { router } from './routing/router.svelte';
 	import ErrorMessage from './components/ErrorMessage.svelte';
+	import { noop } from './utils';
 
-	const itemId = Number.parseInt(router.currentUrl.searchParams.get('id') ?? '');
-	const item = fetchItem(itemId).then((item) => {
-		if (!item) throw Error('Item does not exist');
+	let itemId = $derived(Number.parseInt(router.currentUrl.searchParams.get('id') ?? ''));
+	let item = $derived(
+		fetchItem(itemId).then((item) => {
+			if (!item) throw Error('Item does not exist');
+			return item;
+		}),
+	);
 
-		if ('title' in item && item.title) {
-			document.title = `${item.title} - Hacker Neue`;
-		} else if (item.type === 'comment' && !item.deleted) {
-			document.title = `Comment by ${item.by} - Hacker Neue`;
-		}
-
-		return item;
+	$effect(() => {
+		item.then((item) => {
+			if ('title' in item && item.title) {
+				document.title = `${item.title} - Hacker Neue`;
+			} else if (item.type === 'comment' && !item.deleted) {
+				document.title = `Comment by ${item.by} - Hacker Neue`;
+			}
+		}).catch(noop);
 	});
 
 	let commentsFetched = $state(0);
-	const comments = item.then((item) => fetchKids(item, () => commentsFetched++));
+	let comments = $derived(item.then((item) => fetchKids(item, () => commentsFetched++)));
+
+	$effect(() => {
+		item;
+		commentsFetched = 0;
+	});
 </script>
 
 {#await item}

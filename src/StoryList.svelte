@@ -13,19 +13,21 @@
 
 	let { list }: Props = $props();
 
-	const PAGE_PARAM = 'p';
-
-	const pageNum = Number.parseInt(router.currentUrl.searchParams.get(PAGE_PARAM) ?? '', 10) || 1;
-	const pageLength = $maxStories;
+	let pageNum = $derived(Number.parseInt(router.currentUrl.searchParams.get('p') ?? '') || 1);
+	let pageLen = $maxStories;
 
 	// Indices of first and last items on the current page
-	const first = pageLength * (pageNum - 1);
-	const last = first + pageLength;
+	let first = $derived(pageLen * (pageNum - 1));
+	let last = $derived(first + pageLen);
 
-	const stories = fetchStoryIds(list)
-		.then((ids) => ids.slice(first, last)) // Pagination
-		.then((ids) => ids.map((id) => fetchItem(id) as Promise<HNStory | HNJob | HNPoll | null>))
-		.then((stories) => Promise.all(stories));
+	let stories = $derived(
+		fetchStoryIds(list)
+			.then((ids) => ids.slice(first, last)) // Pagination
+			.then((ids) =>
+				ids.map((id) => fetchItem(id) as Promise<HNStory | HNJob | HNPoll | null>),
+			)
+			.then((stories) => Promise.all(stories)),
+	);
 </script>
 
 {#await stories}
@@ -47,7 +49,7 @@
 		{/each}
 	</ol>
 	<div class="pagination">
-		<a href="?{PAGE_PARAM}={pageNum + 1}">More Stories &rarr;</a>
+		<a href="?p={pageNum + 1}">More Stories &rarr;</a>
 	</div>
 {:catch error}
 	<ErrorMessage {error} />

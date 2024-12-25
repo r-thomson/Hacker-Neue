@@ -8,6 +8,8 @@ import {
 } from 'svelte/store';
 import { router } from './routing/router.svelte';
 
+export const noop = (..._args: any[]) => {};
+
 /**
  * A derived store that updates after a delay since the latest change.
  * @param store Input store
