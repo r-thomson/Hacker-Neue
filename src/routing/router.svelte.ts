@@ -67,7 +67,7 @@ export function createRouter() {
 	}
 
 	return {
-		get currentUrl() {
+		get currentUrl(): Readonly<URL> {
 			return currentUrl;
 		},
 		navigate,
