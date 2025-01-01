@@ -3,10 +3,30 @@
 	import ErrorMessage from './components/ErrorMessage.svelte';
 	import Story from './components/Story.svelte';
 	import { search } from './hacker-news/algolia';
+	import { toStore } from 'svelte/store';
+	import { untrack } from 'svelte';
 	import { debouncedStore, searchParamStore } from './utils';
+	import { router } from './routing/router.svelte';
 
-	const searchQuery = searchParamStore('q');
-	const debouncedSearchQuery = debouncedStore(searchQuery, 350, '');
+	let searchQuery = $state(router.currentUrl.searchParams.get('q') ?? '');
+	let debouncedSearchQuery = debouncedStore(
+		toStore(() => searchQuery),
+		350,
+		// svelte-ignore state_referenced_locally
+		searchQuery,
+	);
+
+	$effect(() => {
+		// This is like searchParamStore, but one-way
+		const newUrl = new URL(untrack(() => router.currentUrl.href));
+		if ($debouncedSearchQuery) {
+			newUrl.searchParams.set('q', $debouncedSearchQuery);
+		} else {
+			newUrl.searchParams.delete('q');
+		}
+
+		router.navigate(newUrl.pathname + newUrl.search + newUrl.hash, { replace: true });
+	});
 
 	let type = searchParamStore('type');
 	let sort = searchParamStore('sort', 'popularity');
@@ -27,7 +47,7 @@
 </script>
 
 <form class="search-form" onsubmit={(e) => e.preventDefault()}>
-	<input type="search" bind:value={$searchQuery} placeholder="Search" aria-label="Search" />
+	<input type="search" bind:value={searchQuery} placeholder="Search" aria-label="Search" />
 	<label>
 		Type
 		<select bind:value={$type}>
