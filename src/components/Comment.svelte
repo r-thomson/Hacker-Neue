@@ -86,7 +86,7 @@
 
 	{#if symbols.resolvedKids in comment && comment[symbols.resolvedKids].length > 0}
 		<div class="child-comments" hidden={collapsed}>
-			{#if $collapseLongThreads && depth === 5 && countChildComments(comment) > 1}
+			{#if $collapseLongThreads && depth === 4 && countChildComments(comment) > 1}
 				<a class="more-comments" href="item?id={comment.id}">
 					{countChildComments(comment)} More Comments &rarr;
 				</a>
