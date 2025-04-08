@@ -33,7 +33,7 @@
 {#await stories}
 	<ol start={first + 1} class:counters={$showCounters}>
 		{#each { length: 10 } as _, i}
-			<li style:opacity={(10 - i) * 0.1}>
+			<li style:opacity={(10 - i) * 0.1} style:animation-delay={`${i * 0.07}s`}>
 				<StorySkeleton />
 			</li>
 		{/each}

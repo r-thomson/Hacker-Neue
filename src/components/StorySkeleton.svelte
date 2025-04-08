@@ -35,6 +35,7 @@
 	@media (prefers-reduced-motion: no-preference) {
 		.story {
 			animation: 1.4s ease-in-out infinite pulsing;
+			animation-delay: inherit;
 		}
 	}
 
