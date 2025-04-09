@@ -90,4 +90,4 @@ export async function fetchKids(
 }
 
 // Sourced from https://github.com/minimaxir/hacker-news-undocumented#moderators
-export const modNames = Object.freeze(new Set(['dang', 'sctb']));
+export const modNames = Object.freeze(new Set(['dang', 'sctb', 'tomhow']));
