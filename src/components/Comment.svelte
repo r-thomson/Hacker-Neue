@@ -65,9 +65,9 @@
 	{/if}
 
 	<div class="details">
-		<span class="author" class:mod-name={modNames.has(comment.by)}>
+		<a href="user?id={comment.by}" class="author" class:mod-name={modNames.has(comment.by)}>
 			{comment.by}
-		</span>
+		</a>
 		{#if isByOp}
 			<abb class="op-badge" title="Original poster">OP</abb>
 		{/if}

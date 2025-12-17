@@ -43,9 +43,9 @@
 				{story.descendants === 1 ? 'comment' : 'comments'}
 			</a>
 		{/if}
-		<span class="author">
+		<a href="user?id={story.by}" class="author">
 			{story.by}
-		</span>
+		</a>
 		{#if shortUrl}
 			<span class="site">
 				{shortUrl}
@@ -80,6 +80,7 @@
 
 	.details {
 		display: flex;
+		column-gap: 0.5rem;
 		color: var(--color-secondary);
 		font-size: 0.875rem;
 		line-height: 1.25;
@@ -88,10 +89,6 @@
 	.details > :global(*) {
 		flex: none;
 		white-space: nowrap;
-	}
-
-	.details > :global(* + *) {
-		margin-left: 0.5rem;
 	}
 
 	.score {
