@@ -5,6 +5,7 @@ import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 
 export default defineConfig(({ command, mode }) => {
+	const nodeMajor = +process.versions.node.split('.')[0];
 	const analyze = command === 'build' && mode === 'analyze';
 
 	return {
@@ -34,6 +35,7 @@ export default defineConfig(({ command, mode }) => {
 		},
 		test: {
 			environment: 'happy-dom',
+			execArgv: nodeMajor >= 25 ? ['--no-experimental-webstorage'] : [],
 		},
 	};
 });

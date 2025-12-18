@@ -32,6 +32,7 @@
 			comment.by === comment[symbols.rootItem].by,
 	);
 
+	// svelte-ignore state_referenced_locally
 	let collapsed = $state(collapsible && !!comment.dead); // Dead comments are collapsed by default
 	let element: HTMLElement;
 
