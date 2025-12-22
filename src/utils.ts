@@ -1,3 +1,5 @@
+import type { Attachment } from 'svelte/attachments';
+import { on } from 'svelte/events';
 import {
 	derived,
 	toStore,
@@ -39,6 +41,39 @@ export function debouncedStore<T>(
 interface PersistedStore<T> extends Writable<T> {
 	/** Remove any stored value. */
 	unset(): void;
+}
+
+/**
+ * An attachment for controlling element focus with reactive state.
+ * @param hasFocus If the element should be currently focused.
+ */
+export function focus(hasFocus: boolean): Attachment {
+	return (element) => {
+		if (element instanceof HTMLElement) {
+			if (hasFocus) {
+				element.focus();
+			} else {
+				element.blur();
+			}
+		}
+
+		const focusOff = on(element, 'focus', () => {
+			if (!hasFocus && element instanceof HTMLElement) {
+				element.blur();
+			}
+		});
+
+		const blurOff = on(element, 'blur', () => {
+			if (hasFocus && element instanceof HTMLElement) {
+				element.focus();
+			}
+		});
+
+		return () => {
+			focusOff();
+			blurOff();
+		};
+	};
 }
 
 /**
