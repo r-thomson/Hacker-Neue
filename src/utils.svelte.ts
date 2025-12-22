@@ -7,19 +7,17 @@ import { on } from 'svelte/events';
  */
 export function shortcut(shortcut: string, callback: (event: KeyboardEvent) => void) {
 	function onKeydown(event: KeyboardEvent) {
-		if (
-			event.target instanceof HTMLInputElement ||
-			event.target instanceof HTMLTextAreaElement ||
-			event.target instanceof HTMLSelectElement ||
-			(event.target instanceof HTMLElement && event.target.isContentEditable)
-		) {
-			event.stopPropagation();
-			return;
-		}
+		if (event.key !== shortcut) return;
 
-		if (event.key === shortcut) {
-			return callback(event);
-		}
+		if (event.ctrlKey || event.altKey || event.metaKey || event.isComposing) return;
+
+		// Ignore keypresses originating from form controls
+		if (event.target instanceof HTMLInputElement) return;
+		if (event.target instanceof HTMLTextAreaElement) return;
+		if (event.target instanceof HTMLSelectElement) return;
+		if (event.target instanceof HTMLElement && event.target.isContentEditable) return;
+
+		return callback(event);
 	}
 
 	// Use $effect to automatically unregister event handlers
