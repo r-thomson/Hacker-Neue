@@ -14,8 +14,10 @@
 	let dialogEl: HTMLDialogElement | undefined = $state();
 
 	$effect(() => {
-		if (dialogEl && open) {
-			dialogEl.showModal();
+		if (open) {
+			dialogEl?.showModal();
+		} else {
+			dialogEl?.requestClose();
 		}
 	});
 
@@ -61,6 +63,7 @@
 	}
 
 	dialog::backdrop {
+		margin: -100% -100%;
 		background-color: #17171790;
 	}
 
