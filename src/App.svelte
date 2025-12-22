@@ -2,9 +2,16 @@
 	import Header from './components/Header.svelte';
 	import RouteContent from './routing/RouteContent.svelte';
 	import { router } from './routing/router.svelte';
+	import { shortcut } from './utils.svelte';
 
 	let showOpenInHN = $derived(!['/search'].includes(router.currentUrl.pathname));
 	let relativeUrl = $derived(router.currentUrl.href.slice(router.currentUrl.origin.length));
+
+	shortcut('T', () => router.navigate('/'));
+	shortcut('N', () => router.navigate('/newest'));
+	shortcut('B', () => router.navigate('/best'));
+	shortcut('A', () => router.navigate('/ask'));
+	shortcut('S', () => router.navigate('/show'));
 </script>
 
 <Header />
