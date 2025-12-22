@@ -50,7 +50,10 @@ export function createRouter() {
 		let { replace = false } = options ?? {};
 
 		const toURL = new URL(to, location.origin);
-		if (!isSameOrigin(toURL)) throw Error('Destination URL is not same-origin');
+		if (!isSameOrigin(toURL)) {
+			location.href = toURL.href;
+			return;
+		}
 
 		// Don't create consecutive duplicate history entries
 		if (toURL.href === location.href) {
