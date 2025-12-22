@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Modal from './Modal.svelte';
 	import {
 		highlightThreshold,
 		maxStories,
@@ -14,39 +15,13 @@
 
 	let { open = $bindable() }: Props = $props();
 
-	let dialogEl: HTMLDialogElement | undefined = $state();
-
-	$effect(() => {
-		if (dialogEl && open) {
-			dialogEl.showModal();
-		}
-	});
-
-	function isWithinBoundingRect(event: MouseEvent, boundingRect: DOMRectReadOnly): boolean {
-		return (
-			event.clientY >= boundingRect.top &&
-			event.clientX >= boundingRect.left &&
-			event.clientY <= boundingRect.bottom &&
-			event.clientX <= boundingRect.right
-		);
-	}
-
-	function onclick(event: MouseEvent) {
-		if (!isWithinBoundingRect(event, dialogEl!.getBoundingClientRect())) {
-			dialogEl!.close();
-		}
-	}
-
 	function onreset(event: Event) {
 		event.preventDefault();
 		resetPreferences();
 	}
 </script>
 
-<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_noninteractive_element_interactions -->
-<dialog bind:this={dialogEl} onclose={() => (open = false)} {onclick}>
-	<h2>Preferences</h2>
-
+<Modal bind:open title="Preferences">
 	<form method="dialog" {onreset}>
 		<label>
 			<input type="checkbox" bind:checked={$showCounters} />
@@ -77,33 +52,9 @@
 			<button type="reset">Reset</button>
 		</div>
 	</form>
-</dialog>
+</Modal>
 
 <style>
-	dialog {
-		--window-padding: 12px;
-
-		width: 32rem;
-		padding: 16px;
-		max-width: calc(100% - 2 * var(--window-padding));
-		max-height: calc(100% - 2 * var(--window-padding));
-
-		background-color: var(--color-bg);
-		border: 1px solid var(--color-tertiary);
-		border-radius: 8px;
-	}
-
-	dialog::backdrop {
-		background-color: #17171790;
-	}
-
-	h2 {
-		margin: 0 0 10px;
-		font-size: 1.25rem;
-		font-weight: 600;
-		line-height: 1.2;
-	}
-
 	form {
 		display: grid;
 		grid-template-columns: repeat(2, auto);
