@@ -99,6 +99,10 @@
 		color: var(--color-accent);
 	}
 
+	.author:not(:hover) {
+		text-decoration: none;
+	}
+
 	.site {
 		font-style: italic;
 		flex: initial;

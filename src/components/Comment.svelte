@@ -183,6 +183,10 @@
 		font-weight: 500;
 	}
 
+	.details .author:not(:hover) {
+		text-decoration: none;
+	}
+
 	.details .author.mod-name {
 		color: var(--color-accent);
 	}
