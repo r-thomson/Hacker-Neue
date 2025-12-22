@@ -6,6 +6,8 @@
 	import ErrorMessage from './components/ErrorMessage.svelte';
 	import Story from './components/Story.svelte';
 	import StorySkeleton from './components/StorySkeleton.svelte';
+	import { focus } from './utils';
+	import { shortcut } from './utils.svelte';
 
 	interface Props {
 		list: HNList;
@@ -28,6 +30,47 @@
 			)
 			.then((stories) => Promise.all(stories)),
 	);
+
+	let focusIndex: number = $state(-1); // -1 == no focus
+
+	async function setFocusIndex(value: number) {
+		const numStories = (await stories).length;
+		focusIndex = Math.min(Math.max(0, value), numStories - 1);
+	}
+
+	async function getFocusedStory() {
+		return (await stories)[focusIndex] ?? null;
+	}
+
+	async function openFocusedStory() {
+		const story = await getFocusedStory();
+		if (story) {
+			router.navigate(('url' in story && story.url) || `/item?id=${story.id}`);
+		}
+	}
+
+	async function openFocusedStoryComments() {
+		const story = await getFocusedStory();
+		if (story) {
+			router.navigate(`/item?id=${story.id}`);
+		}
+	}
+
+	async function openFocusedStoryAuthor() {
+		const story = await getFocusedStory();
+		if (story && 'by' in story) {
+			router.navigate(`/user?id=${story.by}`);
+		}
+	}
+
+	shortcut('j', () => setFocusIndex(focusIndex + 1));
+	shortcut('J', () => setFocusIndex(Infinity));
+	shortcut('k', () => setFocusIndex(focusIndex - 1));
+	shortcut('K', () => setFocusIndex(0));
+	shortcut('o', () => openFocusedStory());
+	shortcut('Enter', () => openFocusedStory());
+	shortcut('c', () => openFocusedStoryComments());
+	shortcut('u', () => openFocusedStoryAuthor());
 </script>
 
 {#await stories}
@@ -40,9 +83,18 @@
 	</ol>
 {:then stories}
 	<ol start={first + 1} class:counters={$showCounters}>
-		{#each stories as story (story?.id)}
+		{#each stories as story, i (story?.id)}
 			{#if story && !story.deleted}
-				<li>
+				<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+				<li
+					{@attach focus(focusIndex === i)}
+					tabindex={focusIndex === i ? -1 : undefined}
+					onblur={() => {
+						if (focusIndex === i) {
+							focusIndex = -1;
+						}
+					}}
+				>
 					<Story {story} />
 				</li>
 			{/if}
