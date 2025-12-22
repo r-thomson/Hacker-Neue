@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
 import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 import autoprefixer from 'autoprefixer';
 import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
@@ -36,6 +36,7 @@ export default defineConfig(({ command, mode }) => {
 		test: {
 			environment: 'happy-dom',
 			execArgv: nodeMajor >= 25 ? ['--no-experimental-webstorage'] : [],
+			restoreMocks: true,
 		},
 	};
 });
