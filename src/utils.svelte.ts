@@ -17,6 +17,8 @@ export function shortcut(shortcut: string, callback: (event: KeyboardEvent) => v
 		if (event.target instanceof HTMLSelectElement) return;
 		if (event.target instanceof HTMLElement && event.target.isContentEditable) return;
 
+		if (document.querySelector('dialog:modal')) return;
+
 		return callback(event);
 	}
 
