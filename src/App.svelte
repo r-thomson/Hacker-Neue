@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Header from './components/Header.svelte';
+	import ShortcutsModal from './components/ShortcutsModal.svelte';
 	import RouteContent from './routing/RouteContent.svelte';
 	import { router } from './routing/router.svelte';
 	import { shortcut } from './utils.svelte';
@@ -7,11 +8,14 @@
 	let showOpenInHN = $derived(!['/search'].includes(router.currentUrl.pathname));
 	let relativeUrl = $derived(router.currentUrl.href.slice(router.currentUrl.origin.length));
 
+	let shortcutsModalOpen = $state(false);
+
 	shortcut('T', () => router.navigate('/'));
 	shortcut('N', () => router.navigate('/newest'));
 	shortcut('B', () => router.navigate('/best'));
 	shortcut('A', () => router.navigate('/ask'));
 	shortcut('S', () => router.navigate('/show'));
+	shortcut('?', () => (shortcutsModalOpen = !shortcutsModalOpen));
 </script>
 
 <Header />
@@ -24,6 +28,8 @@
 	{/if}
 	<a href="https://github.com/r-thomson/Hacker-Neue">Source on GitHub</a>
 </footer>
+
+<ShortcutsModal bind:open={shortcutsModalOpen} />
 
 <style>
 	main,
