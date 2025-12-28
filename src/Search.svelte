@@ -5,6 +5,7 @@
 	import { search } from './hacker-news/algolia';
 	import { toStore } from 'svelte/store';
 	import { untrack } from 'svelte';
+	import { getUnixTime } from 'date-fns';
 	import { debouncedStore, searchParamStore } from './utils';
 	import { router } from './routing/router.svelte';
 
@@ -30,16 +31,37 @@
 
 	let type = searchParamStore('type');
 	let sort = searchParamStore('sort', 'popularity');
+	let time = searchParamStore('time');
 
-	function isValidType(type: string): type is 'story' | 'comment' {
-		return type === 'story' || type === 'comment';
+	function isValidType(type: string): type is 'story' | 'comment' | 'show_hn' | 'ask_hn' {
+		return ['story', 'comment', 'show_hn', 'ask_hn'].includes(type);
 	}
+
+	const ONE_DAY_IN_SECS = 86400;
+	let time_i = $derived.by(() => {
+		const unixNow = getUnixTime(new Date());
+		switch ($time) {
+			case 'day':
+				return unixNow - ONE_DAY_IN_SECS;
+			case 'week':
+				return unixNow - ONE_DAY_IN_SECS * 7;
+			case 'month':
+				return unixNow - ONE_DAY_IN_SECS * 30;
+			case 'year':
+				return unixNow - ONE_DAY_IN_SECS * 365;
+			case 'decade':
+				return unixNow - ONE_DAY_IN_SECS * 3650;
+			default:
+				return undefined;
+		}
+	});
 
 	let searchResults = $derived(
 		$debouncedSearchQuery
 			? search($debouncedSearchQuery, {
 					tags: isValidType($type) ? [$type] : undefined,
 					ordering: $sort === 'date' ? 'date' : 'popularity',
+					numericFilters: time_i !== undefined ? `created_at_i>${time_i}` : undefined,
 					hitsPerPage: 50,
 				})
 			: null,
@@ -48,21 +70,28 @@
 
 <form class="search-form" onsubmit={(e) => e.preventDefault()}>
 	<input type="search" bind:value={searchQuery} placeholder="Search" aria-label="Search" />
-	<label>
-		Type
-		<select bind:value={$type}>
-			<option value={''}>All items</option>
-			<option value={'story'}>Stories</option>
-			<option value={'comment'}>Comments</option>
-		</select>
-	</label>
-	<label>
-		Sort by
-		<select bind:value={$sort}>
-			<option value={'popularity'}>Popularity</option>
-			<option value={'date'}>Most Recent</option>
-		</select>
-	</label>
+
+	<select bind:value={$type} aria-label="Type">
+		<option value={''}>All items</option>
+		<option value={'story'}>Stories</option>
+		<option value={'show_hn'}>Show HN</option>
+		<option value={'ask_hn'}>Ask HN</option>
+		<option value={'comment'}>Comments</option>
+	</select>
+
+	<select bind:value={$sort} aria-label="Sort by">
+		<option value={'popularity'}>Most popular</option>
+		<option value={'date'}>Most recent</option>
+	</select>
+
+	<select bind:value={$time} aria-label="Time period">
+		<option value={''}>All time</option>
+		<option value={'day'}>Past day</option>
+		<option value={'week'}>Past week</option>
+		<option value={'month'}>Past month</option>
+		<option value={'year'}>Past year</option>
+		<option value={'decade'}>Past decade</option>
+	</select>
 </form>
 
 {#if searchResults}
@@ -95,16 +124,11 @@
 		margin-bottom: 1rem;
 	}
 
-	label {
-		font-size: 0.875rem;
-		white-space: nowrap;
-	}
-
 	input[type='search'] {
 		flex: 1;
 	}
 
-	@media (max-width: 30em) {
+	@media (max-width: 32em) {
 		.search-form {
 			flex-wrap: wrap;
 		}
