@@ -1,5 +1,6 @@
 <script lang="ts">
 	import HackerNeueIcon from '../icons/HackerNeueIcon.svelte';
+	import GithubIcon from '../icons/GithubIcon.svelte';
 	import SearchIcon from '../icons/SearchIcon.svelte';
 	import SlidersIcon from '../icons/SlidersIcon.svelte';
 	import { router } from '../routing/router.svelte';
@@ -38,6 +39,11 @@
 		</nav>
 		<nav>
 			<ul>
+				<li>
+					<a href="https://github.com/r-thomson/Hacker-Neue">
+						<GithubIcon aria-label="search" role="img" />
+					</a>
+				</li>
 				<li class:active={router.currentUrl.pathname === '/search'}>
 					<a href="/search">
 						<SearchIcon aria-label="search" role="img" />
