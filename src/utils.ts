@@ -138,7 +138,6 @@ export function persistedStore<T>(
  * A writable store that represents a value in the current URL's query string.
  * @param param The name of the query parameter
  * @param initialValue Fallback value if the parameter isn't present in the URL
- * @param replace Navigate with push (`false`) or replace (`true`)
  */
 export function searchParamStore(param: string, initialValue = ''): Writable<string> {
 	function getValue(params: URLSearchParams) {
