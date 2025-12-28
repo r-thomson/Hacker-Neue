@@ -124,6 +124,18 @@
 		}
 	}
 
+	@media (max-width: 24em) {
+		nav li:nth-child(6) {
+			display: none;
+		}
+	}
+
+	@media (max-width: 22em) {
+		nav li:nth-child(5) {
+			display: none;
+		}
+	}
+
 	nav {
 		margin: calc(-1 * var(--header-inset)) 0; /* fill height */
 	}
