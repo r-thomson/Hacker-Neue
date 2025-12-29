@@ -21,7 +21,7 @@
 		"autoprefixer": "10.4.23",
 		"date-fns": "4.1.0",
 		"firebase": "12.7.0",
-		"svelte": "5.46.0",
+		"svelte": "5.46.1",
 		"vite": "7.3.0"
 	},
 	"devDependencies": {
