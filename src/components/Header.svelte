@@ -41,7 +41,7 @@
 			<ul>
 				<li>
 					<a href="https://github.com/r-thomson/Hacker-Neue">
-						<GithubIcon aria-label="search" role="img" />
+						<GithubIcon aria-label="GitHub" role="img" />
 					</a>
 				</li>
 				<li class:active={router.currentUrl.pathname === '/search'}>
