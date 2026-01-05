@@ -32,7 +32,7 @@
 
 	const recentItems = $derived(
 		user
-			.then((user) => user.submitted?.slice(0, 20) ?? [])
+			.then((user) => user.submitted?.slice(0, 30) ?? [])
 			.then((ids) => Promise.all(ids.map((id) => fetchItem(id))))
 			.then((items) => items.filter(isNotDeadOrDeleted)),
 	);
@@ -65,7 +65,7 @@
 				</li>
 			{:else if item && item.type === 'comment'}
 				<li>
-					<Comment comment={item} />
+					<Comment comment={item} parentLink />
 				</li>
 			{/if}
 		{/each}
