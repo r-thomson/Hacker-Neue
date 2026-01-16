@@ -1,48 +1,41 @@
-/// <reference types="vitest/config" />
-import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import autoprefixer from 'autoprefixer';
-import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
+import { playwright } from '@vitest/browser-playwright';
+import { sveltekit } from '@sveltejs/kit/vite';
 
-export default defineConfig(({ command, mode }) => {
-	const nodeMajor = +process.versions.node.split('.')[0];
-	const analyze = command === 'build' && mode === 'analyze';
+export default defineConfig({
+	plugins: [sveltekit()],
 
-	return {
-		plugins: [
-			svelte({
-				compilerOptions: {
-					runes: true,
-				},
-				preprocess: vitePreprocess(),
-			}),
-			analyze &&
-				visualizer({
-					template: 'sunburst',
-				}),
-		],
-		resolve: process.env.VITEST ? { conditions: ['browser'] } : undefined,
-		css: {
-			postcss: {
-				plugins: [autoprefixer()],
+	test: {
+		expect: { requireAssertions: true },
+
+		projects: [
+			{
+				extends: './vite.config.ts',
+
+				test: {
+					name: 'client',
+
+					browser: {
+						enabled: true,
+						provider: playwright(),
+						instances: [{ browser: 'chromium', headless: true }]
+					},
+
+					include: ['src/**/*.svelte.{test,spec}.{js,ts}'],
+					exclude: ['src/lib/server/**']
+				}
 			},
-		},
-		server: {
-			port: 3000,
-		},
-		esbuild: {
-			legalComments: 'eof',
-		},
-		test: {
-			environment: 'happy-dom',
-			execArgv: nodeMajor >= 25 ? ['--no-experimental-webstorage'] : [],
-			restoreMocks: true,
-		},
-	};
-});
 
-async function visualizer(options: PluginVisualizerOptions) {
-	// Async import so the dependency is optional
-	const { visualizer } = await import('rollup-plugin-visualizer');
-	return visualizer(options);
-}
+			{
+				extends: './vite.config.ts',
+
+				test: {
+					name: 'server',
+					environment: 'node',
+					include: ['src/**/*.{test,spec}.{js,ts}'],
+					exclude: ['src/**/*.svelte.{test,spec}.{js,ts}']
+				}
+			}
+		]
+	}
+});

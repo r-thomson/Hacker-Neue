@@ -1,37 +1,33 @@
 {
 	"name": "hacker-neue",
 	"private": true,
-	"license": "MIT",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/r-thomson/Hacker-Neue.git"
-	},
+	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite dev",
 		"build": "vite build",
-		"test": "TZ=UTC vitest run",
-		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"preview": "vite preview",
+		"prepare": "svelte-kit sync || echo ''",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"analyze": "vite build --mode=analyze"
-	},
-	"dependencies": {
-		"@sveltejs/vite-plugin-svelte": "6.2.4",
-		"@tsconfig/svelte": "5.0.6",
-		"autoprefixer": "10.4.23",
-		"date-fns": "4.1.0",
-		"firebase": "12.7.0",
-		"svelte": "5.46.1",
-		"vite": "7.3.1"
+		"lint": "prettier --check .",
+		"test:unit": "vitest",
+		"test": "npm run test:unit -- --run"
 	},
 	"devDependencies": {
-		"happy-dom": "20.1.0",
-		"prettier": "3.7.4",
-		"prettier-plugin-svelte": "3.4.1",
-		"rollup-plugin-visualizer": "6.0.5",
-		"svelte-check": "4.3.5",
-		"tslib": "2.8.1",
-		"typescript": "5.9.3",
-		"vitest": "4.0.17"
+		"@sveltejs/adapter-auto": "^7.0.0",
+		"@sveltejs/kit": "^2.49.1",
+		"@sveltejs/vite-plugin-svelte": "^6.2.1",
+		"@vitest/browser-playwright": "^4.0.15",
+		"playwright": "^1.57.0",
+		"prettier": "^3.7.4",
+		"prettier-plugin-svelte": "^3.4.0",
+		"svelte": "^5.45.6",
+		"svelte-check": "^4.3.4",
+		"typescript": "^5.9.3",
+		"vite": "^7.2.6",
+		"vitest": "^4.0.15",
+		"vitest-browser-svelte": "^2.0.1"
 	}
 }

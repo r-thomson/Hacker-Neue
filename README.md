@@ -1,33 +1,38 @@
-# Hacker Neue
+# sv
 
-A web-based [Hacker News](https://news.ycombinator.com) client using the [Hacker News API](https://github.com/HackerNews/API). **Live at [www.hackerneue.com](https://www.hackerneue.com).**
+Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
 
-![Screenshot of Hacker Neue running in a web browser](./screenshot.png)
+## Creating a project
 
-## Running Locally
+If you're seeing this, you've probably already done this step. Congrats!
 
-* Clone the repository
+```sh
+# create a new project in the current directory
+npx sv create
 
-  ```sh
-  git clone https://github.com/r-thomson/Hacker-Neue.git
-  ```
+# create a new project in my-app
+npx sv create my-app
+```
 
-* Install dependencies
+## Developing
 
-  ```sh
-  npm install
-  ```
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-* Start the development server
+```sh
+npm run dev
 
-  ```sh
-  npm run dev
-  ```
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
+```
 
-* Visit [localhost:3000](http://localhost:3000)
+## Building
 
-## Built With
+To create a production version of your app:
 
-* [Svelte](https://svelte.dev)
-* [Vite](https://vitejs.dev)
-* TypeScript
+```sh
+npm run build
+```
+
+You can preview the production build with `npm run preview`.
+
+> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
