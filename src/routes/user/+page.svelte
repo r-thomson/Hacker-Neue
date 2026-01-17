@@ -7,7 +7,6 @@
 	import Timestamp from '$lib/components/Timestamp.svelte';
 	import { fetchItem, fetchUser } from '$lib/hacker-news/api';
 	import type { DeadHNItem, DeletedHNItem, HNItem } from '$lib/hacker-news/types';
-	import { noop } from '$lib/utils';
 	import { page } from '$app/state';
 
 	const userId = $derived(page.url.searchParams.get('id') ?? '');
@@ -17,12 +16,6 @@
 			return user;
 		}),
 	);
-
-	$effect(() => {
-		user.then((user) => {
-			document.title = `Profile: ${user.id} - Hacker Neue`;
-		}).catch(noop);
-	});
 
 	function isNotDeadOrDeleted(
 		item: HNItem | null,
@@ -37,6 +30,12 @@
 			.then((items) => items.filter(isNotDeadOrDeleted)),
 	);
 </script>
+
+<svelte:head>
+	{#await user then user}
+		<title>Profile: {user.id} - Hacker Neue</title>
+	{/await}
+</svelte:head>
 
 {#await user}
 	<StorySkeleton />

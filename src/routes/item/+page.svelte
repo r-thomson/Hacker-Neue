@@ -5,7 +5,6 @@
 	import StorySkeleton from '$lib/components/StorySkeleton.svelte';
 	import { fetchItem, fetchKids } from '$lib/hacker-news/api';
 	import ErrorMessage from '$lib/components/ErrorMessage.svelte';
-	import { noop } from '$lib/utils';
 	import { page } from '$app/state';
 
 	let itemId = $derived(Number.parseInt(page.url.searchParams.get('id') ?? ''));
@@ -16,16 +15,6 @@
 		}),
 	);
 
-	$effect(() => {
-		item.then((item) => {
-			if ('title' in item && item.title) {
-				document.title = `${item.title} - Hacker Neue`;
-			} else if (item.type === 'comment' && !item.deleted) {
-				document.title = `Comment by ${item.by} - Hacker Neue`;
-			}
-		}).catch(noop);
-	});
-
 	let commentsFetched = $state(0);
 	let comments = $derived(item.then((item) => fetchKids(item, () => commentsFetched++)));
 
@@ -34,6 +23,16 @@
 		commentsFetched = 0;
 	});
 </script>
+
+<svelte:head>
+	{#await item then item}
+		{#if 'title' in item && item.title}
+			<title>{item.title} - Hacker Neue</title>
+		{:else if item.type === 'comment' && !item.deleted}
+			<title>Comment by {item.by} - Hacker Neue</title>
+		{/if}
+	{/await}
+</svelte:head>
 
 {#await item}
 	<StorySkeleton />
