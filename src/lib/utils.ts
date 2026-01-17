@@ -8,6 +8,7 @@ import {
 	type Updater,
 	type Writable,
 } from 'svelte/store';
+import { browser } from '$app/environment';
 import { page } from '$app/state';
 import { goto } from '$app/navigation';
 
@@ -88,21 +89,19 @@ export function persistedStore<T>(
 	defaultValue: T,
 	storage: Storage = localStorage,
 ): PersistedStore<T> {
+	// TODO: current this does nothing (except return the default) on the server
+
 	function loadValue(): T {
-		// TODO: re-implement
-		// const storedValue = storage.getItem(key);
-		const storedValue = null;
+		const storedValue = browser ? storage.getItem(key) : null;
 		return storedValue === null ? defaultValue : JSON.parse(storedValue);
 	}
 
 	function saveValue(value: T) {
-		// TODO: re-implement
-		// storage.setItem(key, JSON.stringify(value));
+		browser && storage.setItem(key, JSON.stringify(value));
 	}
 
 	function clearValue() {
-		// TODO: re-implement
-		// storage.removeItem(key);
+		browser && storage?.removeItem(key);
 	}
 
 	const store = writable<T>(undefined, (set) => {
@@ -114,11 +113,10 @@ export function persistedStore<T>(
 			}
 		}
 
-		// TODO: re-implement
-		// window.addEventListener('storage', onStorage);
+		browser && window.addEventListener('storage', onStorage);
 
 		return () => {
-			// window.removeEventListener('storage', onStorage);
+			browser && window.removeEventListener('storage', onStorage);
 		};
 	});
 
