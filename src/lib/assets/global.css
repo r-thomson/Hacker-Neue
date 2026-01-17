@@ -1,0 +1,72 @@
+*,
+::before,
+::after {
+	box-sizing: border-box;
+}
+
+:root {
+	--content-max-width: 50rem;
+
+	--color-bg: #fafaf9;
+	--color-primary: #171717;
+	--color-secondary: #525252;
+	--color-tertiary: #d6d3d1;
+	--color-accent: #f50;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+	:root {
+		--color-bg: #1c1917;
+		--color-primary: #fafafa;
+		--color-secondary: #a3a3a3;
+		--color-tertiary: #44403c;
+	}
+}
+
+html {
+	overflow-x: clip;
+}
+
+body {
+	margin: 0;
+	font-family:
+		ui-sans-serif,
+		system-ui,
+		-apple-system,
+		sans-serif;
+	line-height: 1.5;
+	color-scheme: light dark;
+
+	color: var(--color-primary);
+	background-color: var(--color-bg);
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	/* Prevent mobile browsers from adjusting font size */
+	text-size-adjust: none;
+
+	overflow-x: clip;
+	/* Always show the scrollbar to prevent jumping when content loads */
+	overflow-y: scroll;
+}
+
+body:has(dialog[open]) {
+	overflow: hidden !important;
+}
+
+a {
+	color: unset;
+}
+
+label {
+	user-select: none;
+	touch-action: manipulation;
+}
+
+noscript {
+	display: block;
+	margin: 25vh auto;
+	padding: 24px;
+	max-width: 48rem;
+}
