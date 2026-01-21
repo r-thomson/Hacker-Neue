@@ -25,6 +25,7 @@
 
 html {
 	overflow-x: clip;
+	overflow-y: scroll;
 }
 
 body {
@@ -47,8 +48,6 @@ body {
 	text-size-adjust: none;
 
 	overflow-x: clip;
-	/* Always show the scrollbar to prevent jumping when content loads */
-	overflow-y: scroll;
 }
 
 body:has(dialog[open]) {
