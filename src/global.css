@@ -24,11 +24,6 @@
 }
 
 html {
-	overflow-x: clip;
-}
-
-body {
-	margin: 0;
 	font-family:
 		ui-sans-serif,
 		system-ui,
@@ -43,16 +38,20 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
+	overflow-y: scroll;
+
 	/* Prevent mobile browsers from adjusting font size */
 	text-size-adjust: none;
-
-	overflow-x: clip;
-	/* Always show the scrollbar to prevent jumping when content loads */
-	overflow-y: scroll;
 }
 
-body:has(dialog[open]) {
+body {
+	margin: 0;
+	overflow-x: clip;
+}
+
+html:has(dialog[open]) {
 	overflow: hidden !important;
+	scrollbar-gutter: stable !important;
 }
 
 a {
