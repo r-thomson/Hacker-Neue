@@ -39,6 +39,7 @@ html {
 	-moz-osx-font-smoothing: grayscale;
 
 	overflow-y: scroll;
+	scrollbar-gutter: stable;
 
 	/* Prevent mobile browsers from adjusting font size */
 	text-size-adjust: none;
@@ -47,11 +48,6 @@ html {
 body {
 	margin: 0;
 	overflow-x: clip;
-}
-
-html:has(dialog[open]) {
-	overflow: hidden !important;
-	scrollbar-gutter: stable !important;
 }
 
 a {

@@ -74,4 +74,8 @@
 		font-weight: 600;
 		line-height: 1.2;
 	}
+
+	:global(html):has(dialog[open]) {
+		overflow: hidden !important;
+	}
 </style>
