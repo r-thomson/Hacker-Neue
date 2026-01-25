@@ -117,20 +117,6 @@
 		min-width: 55%;
 	}
 
-	kbd {
-		display: inline-block;
-		padding: 4px;
-		font-size: 0.75rem;
-		line-height: 1;
-		font-family: ui-monospace, monospace;
-		white-space: nowrap;
-		background-color: var(--color-tertiary);
-		box-shadow: inset 0 -1px 0 var(--color-secondary);
-		border: 1px solid var(--color-secondary);
-		border-radius: 5px;
-		user-select: all;
-	}
-
 	.actions {
 		padding-top: 12px;
 	}

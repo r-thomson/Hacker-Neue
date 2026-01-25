@@ -26,6 +26,9 @@
 	{#if showOpenInHN}
 		<a href="https://news.ycombinator.com{relativeUrl}">Open on Hacker News</a>
 	{/if}
+	<span>
+		<kbd>?</kbd> Keyboard shortcuts
+	</span>
 </footer>
 
 <ShortcutsModal bind:open={shortcutsModalOpen} />
@@ -53,5 +56,9 @@
 		border-top: 1px solid var(--color-tertiary);
 		color: var(--color-secondary);
 		font-size: 0.875rem;
+	}
+
+	footer :last-child {
+		margin-left: auto;
 	}
 </style>
