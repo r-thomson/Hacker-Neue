@@ -62,6 +62,10 @@
 		border-radius: 8px;
 	}
 
+	dialog::focus {
+		outline: none;
+	}
+
 	dialog::backdrop {
 		margin: -100% -100%;
 		background-color: #17171790;
