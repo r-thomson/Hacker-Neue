@@ -80,10 +80,6 @@
 		padding-bottom: var(--header-inset);
 		padding-left: max(var(--header-inset), env(safe-area-inset-left));
 
-		position: sticky;
-		top: 0;
-		z-index: 1;
-
 		background-color: var(--color-accent);
 		color: #fff;
 		white-space: nowrap;
