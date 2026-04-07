@@ -3,12 +3,12 @@
 </script>
 
 <script lang="ts">
-	import Comment from './Comment.svelte';
 	import { fromUnixTime } from 'date-fns';
 	import { getContext, setContext } from 'svelte';
 	import { modNames, symbols, type FetchedKids } from '../hacker-news/api';
 	import type { DeletedHNItem, HNComment } from '../hacker-news/types';
 	import { collapseLongThreads } from '../preferences';
+	import CommentList from './CommentList.svelte';
 	import Content from './Content.svelte';
 	import ExpandCollapseIcon from './ExpandCollapseIcon.svelte';
 	import Timestamp from './Timestamp.svelte';
@@ -92,11 +92,13 @@
 					{countChildComments(comment)} More Comments &rarr;
 				</a>
 			{:else}
-				{#each comment[symbols.resolvedKids] as childComment (childComment.id)}
+				<CommentList comments={comment[symbols.resolvedKids]} />
+
+				<!-- {#each comment[symbols.resolvedKids] as childComment (childComment.id)}
 					{#if childComment.type === 'comment' && !childComment.deleted}
 						<Comment comment={childComment} collapsible />
 					{/if}
-				{/each}
+				{/each} -->
 			{/if}
 		</div>
 	{/if}
@@ -115,10 +117,6 @@
 
 	.comment > :not(.collapse-button) + * {
 		margin-top: 0.25rem;
-	}
-
-	:global(.comment) + .comment {
-		margin-top: 1rem;
 	}
 
 	.child-comments {

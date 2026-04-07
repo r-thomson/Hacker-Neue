@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Comment from './components/Comment.svelte';
+	import CommentList from './components/CommentList.svelte';
 	import ProgressBar from './components/ProgressBar.svelte';
 	import Story from './components/Story.svelte';
 	import StorySkeleton from './components/StorySkeleton.svelte';
@@ -58,11 +59,7 @@
 		</div>
 	{:then comments}
 		<div class="item-comments">
-			{#each comments as comment (comment.id)}
-				{#if comment.type === 'comment' && !comment.deleted}
-					<Comment {comment} collapsible />
-				{/if}
-			{/each}
+			<CommentList {comments} />
 		</div>
 		<p class="empty-message">This item has no comments currently.</p>
 	{:catch error}
