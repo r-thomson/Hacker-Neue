@@ -62,7 +62,7 @@
 		border-radius: 8px;
 	}
 
-	dialog::focus {
+	dialog:focus {
 		outline: none;
 	}
 
