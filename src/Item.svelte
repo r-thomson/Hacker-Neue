@@ -1,12 +1,13 @@
 <script lang="ts">
 	import Comment from './components/Comment.svelte';
 	import CommentList from './components/CommentList.svelte';
+	import ErrorMessage from './components/ErrorMessage.svelte';
+	import PollOpts from './components/PollOpts.svelte';
 	import ProgressBar from './components/ProgressBar.svelte';
 	import Story from './components/Story.svelte';
 	import StorySkeleton from './components/StorySkeleton.svelte';
 	import { fetchItem, fetchKids } from './hacker-news/api';
 	import { router } from './routing/router.svelte';
-	import ErrorMessage from './components/ErrorMessage.svelte';
 	import { noop } from './utils';
 
 	let itemId = $derived(Number.parseInt(router.currentUrl.searchParams.get('id') ?? ''));
@@ -47,6 +48,12 @@
 		{:else if item.type === 'comment'}
 			<Comment comment={item} parentLink />
 		{/if}
+
+		{#if item.type === 'poll'}
+			<div class="poll-opts-container">
+				<PollOpts poll={item} />
+			</div>
+		{/if}
 	{/if}
 
 	<hr class="comments-divider" />
@@ -70,6 +77,10 @@
 {/await}
 
 <style>
+	.poll-opts-container {
+		margin-top: 0.75rem;
+	}
+
 	.comments-divider {
 		margin: 1.25rem 0;
 		border: none;
