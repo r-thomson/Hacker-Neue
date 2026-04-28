@@ -33,8 +33,10 @@
 	let sort = searchParamStore('sort', 'popularity');
 	let time = searchParamStore('time');
 
-	function isValidType(type: string): type is 'story' | 'comment' | 'show_hn' | 'ask_hn' {
-		return ['story', 'comment', 'show_hn', 'ask_hn'].includes(type);
+	function isValidType(
+		type: string,
+	): type is 'story' | 'comment' | 'poll' | 'show_hn' | 'ask_hn' {
+		return ['story', 'comment', 'poll', 'show_hn', 'ask_hn'].includes(type);
 	}
 
 	const ONE_DAY_IN_SECS = 86400;
@@ -76,6 +78,7 @@
 		<option value={'story'}>Stories</option>
 		<option value={'show_hn'}>Show HN</option>
 		<option value={'ask_hn'}>Ask HN</option>
+		<option value={'poll'}>Polls</option>
 		<option value={'comment'}>Comments</option>
 	</select>
 
