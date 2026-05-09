@@ -4,6 +4,7 @@
 	import { highlightThreshold } from '../preferences';
 	import Content from './Content.svelte';
 	import Timestamp from './Timestamp.svelte';
+	import UserLink from './UserLink.svelte';
 
 	interface Props {
 		story: Exclude<HNStory | HNJob | HNPoll, DeletedHNItem>;
@@ -43,9 +44,9 @@
 				{story.descendants === 1 ? 'comment' : 'comments'}
 			</a>
 		{/if}
-		<a href="user?id={story.by}" class="author">
-			{story.by}
-		</a>
+		<span class="author">
+			<UserLink userId={story.by} />
+		</span>
 		{#if shortUrl}
 			<span class="site">
 				{shortUrl}
@@ -99,7 +100,7 @@
 		color: var(--color-accent);
 	}
 
-	.author:not(:hover) {
+	.author :global(:any-link:not(:hover)) {
 		text-decoration: none;
 	}
 

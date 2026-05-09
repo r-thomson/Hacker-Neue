@@ -5,13 +5,14 @@
 <script lang="ts">
 	import { fromUnixTime } from 'date-fns';
 	import { getContext, setContext } from 'svelte';
-	import { modNames, symbols, type FetchedKids } from '../hacker-news/api';
+	import { symbols, type FetchedKids } from '../hacker-news/api';
 	import type { DeletedHNItem, HNComment } from '../hacker-news/types';
 	import { collapseLongThreads } from '../preferences';
 	import CommentList from './CommentList.svelte';
 	import Content from './Content.svelte';
 	import ExpandCollapseIcon from './ExpandCollapseIcon.svelte';
 	import Timestamp from './Timestamp.svelte';
+	import UserLink from './UserLink.svelte';
 
 	interface Props {
 		comment: Exclude<HNComment | (HNComment & FetchedKids), DeletedHNItem>;
@@ -66,9 +67,9 @@
 	{/if}
 
 	<div class="details">
-		<a href="user?id={comment.by}" class="author" class:mod-name={modNames.has(comment.by)}>
-			{comment.by}
-		</a>
+		<span class="author">
+			<UserLink userId={comment.by} />
+		</span>
 		{#if isByOp}
 			<abb class="op-badge" title="Original poster">OP</abb>
 		{/if}
@@ -181,12 +182,8 @@
 		font-weight: 500;
 	}
 
-	.details .author:not(:hover) {
+	.details .author :global(:any-link:not(:hover)) {
 		text-decoration: none;
-	}
-
-	.details .author.mod-name {
-		color: var(--color-accent);
 	}
 
 	.details .op-badge {
