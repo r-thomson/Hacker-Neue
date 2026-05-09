@@ -3,8 +3,8 @@
 	import Comment from './components/Comment.svelte';
 	import Content from './components/Content.svelte';
 	import Story from './components/Story.svelte';
-	import StorySkeleton from './components/StorySkeleton.svelte';
 	import Timestamp from './components/Timestamp.svelte';
+	import UserSkeleton from './components/UserSkeleton.svelte';
 	import { fetchItem, fetchUser } from './hacker-news/api';
 	import type { DeadHNItem, DeletedHNItem, HNItem } from './hacker-news/types';
 	import { router } from './routing/router.svelte.js';
@@ -39,7 +39,7 @@
 </script>
 
 {#await user}
-	<StorySkeleton />
+	<UserSkeleton />
 {:then user}
 	<div class="user-name">{user.id}</div>
 	<div class="details">
