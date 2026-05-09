@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store';
 import { afterEach, assert, beforeEach, describe, test, vi } from 'vitest';
-import { clamp, debouncedStore, persistedStore } from './utils';
+import { clamp, debouncedStore, getRectCenter, persistedStore } from './utils';
 
 describe('clamp', () => {
 	test('ensures the value is in bounds', () => {
@@ -20,6 +20,16 @@ describe('clamp', () => {
 	test('min == max', () => {
 		assert.equal(clamp(1, 2, 1), 1);
 		assert.equal(clamp(3, 2, 3), 3);
+	});
+});
+
+describe('getRectCenter', () => {
+	test('returns the center', () => {
+		const rect = new DOMRect(15, 35, 4, 7);
+		const center = getRectCenter(rect);
+
+		assert.equal(center.x, 17);
+		assert.equal(center.y, 38.5);
 	});
 });
 

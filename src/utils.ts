@@ -17,6 +17,13 @@ export function clamp(min: number, val: number, max: number): number {
 	return Math.max(min, Math.min(val, max));
 }
 
+/** Find the center point of a `DOMRect`. */
+export function getRectCenter(rect: DOMRectReadOnly): DOMPoint {
+	const x = (rect.left + rect.right) / 2;
+	const y = (rect.top + rect.bottom) / 2;
+	return new DOMPoint(x, y);
+}
+
 /**
  * A derived store that updates after a delay since the latest change.
  * @param store Input store
