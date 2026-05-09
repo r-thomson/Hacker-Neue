@@ -12,6 +12,11 @@ import { router } from './routing/router.svelte';
 
 export const noop = (..._args: any[]) => {};
 
+/** Clamps a number between a minimum and maximum bound. */
+export function clamp(min: number, val: number, max: number): number {
+	return Math.max(min, Math.min(val, max));
+}
+
 /**
  * A derived store that updates after a delay since the latest change.
  * @param store Input store

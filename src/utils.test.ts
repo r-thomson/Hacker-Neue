@@ -1,6 +1,27 @@
 import { get, writable } from 'svelte/store';
 import { afterEach, assert, beforeEach, describe, test, vi } from 'vitest';
-import { debouncedStore, persistedStore } from './utils';
+import { clamp, debouncedStore, persistedStore } from './utils';
+
+describe('clamp', () => {
+	test('ensures the value is in bounds', () => {
+		assert.equal(clamp(1, 2, 3), 2);
+		assert.equal(clamp(1, 0, 3), 1);
+		assert.equal(clamp(1, 4, 3), 3);
+	});
+
+	test('min == val', () => {
+		assert.equal(clamp(2, 2, 3), 2);
+	});
+
+	test('max == val', () => {
+		assert.equal(clamp(1, 2, 2), 2);
+	});
+
+	test('min == max', () => {
+		assert.equal(clamp(1, 2, 1), 1);
+		assert.equal(clamp(3, 2, 3), 3);
+	});
+});
 
 describe('debouncedStore', () => {
 	beforeEach(() => {
