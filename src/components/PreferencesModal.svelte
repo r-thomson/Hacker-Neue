@@ -65,7 +65,7 @@
 
 	button,
 	label {
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 		font-weight: 500;
 		line-height: 1.25;
 	}
@@ -82,7 +82,7 @@
 
 	select {
 		min-width: 8rem;
-		font-size: 1rem;
+		font-size: var(--text-md);
 	}
 
 	.actions {

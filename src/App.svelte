@@ -60,7 +60,7 @@
 		display: flex;
 		border-top: 1px solid var(--color-tertiary);
 		color: var(--color-secondary);
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 	}
 
 	footer :last-child {

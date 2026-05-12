@@ -7,6 +7,12 @@
 :root {
 	--content-max-width: 50rem;
 
+	--text-xl: 1.25rem;
+	--text-lg: 1.125rem;
+	--text-md: 1rem;
+	--text-sm: 0.875rem;
+	--text-xs: 0.75rem;
+
 	--color-bg: #fafaf9;
 	--color-primary: #171717;
 	--color-secondary: #525252;
@@ -62,7 +68,7 @@ label {
 kbd {
 	display: inline-block;
 	padding: 4px;
-	font-size: 0.75rem;
+	font-size: var(--text-xs);
 	line-height: 1;
 	font-family: ui-monospace, monospace;
 	white-space: nowrap;

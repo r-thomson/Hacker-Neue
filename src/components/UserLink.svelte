@@ -58,7 +58,7 @@
 		display: flex;
 		column-gap: 0.5rem;
 		color: var(--color-secondary);
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 		line-height: 1.25;
 	}
 
@@ -69,7 +69,7 @@
 
 	.user-about {
 		margin-top: 0.5rem;
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 
 		overflow: hidden;
 		display: -webkit-box;

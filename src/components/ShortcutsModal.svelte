@@ -82,7 +82,7 @@
 	h3 {
 		margin: 0;
 		padding: 8px 0 2px;
-		font-size: 1rem;
+		font-size: var(--text-md);
 		font-weight: 600;
 		line-height: 1.2;
 		text-align: center;
@@ -130,7 +130,7 @@
 	}
 
 	button {
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 		font-weight: 500;
 		line-height: 1.25;
 	}

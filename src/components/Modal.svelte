@@ -74,7 +74,7 @@
 	h2 {
 		margin: 0;
 		padding-bottom: 10px;
-		font-size: 1.25rem;
+		font-size: var(--text-xl);
 		font-weight: 600;
 		line-height: 1.2;
 	}

@@ -94,7 +94,7 @@
 	.empty-message {
 		margin: 6rem 0 4rem;
 		text-align: center;
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 		color: var(--color-secondary);
 	}
 

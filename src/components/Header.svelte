@@ -116,7 +116,7 @@
 
 	.title-container > .title {
 		margin-left: 0.5rem;
-		font-size: 1.125rem;
+		font-size: var(--text-lg);
 		font-weight: 500;
 		line-height: 1;
 	}

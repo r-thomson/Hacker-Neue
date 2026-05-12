@@ -85,7 +85,7 @@
 		display: flex;
 		column-gap: 0.5rem;
 		color: var(--color-secondary);
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 		line-height: 1.25;
 	}
 
@@ -96,7 +96,7 @@
 
 	.user-about {
 		margin-top: 0.75rem;
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 	}
 
 	.items-divider {
@@ -121,7 +121,7 @@
 	.empty-message {
 		margin: 6rem 0 4rem;
 		text-align: center;
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 		color: var(--color-secondary);
 	}
 

@@ -164,7 +164,7 @@
 
 	.details {
 		display: flex;
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 		line-height: 1.25;
 		color: var(--color-secondary);
 	}
@@ -187,7 +187,7 @@
 	}
 
 	.details .op-badge {
-		font-size: 0.75rem;
+		font-size: var(--text-xs);
 		padding: 0 0.125rem;
 		border: 1px solid var(--color-tertiary);
 		border-radius: 3px;
@@ -198,10 +198,10 @@
 	}
 
 	.body {
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 	}
 
 	.more-comments {
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 	}
 </style>

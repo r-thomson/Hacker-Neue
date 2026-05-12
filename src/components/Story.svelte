@@ -83,7 +83,7 @@
 		display: flex;
 		column-gap: 0.5rem;
 		color: var(--color-secondary);
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 		line-height: 1.25;
 	}
 
@@ -114,6 +114,6 @@
 
 	.story-text {
 		margin-top: 0.75rem;
-		font-size: 0.875rem;
+		font-size: var(--text-sm);
 	}
 </style>
