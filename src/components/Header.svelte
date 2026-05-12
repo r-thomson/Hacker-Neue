@@ -4,9 +4,12 @@
 	import SearchIcon from '../icons/SearchIcon.svelte';
 	import SlidersIcon from '../icons/SlidersIcon.svelte';
 	import { router } from '../routing/router.svelte';
+	import { shortcut } from '../utils.svelte';
 	import PreferencesModal from './PreferencesModal.svelte';
 
 	let prefsModalOpen = $state(false);
+
+	shortcut('.', () => (prefsModalOpen = true));
 </script>
 
 <header>

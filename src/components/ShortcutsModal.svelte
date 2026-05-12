@@ -59,6 +59,14 @@
 		<section>
 			<h3>Miscellaneous</h3>
 			<dl>
+				<dt><kbd>y</kbd> <kbd>Shift+y</kbd></dt>
+				<dd>Open on Hacker News</dd>
+			</dl>
+			<dl>
+				<dt><kbd>.</kbd></dt>
+				<dd>Show preferences</dd>
+			</dl>
+			<dl>
 				<dt><kbd>?</kbd></dt>
 				<dd>Show this modal</dd>
 			</dl>

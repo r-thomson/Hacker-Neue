@@ -5,8 +5,11 @@
 	import { router } from './routing/router.svelte';
 	import { shortcut } from './utils.svelte';
 
-	let showOpenInHN = $derived(!['/search'].includes(router.currentUrl.pathname));
 	let relativeUrl = $derived(router.currentUrl.href.slice(router.currentUrl.origin.length));
+	let hackerNewsUrl = $derived.by(() => {
+		if (router.currentUrl.pathname === '/search') return;
+		return `https://news.ycombinator.com${relativeUrl}`;
+	});
 
 	let shortcutsModalOpen = $state(false);
 
@@ -15,7 +18,9 @@
 	shortcut('B', () => router.navigate('/best'));
 	shortcut('A', () => router.navigate('/ask'));
 	shortcut('S', () => router.navigate('/show'));
-	shortcut('?', () => (shortcutsModalOpen = !shortcutsModalOpen));
+	shortcut('y', () => hackerNewsUrl && open(hackerNewsUrl, '_self'));
+	shortcut('Y', () => hackerNewsUrl && open(hackerNewsUrl, '_blank'));
+	shortcut('?', () => (shortcutsModalOpen = true));
 </script>
 
 <Header />
@@ -23,8 +28,8 @@
 	<RouteContent />
 </main>
 <footer>
-	{#if showOpenInHN}
-		<a href="https://news.ycombinator.com{relativeUrl}">Open on Hacker News</a>
+	{#if hackerNewsUrl}
+		<a href={hackerNewsUrl}>Open on Hacker News</a>
 	{/if}
 	<span>
 		<kbd>?</kbd> Keyboard shortcuts
