@@ -127,6 +127,9 @@
 		background-color: var(--color-bg);
 		border: 1px solid var(--color-tertiary);
 		border-radius: 4px;
+		box-shadow:
+			0 1px 4px -1px hsl(20 14% 4% / 0.1),
+			0 4px 7px -2px hsl(20 14% 4% / 0.1);
 
 		pointer-events: none;
 
