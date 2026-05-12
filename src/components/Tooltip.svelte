@@ -137,7 +137,7 @@
 			content: '';
 
 			position: absolute;
-			left: clamp(6px, var(--arrow-left, 0), calc(var(--tooltip-width, 20rem) - 6px));
+			left: clamp(9px, var(--arrow-left, 0), calc(var(--tooltip-width, 20rem) - 9px));
 			width: 7px;
 			height: 7px;
 
@@ -147,13 +147,13 @@
 		}
 
 		&[data-arrow-edge='top']::before {
-			transform: rotate(45deg);
-			top: -4px;
+			transform: translate(-4px, -4px) rotate(45deg);
+			top: 0;
 		}
 
 		&[data-arrow-edge='bottom']::before {
-			transform: rotate(225deg);
-			bottom: -4px;
+			transform: translate(-4px, 4px) rotate(225deg);
+			bottom: 0;
 		}
 	}
 
