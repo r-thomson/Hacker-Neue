@@ -84,6 +84,8 @@
 	aria-describedby="{uid}-tooltip"
 	onpointerenter={(e) => e.pointerType === 'mouse' && showPopover(350)}
 	onpointerleave={(e) => e.pointerType === 'mouse' && hidePopover()}
+	onfocusin={() => showPopover(150)}
+	onfocusout={() => hidePopover()}
 >
 	{@render children()}
 </span>
