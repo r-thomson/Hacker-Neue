@@ -30,11 +30,6 @@
 }
 
 html {
-	font-family:
-		ui-sans-serif,
-		system-ui,
-		-apple-system,
-		sans-serif;
 	line-height: 1.5;
 	color-scheme: light dark;
 
@@ -51,6 +46,20 @@ html {
 	text-size-adjust: none;
 }
 
+html,
+html[data-font-family='sans-serif'] {
+	font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+html[data-font-family='serif'] {
+	font-family: ui-serif, Georgia, Cambria, serif;
+}
+
+html[data-font-family='monospace'] {
+	font-family: ui-monospace, Menlo, Consolas, monospace;
+	letter-spacing: -2%;
+}
+
 body {
 	margin: 0;
 	overflow-x: clip;
@@ -58,6 +67,13 @@ body {
 
 a {
 	color: unset;
+}
+
+button,
+input,
+select,
+textarea {
+	font-family: inherit;
 }
 
 label {

@@ -3,6 +3,7 @@
 	import ShortcutsModal from './components/ShortcutsModal.svelte';
 	import RouteContent from './routing/RouteContent.svelte';
 	import { router } from './routing/router.svelte';
+	import { fontFamily } from './preferences';
 	import { shortcut } from './utils.svelte';
 
 	let relativeUrl = $derived(router.currentUrl.href.slice(router.currentUrl.origin.length));
@@ -21,6 +22,10 @@
 	shortcut('y', () => hackerNewsUrl && open(hackerNewsUrl, '_self'));
 	shortcut('Y', () => hackerNewsUrl && open(hackerNewsUrl, '_blank'));
 	shortcut('?', () => (shortcutsModalOpen = true));
+
+	$effect(() => {
+		document.documentElement.dataset.fontFamily = $fontFamily;
+	});
 </script>
 
 <Header />

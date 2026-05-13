@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Modal from './Modal.svelte';
 	import {
+		fontFamily,
 		highlightThreshold,
 		maxStories,
 		resetPreferences,
@@ -23,6 +24,13 @@
 
 <Modal bind:open title="Preferences">
 	<form method="dialog" {onreset}>
+		<label for="fontFamilySelect">Typeface</label>
+		<select id="fontFamilySelect" bind:value={$fontFamily}>
+			<option value="sans-serif">Sans-serif</option>
+			<option value="serif">Serifed</option>
+			<option value="monospace">Monospaced</option>
+		</select>
+
 		<label>
 			<input type="checkbox" bind:checked={$showCounters} />
 			Show counters in story lists
