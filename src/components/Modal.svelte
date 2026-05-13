@@ -31,6 +31,9 @@
 	}
 
 	function onclick(event: MouseEvent) {
+		// Firefox doesn't report coordinates in some cases
+		if (event.clientX === 0 && event.clientY === 0) return;
+
 		if (!isWithinBoundingRect(event, dialogEl!.getBoundingClientRect())) {
 			dialogEl!.close();
 		}
