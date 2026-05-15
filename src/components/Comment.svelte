@@ -94,12 +94,6 @@
 				</a>
 			{:else}
 				<CommentList comments={comment[symbols.resolvedKids]} />
-
-				<!-- {#each comment[symbols.resolvedKids] as childComment (childComment.id)}
-					{#if childComment.type === 'comment' && !childComment.deleted}
-						<Comment comment={childComment} collapsible />
-					{/if}
-				{/each} -->
 			{/if}
 		</div>
 	{/if}
