@@ -110,6 +110,13 @@
 		padding-left: calc(var(--collapse-button-width) + 4px);
 	}
 
+	.comment.collapsible::before {
+		content: '';
+		position: absolute;
+		inset: 21px auto 0 calc(var(--collapse-button-width) / 2 - 0.5px);
+		border-left: 1px dotted var(--color-tertiary);
+	}
+
 	.comment > :not(.collapse-button) + * {
 		margin-top: 0.25rem;
 	}
@@ -125,9 +132,7 @@
 		align-items: center;
 
 		position: absolute;
-		top: 0;
-		bottom: 0;
-		left: 0;
+		inset: 0 auto 0 0;
 
 		color: var(--color-secondary);
 
@@ -140,9 +145,9 @@
 
 	button.collapse-button {
 		/* Button style reset */
-		background: transparent;
+		appearance: none;
+		background: none;
 		border: none;
-		margin: 0;
 
 		padding: 0.125rem 0;
 		cursor: pointer;
