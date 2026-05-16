@@ -35,7 +35,7 @@
 
 	// svelte-ignore state_referenced_locally
 	let collapsed = $state(collapsible && !!comment.dead); // Dead comments are collapsed by default
-	let element: HTMLElement;
+	let containerEl: HTMLElement;
 
 	const COLLAPSE_TOP_SPACE = 4;
 
@@ -44,7 +44,7 @@
 
 		if (collapsed) {
 			// Scroll up if the top of the comment is off the screen
-			const { top } = element.getBoundingClientRect();
+			const { top } = containerEl.getBoundingClientRect();
 			if (top < COLLAPSE_TOP_SPACE) {
 				scrollTo(window.scrollX, window.scrollY + top - COLLAPSE_TOP_SPACE);
 			}
@@ -59,35 +59,37 @@
 	}
 </script>
 
-<div bind:this={element} class="comment" class:collapsible id={comment.id.toString()}>
+<div bind:this={containerEl} class="comment-container" data-collapsible={collapsible}>
 	{#if collapsible}
 		<button class="collapse-button" onclick={toggleCollapse}>
 			<ExpandCollapseIcon {collapsed} />
 		</button>
 	{/if}
 
-	<div class="details">
-		<span class="author">
-			<UserLink userId={comment.by} />
-		</span>
-		{#if isByOp}
-			<abb class="op-badge" title="Original poster">OP</abb>
-		{/if}
-		<a class="permalink" href={`item?id=${comment.id}`}><Timestamp {date} /></a>
-		{#if parentLink}
-			<a class="parent" href={`item?id=${comment.parent}`}>parent</a>
-		{/if}
-		{#if comment.dead}
-			<span>(dead)</span>
-		{/if}
-	</div>
+	<article class="comment" id={comment.id.toString()}>
+		<div class="details">
+			<span class="author">
+				<UserLink userId={comment.by} />
+			</span>
+			{#if isByOp}
+				<abbr class="op-badge" title="Original poster">OP</abbr>
+			{/if}
+			<a class="permalink" href="item?id={comment.id}"><Timestamp {date} /></a>
+			{#if parentLink}
+				<a class="parent" href="item?id={comment.parent}">parent</a>
+			{/if}
+			{#if comment.dead}
+				<span>(dead)</span>
+			{/if}
+		</div>
 
-	<div class="body" hidden={collapsible && collapsed}>
-		<Content content={comment.text} />
-	</div>
+		<div class="body" hidden={collapsible && collapsed}>
+			<Content content={comment.text} />
+		</div>
+	</article>
 
 	{#if symbols.resolvedKids in comment && comment[symbols.resolvedKids].length > 0}
-		<div class="child-comments" hidden={collapsed}>
+		<div class="child-comments" hidden={collapsible && collapsed}>
 			{#if $collapseLongThreads && depth === 4 && countChildComments(comment) > 1}
 				<a class="more-comments" href="item?id={comment.id}">
 					{countChildComments(comment)} More Comments &rarr;
@@ -100,65 +102,53 @@
 </div>
 
 <style>
-	.comment {
+	.comment-container {
 		--collapse-button-width: 17px;
-
 		position: relative;
 	}
 
-	.comment.collapsible {
+	.comment-container[data-collapsible='true'] {
 		padding-left: calc(var(--collapse-button-width) + 4px);
 	}
 
-	.comment.collapsible::before {
+	.comment-container[data-collapsible='true']::before {
 		content: '';
 		position: absolute;
 		inset: 21px auto 0 calc(var(--collapse-button-width) / 2 - 0.5px);
 		border-left: 1px dotted var(--color-tertiary);
 	}
 
-	.comment > :not(.collapse-button) + * {
-		margin-top: 0.25rem;
-	}
-
-	.child-comments {
-		padding-top: 0.5rem;
-	}
-
 	.collapse-button {
-		width: var(--collapse-button-width);
+		position: absolute;
+		inset: 0 auto 0 0;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-
-		position: absolute;
-		inset: 0 auto 0 0;
+		width: var(--collapse-button-width);
+		padding: 0.125rem 0;
 
 		color: var(--color-secondary);
+		cursor: pointer;
 
 		touch-action: manipulation;
+
+		button& {
+			appearance: none;
+			background: none;
+			border: none;
+		}
+
+		&:hover {
+			background-color: var(--color-tertiary);
+		}
+
+		:global(svg) {
+			flex: none;
+		}
 	}
 
-	.collapse-button :global(svg) {
-		flex: none;
-	}
-
-	button.collapse-button {
-		/* Button style reset */
-		appearance: none;
-		background: none;
-		border: none;
-
-		padding: 0.125rem 0;
-		cursor: pointer;
-	}
-
-	button.collapse-button:hover {
-		background-color: var(--color-tertiary);
-	}
-
-	.comment > :global(.comment) {
-		margin-left: 16px;
+	.comment > :global(* + *) {
+		margin-top: 0.25rem;
 	}
 
 	.details {
@@ -166,38 +156,46 @@
 		font-size: var(--text-sm);
 		line-height: 1.25;
 		color: var(--color-secondary);
-	}
 
-	.details > :global(*) {
-		flex: none;
-		white-space: nowrap;
-	}
+		> :global(*) {
+			flex: none;
+			white-space: nowrap;
+		}
 
-	.details > :global(* + *) {
-		margin-left: 8px;
-	}
+		> :global(* + *) {
+			margin-left: 8px;
+		}
 
-	.details .author {
-		font-weight: 500;
-	}
+		.author {
+			font-weight: 500;
 
-	.details .author :global(:any-link:not(:hover)) {
-		text-decoration: none;
-	}
+			:global(:any-link:not(:hover)) {
+				text-decoration: none;
+			}
+		}
 
-	.details .op-badge {
-		font-size: var(--text-xs);
-		padding: 0 0.125rem;
-		border: 1px solid var(--color-tertiary);
-		border-radius: 3px;
-	}
+		.op-badge {
+			font-size: var(--text-xs);
+			padding: 0 0.125rem;
+			border: 1px solid var(--color-tertiary);
+			border-radius: 3px;
 
-	.details .permalink {
-		text-decoration: unset;
+			abbr& {
+				text-decoration: none;
+			}
+		}
+
+		.permalink {
+			text-decoration: unset;
+		}
 	}
 
 	.body {
 		font-size: var(--text-sm);
+	}
+
+	.child-comments {
+		padding-top: 0.75rem;
 	}
 
 	.more-comments {
