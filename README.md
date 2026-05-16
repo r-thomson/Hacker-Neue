@@ -1,33 +1,35 @@
 # Hacker Neue
 
-A web-based [Hacker News](https://news.ycombinator.com) client using the [Hacker News API](https://github.com/HackerNews/API). **Live at [www.hackerneue.com](https://www.hackerneue.com).**
+A web-based [Hacker News](https://news.ycombinator.com) client built on top of the [Hacker News API](https://github.com/HackerNews/API). **Live at [www.hackerneue.com](https://www.hackerneue.com).**
 
 ![Screenshot of Hacker Neue running in a web browser](./screenshot.png)
 
 ## Running Locally
 
-* Clone the repository
+Hacker Neue requires a recent version of [Node.js](https://nodejs.org/en).
 
-  ```sh
-  git clone https://github.com/r-thomson/Hacker-Neue.git
-  ```
+1. Check out the repository
 
-* Install dependencies
+	```sh
+	git clone https://github.com/r-thomson/Hacker-Neue.git
+	```
 
-  ```sh
-  npm install
-  ```
+2. Install dependencies
 
-* Start the development server
+	```sh
+	npm install
+	```
 
-  ```sh
-  npm run dev
-  ```
+3. Start the development server
 
-* Visit [localhost:3000](http://localhost:3000)
+	```sh
+	npm run dev
+	```
+
+4. Visit [localhost:3000](http://localhost:3000)
 
 ## Built With
 
-* [Svelte](https://svelte.dev)
+* [Svelte 5](https://svelte.dev)
 * [Vite](https://vitejs.dev)
 * TypeScript
