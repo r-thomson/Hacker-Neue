@@ -3,9 +3,7 @@
 </script>
 
 <script lang="ts">
-	import { fromUnixTime } from 'date-fns';
-	import { getContext, setContext } from 'svelte';
-	import { symbols, type FetchedKids } from '../hacker-news/api';
+	import { type FetchedKids, symbols } from '../hacker-news/api';
 	import type { DeletedHNItem, HNComment } from '../hacker-news/types';
 	import { collapseLongThreads } from '../preferences';
 	import CommentList from './CommentList.svelte';
@@ -13,6 +11,8 @@
 	import ExpandCollapseIcon from './ExpandCollapseIcon.svelte';
 	import Timestamp from './Timestamp.svelte';
 	import UserLink from './UserLink.svelte';
+	import { fromUnixTime } from 'date-fns';
+	import { getContext, setContext } from 'svelte';
 
 	interface Props {
 		comment: Exclude<HNComment | (HNComment & FetchedKids), DeletedHNItem>;

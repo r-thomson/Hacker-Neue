@@ -3,11 +3,11 @@
 	import ErrorMessage from './components/ErrorMessage.svelte';
 	import Story from './components/Story.svelte';
 	import { search } from './hacker-news/algolia';
-	import { toStore } from 'svelte/store';
-	import { untrack } from 'svelte';
-	import { getUnixTime } from 'date-fns';
-	import { debouncedStore, searchParamStore } from './utils';
 	import { router } from './routing/router.svelte';
+	import { debouncedStore, searchParamStore } from './utils';
+	import { getUnixTime } from 'date-fns';
+	import { untrack } from 'svelte';
+	import { toStore } from 'svelte/store';
 
 	let searchQuery = $state(router.currentUrl.searchParams.get('q') ?? '');
 	let debouncedSearchQuery = debouncedStore(

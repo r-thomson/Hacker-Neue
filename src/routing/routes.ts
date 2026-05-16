@@ -1,8 +1,8 @@
-import type { Component, ComponentProps } from 'svelte';
 import Item from '../Item.svelte';
 import Search from '../Search.svelte';
 import StoryList from '../StoryList.svelte';
 import User from '../User.svelte';
+import type { Component, ComponentProps } from 'svelte';
 
 interface Route<T extends Component> {
 	component: T;

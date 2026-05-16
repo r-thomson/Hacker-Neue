@@ -1,7 +1,8 @@
 {
 	"printWidth": 100,
 	"singleQuote": true,
-	"plugins": ["prettier-plugin-svelte"],
+	"plugins": ["prettier-plugin-svelte", "@trivago/prettier-plugin-sort-imports"],
+	"importOrderSortSpecifiers": true,
 	"overrides": [
 		{
 			"files": "*.svelte",

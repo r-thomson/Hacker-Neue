@@ -1,7 +1,7 @@
+import Timestamp from './Timestamp.svelte';
 import { subDays, subMinutes } from 'date-fns';
 import { mount } from 'svelte';
 import { afterEach, assert, beforeEach, describe, test, vi } from 'vitest';
-import Timestamp from './Timestamp.svelte';
 
 describe('<Timestamp>', () => {
 	let container: HTMLElement;

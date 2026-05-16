@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { fromUnixTime } from 'date-fns';
 	import Comment from './components/Comment.svelte';
 	import Content from './components/Content.svelte';
 	import Story from './components/Story.svelte';
@@ -9,6 +8,7 @@
 	import type { DeadHNItem, DeletedHNItem, HNItem } from './hacker-news/types';
 	import { router } from './routing/router.svelte.js';
 	import { noop } from './utils';
+	import { fromUnixTime } from 'date-fns';
 
 	const userId = $derived(router.currentUrl.searchParams.get('id') ?? '');
 	const user = $derived(

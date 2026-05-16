@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { type Snippet, tick } from 'svelte';
 	import { clamp, getRectCenter } from '../utils';
+	import { type Snippet, tick } from 'svelte';
 
 	interface Props {
 		estimatedHeight?: number;

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Comment from './Comment.svelte';
 	import type { HNItem } from '../hacker-news/types';
+	import Comment from './Comment.svelte';
 
 	interface Props {
 		comments: HNItem[];

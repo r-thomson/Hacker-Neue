@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Header from './components/Header.svelte';
 	import ShortcutsModal from './components/ShortcutsModal.svelte';
+	import { fontFamily } from './preferences';
 	import RouteContent from './routing/RouteContent.svelte';
 	import { router } from './routing/router.svelte';
-	import { fontFamily } from './preferences';
 	import { shortcut } from './utils.svelte';
 
 	let relativeUrl = $derived(router.currentUrl.href.slice(router.currentUrl.origin.length));

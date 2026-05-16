@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { fromUnixTime } from 'date-fns';
 	import { fetchUser, modNames } from '../hacker-news/api';
 	import Content from './Content.svelte';
-	import UserSkeleton from './UserSkeleton.svelte';
 	import Timestamp from './Timestamp.svelte';
 	import Tooltip from './Tooltip.svelte';
+	import UserSkeleton from './UserSkeleton.svelte';
+	import { fromUnixTime } from 'date-fns';
 
 	interface Props {
 		userId: string;

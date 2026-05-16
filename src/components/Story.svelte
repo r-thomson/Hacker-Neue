@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { fromUnixTime } from 'date-fns';
 	import type { DeletedHNItem, HNJob, HNPoll, HNStory } from '../hacker-news/types';
 	import { highlightThreshold } from '../preferences';
 	import Content from './Content.svelte';
 	import Timestamp from './Timestamp.svelte';
 	import UserLink from './UserLink.svelte';
+	import { fromUnixTime } from 'date-fns';
 
 	interface Props {
 		story: Exclude<HNStory | HNJob | HNPoll, DeletedHNItem>;

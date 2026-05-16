@@ -1,13 +1,13 @@
 <script lang="ts">
-	import Modal from './Modal.svelte';
 	import {
+		collapseLongThreads,
 		fontFamily,
 		highlightThreshold,
 		maxStories,
 		resetPreferences,
 		showCounters,
-		collapseLongThreads,
 	} from '../preferences';
+	import Modal from './Modal.svelte';
 
 	interface Props {
 		/** Whether or not the modal is open. */

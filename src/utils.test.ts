@@ -1,6 +1,6 @@
+import { clamp, debouncedStore, getRectCenter, persistedStore } from './utils';
 import { get, writable } from 'svelte/store';
 import { afterEach, assert, beforeEach, describe, test, vi } from 'vitest';
-import { clamp, debouncedStore, getRectCenter, persistedStore } from './utils';
 
 describe('clamp', () => {
 	test('ensures the value is in bounds', () => {

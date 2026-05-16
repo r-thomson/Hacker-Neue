@@ -25,6 +25,7 @@
 		"vite": "8.0.5"
 	},
 	"devDependencies": {
+		"@trivago/prettier-plugin-sort-imports": "6.0.2",
 		"happy-dom": "20.8.9",
 		"prettier": "3.8.1",
 		"prettier-plugin-svelte": "3.5.1",

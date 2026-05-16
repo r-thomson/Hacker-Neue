@@ -1,6 +1,6 @@
 <script lang="ts">
-	import HackerNeueIcon from '../icons/HackerNeueIcon.svelte';
 	import GithubIcon from '../icons/GithubIcon.svelte';
+	import HackerNeueIcon from '../icons/HackerNeueIcon.svelte';
 	import SearchIcon from '../icons/SearchIcon.svelte';
 	import SlidersIcon from '../icons/SlidersIcon.svelte';
 	import { router } from '../routing/router.svelte';

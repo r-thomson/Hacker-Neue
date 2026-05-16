@@ -1,14 +1,14 @@
+import { router } from './routing/router.svelte';
 import type { Attachment } from 'svelte/attachments';
 import { on } from 'svelte/events';
 import {
-	derived,
-	toStore,
-	writable,
 	type Readable,
 	type Updater,
 	type Writable,
+	derived,
+	toStore,
+	writable,
 } from 'svelte/store';
-import { router } from './routing/router.svelte';
 
 export const noop = (..._args: any[]) => {};
 

@@ -1,8 +1,8 @@
 <script lang="ts">
-	import Meter from './Meter.svelte';
-	import PollOptSkeleton from './PollOptSkeleton.svelte';
 	import { fetchItem } from '../hacker-news/api';
 	import type { DeletedHNItem, HNPoll, HNPollOpt } from '../hacker-news/types';
+	import Meter from './Meter.svelte';
+	import PollOptSkeleton from './PollOptSkeleton.svelte';
 
 	interface Props {
 		poll: Exclude<HNPoll, DeletedHNItem>;

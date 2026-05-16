@@ -1,6 +1,6 @@
+import { shortcut } from './utils.svelte';
 import { flushSync } from 'svelte';
 import { assert, beforeEach, describe, test, vi } from 'vitest';
-import { shortcut } from './utils.svelte';
 
 describe('shortcut', () => {
 	beforeEach(() => {
