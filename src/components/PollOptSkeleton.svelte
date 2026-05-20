@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Meter from './Meter.svelte';
 </script>
 
@@ -11,7 +11,7 @@
 			<span class="skeleton-content"></span>
 		</span>
 	</div>
-	<Meter value="0" --width="100%" />
+	<Meter value={0} --width="100%" />
 </div>
 
 <style>
