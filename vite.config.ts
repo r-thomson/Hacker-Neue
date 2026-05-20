@@ -30,9 +30,6 @@ export default defineConfig(({ command, mode }) => {
 		server: {
 			port: 3000,
 		},
-		esbuild: {
-			legalComments: 'eof',
-		},
 		test: {
 			environment: 'happy-dom',
 			execArgv: nodeMajor >= 25 ? ['--no-experimental-webstorage'] : [],
