@@ -1,6 +1,5 @@
 /// <reference types="vitest/config" />
-import { svelte, vitePreprocess } from '@sveltejs/vite-plugin-svelte';
-import autoprefixer from 'autoprefixer';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 import type { PluginVisualizerOptions } from 'rollup-plugin-visualizer';
 import { defineConfig } from 'vite';
 
@@ -9,23 +8,12 @@ export default defineConfig(({ command, mode }) => {
 	const analyze = command === 'build' && mode === 'analyze';
 
 	return {
-		plugins: [
-			svelte({
-				compilerOptions: {
-					runes: true,
-				},
-				preprocess: vitePreprocess(),
-			}),
-			analyze &&
-				visualizer({
-					template: 'sunburst',
-				}),
-		],
-		resolve: process.env.VITEST ? { conditions: ['browser'] } : undefined,
+		plugins: [svelte(), analyze && visualizer({ template: 'sunburst' })],
+		resolve: {
+			conditions: process.env.VITEST ? ['browser'] : undefined,
+		},
 		css: {
-			postcss: {
-				plugins: [autoprefixer()],
-			},
+			transformer: 'lightningcss',
 		},
 		server: {
 			port: 3000,
