@@ -63,7 +63,7 @@
 				<dd>Open on Hacker News</dd>
 			</dl>
 			<dl>
-				<dt><kbd>.</kbd></dt>
+				<dt><kbd>,</kbd></dt>
 				<dd>Show preferences</dd>
 			</dl>
 			<dl>

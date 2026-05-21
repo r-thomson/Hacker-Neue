@@ -9,7 +9,7 @@
 
 	let prefsModalOpen = $state(false);
 
-	shortcut('.', () => (prefsModalOpen = true));
+	shortcut(',', () => (prefsModalOpen = true));
 </script>
 
 <header>
