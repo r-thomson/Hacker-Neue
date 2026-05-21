@@ -21,8 +21,8 @@
 		"@tsconfig/svelte": "5.0.8",
 		"date-fns": "4.2.1",
 		"firebase": "12.13.0",
-		"svelte": "5.55.8",
-		"vite": "8.0.13"
+		"svelte": "5.55.9",
+		"vite": "8.0.14"
 	},
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "6.0.2",
@@ -33,6 +33,6 @@
 		"svelte-check": "4.4.8",
 		"tslib": "2.8.1",
 		"typescript": "6.0.3",
-		"vitest": "4.1.6"
+		"vitest": "4.1.7"
 	}
 }
