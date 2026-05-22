@@ -4,7 +4,9 @@
 	import Story from './components/Story.svelte';
 	import { search } from './hacker-news/algolia';
 	import { router } from './routing/router.svelte';
+	import { focus } from './utils';
 	import { debouncedStore, searchParamStore } from './utils';
+	import { shortcut } from './utils.svelte';
 	import { getUnixTime } from 'date-fns';
 	import { untrack } from 'svelte';
 	import { toStore } from 'svelte/store';
@@ -68,6 +70,47 @@
 				})
 			: null,
 	);
+
+	let focusIndex: number = $state(-1); // -1 == no focus
+
+	async function setFocusIndex(value: number) {
+		const numResults = (await searchResults)?.length ?? 0;
+		focusIndex = Math.min(Math.max(0, value), numResults - 1);
+	}
+
+	async function getFocusedSearchResult() {
+		return (await searchResults)?.[focusIndex] ?? null;
+	}
+
+	async function openFocusedResult() {
+		const result = await getFocusedSearchResult();
+		if (result) {
+			router.navigate(('url' in result && result.url) || `/item?id=${result.id}`);
+		}
+	}
+
+	async function openFocusedResultComments() {
+		const result = await getFocusedSearchResult();
+		if (result) {
+			router.navigate(`/item?id=${result.id}`);
+		}
+	}
+
+	async function openFocusedResultAuthor() {
+		const result = await getFocusedSearchResult();
+		if (result && 'by' in result) {
+			router.navigate(`/user?id=${result.by}`);
+		}
+	}
+
+	shortcut('j', () => setFocusIndex(focusIndex + 1));
+	shortcut('J', () => setFocusIndex(Infinity));
+	shortcut('k', () => setFocusIndex(focusIndex - 1));
+	shortcut('K', () => setFocusIndex(0));
+	shortcut('o', () => openFocusedResult());
+	shortcut('Enter', () => openFocusedResult());
+	shortcut('c', () => openFocusedResultComments());
+	shortcut('u', () => openFocusedResultAuthor());
 </script>
 
 <form class="search-form" onsubmit={(e) => e.preventDefault()}>
@@ -100,16 +143,23 @@
 {#if searchResults}
 	{#await searchResults then searchResults}
 		<ol>
-			{#each searchResults as item}
-				{#if item.type === 'story' || item.type === 'job' || item.type === 'poll'}
-					<li>
+			{#each searchResults as item, i (item?.id)}
+				<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+				<li
+					{@attach focus(focusIndex === i)}
+					tabindex={focusIndex === i ? -1 : undefined}
+					onblur={() => {
+						if (focusIndex === i) {
+							focusIndex = -1;
+						}
+					}}
+				>
+					{#if item.type === 'story' || item.type === 'job' || item.type === 'poll'}
 						<Story story={item} />
-					</li>
-				{:else if item.type === 'comment'}
-					<li>
+					{:else if item.type === 'comment'}
 						<Comment comment={item} />
-					</li>
-				{/if}
+					{/if}
+				</li>
 			{/each}
 		</ol>
 		<p class="empty-message">There are no results for this search.</p>
