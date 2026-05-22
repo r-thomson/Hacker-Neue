@@ -84,20 +84,20 @@
 {:then stories}
 	<ol start={first + 1} class:counters={$showCounters}>
 		{#each stories as story, i (story?.id)}
-			{#if story && !story.deleted}
-				<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
-				<li
-					{@attach focus(focusIndex === i)}
-					tabindex={focusIndex === i ? -1 : undefined}
-					onblur={() => {
-						if (focusIndex === i) {
-							focusIndex = -1;
-						}
-					}}
-				>
+			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
+			<li
+				{@attach focus(focusIndex === i)}
+				tabindex={focusIndex === i ? -1 : undefined}
+				onblur={() => {
+					if (focusIndex === i) {
+						focusIndex = -1;
+					}
+				}}
+			>
+				{#if story && !story.deleted}
 					<Story {story} />
-				</li>
-			{/if}
+				{/if}
+			</li>
 		{/each}
 	</ol>
 	<div class="pagination">
