@@ -19,7 +19,7 @@
 		"@sveltejs/vite-plugin-svelte": "7.1.2",
 		"@tsconfig/node-lts": "24.0.0",
 		"@tsconfig/svelte": "5.0.8",
-		"date-fns": "4.2.1",
+		"date-fns": "4.3.0",
 		"firebase": "12.13.0",
 		"svelte": "5.55.9",
 		"vite": "8.0.14"
