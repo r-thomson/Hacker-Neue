@@ -53,6 +53,9 @@
 
 				<dt><kbd>Shift+s</kbd></dt>
 				<dd>Go to Show HN</dd>
+
+				<dt><kbd>Shift+f</kbd></dt>
+				<dd>Go to Search</dd>
 			</dl>
 		</section>
 

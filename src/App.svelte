@@ -19,6 +19,7 @@
 	shortcut('B', () => router.navigate('/best'));
 	shortcut('A', () => router.navigate('/ask'));
 	shortcut('S', () => router.navigate('/show'));
+	shortcut('F', () => router.navigate('/search'));
 	shortcut('y', () => hackerNewsUrl && open(hackerNewsUrl, '_self'));
 	shortcut('Y', () => hackerNewsUrl && open(hackerNewsUrl, '_blank'));
 	shortcut('?', () => (shortcutsModalOpen = true));
