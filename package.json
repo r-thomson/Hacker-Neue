@@ -21,7 +21,7 @@
 		"@tsconfig/svelte": "5.0.8",
 		"date-fns": "4.3.0",
 		"firebase": "12.13.0",
-		"svelte": "5.55.9",
+		"svelte": "5.56.1",
 		"vite": "8.0.14"
 	},
 	"devDependencies": {
