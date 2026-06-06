@@ -3,5 +3,14 @@ updates:
   - package-ecosystem: npm
     directory: '/'
     schedule:
-      interval: weekly
+      interval: daily
+    cooldown:
+      default-days: 3
+    groups:
+      prettier:
+        applies-to: version-updates
+        patterns:
+          - 'prettier'
+          - 'prettier-plugin-*'
+          - '*/prettier-plugin-*'
     labels: []
