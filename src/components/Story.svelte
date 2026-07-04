@@ -52,6 +52,11 @@
 				{shortUrl}
 			</span>
 		{/if}
+		{#if expanded && 'url' in story && story.url !== undefined}
+			<a class="past" href="/search?q={encodeURIComponent(story.url)}&type=story&sort=date">
+				past
+			</a>
+		{/if}
 	</div>
 
 	{#if expanded && story.text}
@@ -110,6 +115,10 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		white-space: nowrap;
+	}
+
+	.past:any-link:not(:hover) {
+		text-decoration: none;
 	}
 
 	.story-text {
