@@ -16,6 +16,7 @@
 		"analyze": "vite build --mode=analyze"
 	},
 	"dependencies": {
+		"@date-fns/utc": "2.1.1",
 		"@sveltejs/vite-plugin-svelte": "7.1.2",
 		"@tsconfig/node-lts": "24.0.0",
 		"@tsconfig/svelte": "5.0.8",

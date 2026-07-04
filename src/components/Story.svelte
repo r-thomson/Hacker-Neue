@@ -4,7 +4,8 @@
 	import Content from './Content.svelte';
 	import Timestamp from './Timestamp.svelte';
 	import UserLink from './UserLink.svelte';
-	import { fromUnixTime } from 'date-fns';
+	import { UTCDate } from '@date-fns/utc';
+	import { format, fromUnixTime } from 'date-fns';
 
 	interface Props {
 		story: Exclude<HNStory | HNJob | HNPoll, DeletedHNItem>;
@@ -16,6 +17,7 @@
 	const formatShortUrl = (url: string) => new URL(url).hostname.replace(/.*\.(?=.*\.)/, '');
 
 	let date = $derived(fromUnixTime(story.time));
+	let waybackDate = $derived(format(new UTCDate(date), 'yyyyMMddHHmmss'));
 	let shortUrl = $derived('url' in story && story.url ? formatShortUrl(story.url) : null);
 	let highlight = $derived($highlightThreshold > 0 && story.score >= $highlightThreshold);
 </script>
@@ -55,6 +57,12 @@
 		{#if expanded && 'url' in story && story.url !== undefined}
 			<a class="past" href="/search?q={encodeURIComponent(story.url)}&type=story&sort=date">
 				past
+			</a>
+			<a
+				class="archive"
+				href="https://web.archive.org/web/{waybackDate}/{encodeURIComponent(story.url)}"
+			>
+				archive
 			</a>
 		{/if}
 	</div>
@@ -117,7 +125,7 @@
 		white-space: nowrap;
 	}
 
-	.past:any-link:not(:hover) {
+	:is(.past, .archive):any-link:not(:hover) {
 		text-decoration: none;
 	}
 
