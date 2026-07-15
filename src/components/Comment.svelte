@@ -177,8 +177,10 @@
 		.op-badge {
 			font-size: var(--text-xs);
 			padding: 0 0.125rem;
-			border: 1px solid var(--color-tertiary);
 			border-radius: 3px;
+			align-self: center;
+			color: var(--color-bg);
+			background-color: var(--color-secondary);
 
 			abbr& {
 				text-decoration: none;
