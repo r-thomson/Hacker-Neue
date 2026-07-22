@@ -23,7 +23,7 @@
 		"date-fns": "4.4.0",
 		"firebase": "12.16.0",
 		"svelte": "5.56.6",
-		"vite": "8.1.4"
+		"vite": "8.1.5"
 	},
 	"devDependencies": {
 		"@trivago/prettier-plugin-sort-imports": "6.0.2",
