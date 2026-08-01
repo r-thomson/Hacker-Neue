@@ -8,7 +8,7 @@
 	let { open = $bindable() }: Props = $props();
 </script>
 
-<Modal bind:open title="Keyboard Shortcuts" --modal-width="36rem">
+<Modal bind:open title="Keyboard Shortcuts">
 	<div class="container">
 		<section>
 			<h3>Story Lists</h3>

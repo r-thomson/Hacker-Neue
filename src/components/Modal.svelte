@@ -55,7 +55,7 @@
 	dialog {
 		--window-padding: 12px;
 
-		width: var(--modal-width, 32rem);
+		width: var(--modal-width, 36rem);
 		padding: 16px;
 		max-width: calc(100% - 2 * var(--window-padding));
 		max-height: calc(100% - 2 * var(--window-padding));
