@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { DeletedHNItem, HNJob, HNPoll, HNStory } from '../hacker-news/types';
-	import { highlightThreshold } from '../preferences';
+	import { highlightThreshold, storyLinkTarget } from '../preferences';
+	import { router } from '../routing/router.svelte';
 	import Content from './Content.svelte';
 	import Timestamp from './Timestamp.svelte';
 	import UserLink from './UserLink.svelte';
@@ -18,8 +19,23 @@
 
 	let date = $derived(fromUnixTime(story.time));
 	let waybackDate = $derived(format(new UTCDate(date), 'yyyyMMddHHmmss'));
-	let shortUrl = $derived('url' in story && story.url ? formatShortUrl(story.url) : null);
+	let storyUrl = $derived(('url' in story && story.url) || undefined);
+	let shortUrl = $derived(storyUrl ? formatShortUrl(storyUrl) : null);
 	let highlight = $derived($highlightThreshold > 0 && story.score >= $highlightThreshold);
+	let itemHref = $derived(`/item?id=${story.id}`);
+
+	function onTitleLinkClick(event: MouseEvent) {
+		if (event.defaultPrevented) return;
+
+		// Don't interfere with the browser's standard link behavior
+		if (event.button !== 0 /* left click */) return;
+		if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+
+		if ($storyLinkTarget !== 'NewTabWithComments') return;
+		if (!storyUrl) return;
+
+		router.navigate(itemHref);
+	}
 </script>
 
 <article class="story" id={story.id.toString()}>
@@ -34,14 +50,20 @@
 	</div>
 
 	<div class="title">
-		<a href={('url' in story && story.url) || `/item?id=${story.id}`}>
+		<a
+			href={('url' in story && story.url) || itemHref}
+			target={$storyLinkTarget === 'NewTab' || $storyLinkTarget === 'NewTabWithComments'
+				? '_blank'
+				: undefined}
+			onclick={onTitleLinkClick}
+		>
 			{story.title}
 		</a>
 	</div>
 
 	<div class="details">
 		{#if 'descendants' in story && story.descendants !== undefined}
-			<a class="comments" href="/item?id={story.id}">
+			<a class="comments" href={itemHref}>
 				{story.descendants}
 				{story.descendants === 1 ? 'comment' : 'comments'}
 			</a>

@@ -1,9 +1,11 @@
 import { persistedStore } from './utils';
 
-type FontFamily = 'serif' | 'sans-serif' | 'monospace';
+export type FontFamily = 'serif' | 'sans-serif' | 'monospace';
+export type StoryLinkTarget = 'SameTab' | 'NewTab' | 'NewTabWithComments';
 
 export const fontFamily = persistedStore<FontFamily>('pref:fontFamily', 'sans-serif');
 export const showCounters = persistedStore<boolean>('pref:showCounters', false);
+export const storyLinkTarget = persistedStore<StoryLinkTarget>('pref:storyLinkTarget', 'SameTab');
 export const maxStories = persistedStore<number>('pref:maxStories', 30);
 export const highlightThreshold = persistedStore<number>('pref:highlightThreshold', 200);
 export const collapseLongThreads = persistedStore<boolean>('pref:collapseLongThreads', true);
@@ -14,4 +16,5 @@ export function resetPreferences() {
 	maxStories.unset();
 	highlightThreshold.unset();
 	collapseLongThreads.unset();
+	storyLinkTarget.unset();
 }
