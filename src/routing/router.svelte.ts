@@ -1,5 +1,3 @@
-const isSameOrigin = (destination: URL) => destination.origin === location.origin;
-
 interface NavigateOptions {
 	/** Prevent navigation from creating a new history entry */
 	replace?: boolean;
@@ -9,11 +7,12 @@ export function createRouter() {
 	let currentUrl = $state(new URL(location.href));
 
 	function onPopState(_event: PopStateEvent) {
-		currentUrl = new URL(location.href);
-	}
-
-	function onHashChange(event: HashChangeEvent) {
-		currentUrl = new URL(event.newURL);
+		// popstate fires for hash changes, which we shouldn't consider a full navigation
+		if (isSameDocument(currentUrl)) {
+			currentUrl.hash = location.hash;
+		} else {
+			currentUrl = new URL(location.href);
+		}
 	}
 
 	function onClick(event: MouseEvent) {
@@ -39,7 +38,6 @@ export function createRouter() {
 
 	// TODO: consider how we might want to clean these up side effects
 	window.addEventListener('popstate', onPopState);
-	window.addEventListener('hashchange', onHashChange);
 	window.addEventListener('click', onClick);
 
 	/**
@@ -49,24 +47,28 @@ export function createRouter() {
 	function navigate(to: string, options?: NavigateOptions) {
 		let { replace = false } = options ?? {};
 
-		const toURL = new URL(to, location.origin);
-		if (!isSameOrigin(toURL)) {
-			location.href = toURL.href;
+		const toUrl = new URL(to, location.origin);
+		if (!isSameOrigin(toUrl)) {
+			location.href = toUrl.href;
 			return;
 		}
 
 		// Don't create consecutive duplicate history entries
-		if (toURL.href === location.href) {
+		if (toUrl.href === location.href) {
 			replace = true;
 		}
 
-		if (replace) {
-			history.replaceState(null, '', toURL);
+		if (isSameDocument(toUrl) && toUrl.hash) {
+			currentUrl.hash = toUrl.hash;
 		} else {
-			history.pushState(null, '', toURL);
+			currentUrl = toUrl;
 		}
 
-		currentUrl = toURL;
+		if (replace) {
+			history.replaceState(null, '', toUrl);
+		} else {
+			history.pushState(null, '', toUrl);
+		}
 	}
 
 	return {
@@ -78,3 +80,15 @@ export function createRouter() {
 }
 
 export const router = createRouter();
+
+function isSameOrigin(other: URL) {
+	return location.origin === other.origin;
+}
+
+function isSameDocument(other: URL) {
+	return (
+		location.origin === other.origin &&
+		location.pathname === other.pathname &&
+		location.search === other.search
+	);
+}
