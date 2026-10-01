@@ -147,6 +147,18 @@ export function persistedStore<T>(
 }
 
 /**
+ * Scrolls the page to the element matching the current URL's fragment
+ * identifier on mount. Should be `@attach`ed to an ancestor container, not the
+ * element itself.
+ */
+export const scrollToFragment: Attachment = (element) => {
+	let hash = location.hash.replace(/^#/, '');
+	if (!hash) return;
+
+	element.querySelector(`#${CSS.escape(hash)}`)?.scrollIntoView();
+};
+
+/**
  * A writable store that represents a value in the current URL's query string.
  * @param param The name of the query parameter
  * @param initialValue Fallback value if the parameter isn't present in the URL

@@ -8,7 +8,7 @@
 	import StorySkeleton from './components/StorySkeleton.svelte';
 	import { fetchItem, fetchKids } from './hacker-news/api';
 	import { router } from './routing/router.svelte';
-	import { noop } from './utils';
+	import { noop, scrollToFragment } from './utils';
 
 	let itemId = $derived(Number.parseInt(router.currentUrl.searchParams.get('id') ?? ''));
 	let item = $derived(
@@ -65,7 +65,7 @@
 			/>
 		</div>
 	{:then comments}
-		<div class="item-comments">
+		<div class="item-comments" {@attach scrollToFragment}>
 			<CommentList {comments} />
 		</div>
 		<p class="empty-message">This item has no comments currently.</p>

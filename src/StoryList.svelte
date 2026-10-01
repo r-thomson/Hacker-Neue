@@ -6,7 +6,7 @@
 	import type { HNJob, HNList, HNPoll, HNStory } from './hacker-news/types';
 	import { maxStories, showCounters } from './preferences';
 	import { router } from './routing/router.svelte';
-	import { focus } from './utils';
+	import { focus, scrollToFragment } from './utils';
 	import { shortcut } from './utils.svelte';
 
 	interface Props {
@@ -82,7 +82,7 @@
 		{/each}
 	</ol>
 {:then stories}
-	<ol start={first + 1} class:counters={$showCounters}>
+	<ol start={first + 1} class:counters={$showCounters} {@attach scrollToFragment}>
 		{#each stories as story, i (story?.id)}
 			<!-- svelte-ignore a11y_no_noninteractive_tabindex -->
 			<li
