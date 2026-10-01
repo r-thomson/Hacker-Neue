@@ -33,6 +33,7 @@
 
 		if ($storyLinkTarget !== 'NewTabWithComments') return;
 		if (!storyUrl) return;
+		if (router.currentUrl.pathname === '/item') return;
 
 		router.navigate(itemHref);
 	}
